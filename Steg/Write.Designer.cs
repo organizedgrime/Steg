@@ -40,7 +40,7 @@
             // filename
             // 
             this.filename.AccessibleName = "";
-            this.filename.Location = new System.Drawing.Point(51, 34);
+            this.filename.Location = new System.Drawing.Point(50, 35);
             this.filename.Name = "filename";
             this.filename.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.filename.Size = new System.Drawing.Size(175, 20);
@@ -61,7 +61,7 @@
             // 
             // message
             // 
-            this.message.Location = new System.Drawing.Point(51, 144);
+            this.message.Location = new System.Drawing.Point(50, 144);
             this.message.Multiline = true;
             this.message.Name = "message";
             this.message.Size = new System.Drawing.Size(175, 77);
@@ -71,7 +71,7 @@
             // FileNameLabel
             // 
             this.FileNameLabel.AutoSize = true;
-            this.FileNameLabel.Location = new System.Drawing.Point(51, 15);
+            this.FileNameLabel.Location = new System.Drawing.Point(47, 19);
             this.FileNameLabel.Name = "FileNameLabel";
             this.FileNameLabel.Size = new System.Drawing.Size(84, 13);
             this.FileNameLabel.TabIndex = 3;
@@ -97,7 +97,7 @@
             // 
             // outputDirectory
             // 
-            this.outputDirectory.Location = new System.Drawing.Point(51, 78);
+            this.outputDirectory.Location = new System.Drawing.Point(50, 77);
             this.outputDirectory.Name = "outputDirectory";
             this.outputDirectory.Size = new System.Drawing.Size(175, 20);
             this.outputDirectory.TabIndex = 6;

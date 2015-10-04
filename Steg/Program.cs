@@ -20,9 +20,7 @@ namespace Steg
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Write());
-            //writeLSB(@"C:\Users\Nico\My Documents\Visual Studio 2015\Projects\Steg\lmao.png");
-            //readLSB(@"C:\Users\Nico\Desktop\output.png");
+            Application.Run(new MethodChooser());
         }
 
         public static void writeLSB(string src, string outputDir, string message)
