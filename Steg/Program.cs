@@ -25,7 +25,7 @@ namespace Steg
             //readLSB(@"C:\Users\Nico\Desktop\output.png");
         }
 
-        public static void writeLSB(string src, string message)
+        public static void writeLSB(string src, string outputDir, string message)
         {
             Bitmap img = new Bitmap(src);
 
@@ -106,7 +106,7 @@ namespace Steg
             File.Delete(@"C:\Users\Nico\Desktop\output.txt");
 
             //run this to test if the output pixels match your stuff.
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Nico\Desktop\output.txt", true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputDir +"output.txt", true))
             {
 
                 foreach (Color tempPixel in pixels)
@@ -115,7 +115,7 @@ namespace Steg
                 }
             }
 
-            newImg.Save(@"C:\Users\Nico\Desktop\output.png");
+            newImg.Save(outputDir + "output.png");
         }
 
         public static void readLSB(string filename)

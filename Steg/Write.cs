@@ -21,7 +21,7 @@ namespace Steg
 
         private void retrieveInput_Click(object sender, EventArgs e)
         {
-            Program.writeLSB(this.filename.Text, this.message.Text);
+            Program.writeLSB(this.filename.Text, this.outputDirectory.Text, this.message.Text);
             Program.readLSB(@"C:\Users\Nico\Desktop\output.png");
         }
 
