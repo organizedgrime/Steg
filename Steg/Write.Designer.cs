@@ -1,6 +1,6 @@
 ﻿namespace Steg
 {
-    partial class Form1
+    partial class Write
     {
         /// <summary>
         /// Required designer variable.
@@ -64,7 +64,7 @@
             this.message.TabIndex = 2;
             this.message.TextChanged += new System.EventHandler(this.message_TextChanged);
             // 
-            // Form1
+            // Write
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -72,8 +72,8 @@
             this.Controls.Add(this.message);
             this.Controls.Add(this.retrieveInput);
             this.Controls.Add(this.filename);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Write";
+            this.Text = "Write";
             this.ResumeLayout(false);
             this.PerformLayout();
 

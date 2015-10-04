@@ -6,4 +6,4 @@ c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.Pro
 c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.csproj.GenerateResource.Cache
 c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.exe
 c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.pdb
-c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.Form1.resources
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.Write.resources
