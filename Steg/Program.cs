@@ -109,11 +109,17 @@ namespace Steg
 
                 foreach (Color tempPixel in pixels)
                 {
-                    file.WriteLine(tempPixel);
+                    //file.WriteLine(tempPixel);
                 }
             }
 
             newImg.Save(outputDir + "output.png");
+        }
+
+        public static int getMaxCharCount(Bitmap img)
+        {
+            //number of pixels 3 3 / 8 (for 8 bits per char)
+            return (img.Width * img.Height * 3) / 8;
         }
 
         public static void readLSB(string filename)

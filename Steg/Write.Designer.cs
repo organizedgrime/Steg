@@ -1,4 +1,6 @@
-﻿namespace Steg
+﻿using System.Drawing;
+
+namespace Steg
 {
     partial class Write
     {
@@ -35,6 +37,7 @@
             this.MessageLabel = new System.Windows.Forms.Label();
             this.OutputDirectoryLabel = new System.Windows.Forms.Label();
             this.outputDirectory = new System.Windows.Forms.TextBox();
+            this.maxChars = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // filename
@@ -103,11 +106,21 @@
             this.outputDirectory.TabIndex = 6;
             this.outputDirectory.Text = "C:\\Users\\Nico\\Desktop\\";
             // 
+            // maxChars
+            // 
+            this.maxChars.AutoSize = true;
+            this.maxChars.Location = new System.Drawing.Point(161, 128);
+            this.maxChars.Name = "maxChars";
+            this.maxChars.Size = new System.Drawing.Size(60, 13);
+            this.maxChars.TabIndex = 7;
+            this.maxChars.Text = "Max Chars: " + Program.getMaxCharCount(new Bitmap(this.filename.Text));
+            // 
             // Write
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.maxChars);
             this.Controls.Add(this.outputDirectory);
             this.Controls.Add(this.OutputDirectoryLabel);
             this.Controls.Add(this.MessageLabel);
@@ -131,6 +144,7 @@
         private System.Windows.Forms.Label MessageLabel;
         private System.Windows.Forms.Label OutputDirectoryLabel;
         private System.Windows.Forms.TextBox outputDirectory;
+        private System.Windows.Forms.Label maxChars;
     }
 }
 

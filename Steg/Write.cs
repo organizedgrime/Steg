@@ -27,12 +27,11 @@ namespace Steg
 
         private void filename_TextChanged(object sender, EventArgs e)
         {
-
+            this.maxChars.Text = "Max Chars: " + Program.getMaxCharCount(new Bitmap(this.filename.Text));
         }
 
         private void message_TextChanged(object sender, EventArgs e)
         {
         }
-
     }
 }
