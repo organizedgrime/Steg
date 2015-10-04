@@ -22,6 +22,7 @@ namespace Steg
         private void retrieveInput_Click(object sender, EventArgs e)
         {
             Program.writeLSB(this.filename.Text, this.outputDirectory.Text, this.message.Text);
+            MessageBox.Show("Writing completed.");
         }
 
         private void filename_TextChanged(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace Steg
             Bitmap img = new Bitmap(src);
 
             //test to insure the image is being selected properly
-            //img.Save(@"C:\Users\Nico\Desktop\savage.png");
+            message = "[/LSB]" + message + "[\\LSB]";
             string binMessage = "";
 
             //convert the message to binary 1s and zeros
@@ -149,6 +149,11 @@ namespace Steg
                     else
                     {
                         binMessage += "1";
+                    }
+                    if (binMessage.Contains("010110110101110001001100010100110100001001011101") == true)
+                    {
+                        binMessage = binMessage.Substring(0, binMessage.Length - (binMessage.Length % 8));
+                        break;
                     }
                 }
             }
