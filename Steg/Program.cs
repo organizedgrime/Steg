@@ -54,42 +54,50 @@ namespace Steg
                     blue = pixel.B;
                     //apply message
                     //test if the message length has been exceded yet
-                    if (count < binMessage.Length)
-                    {
-                        //red
-                        if (binMessage[count] == '0' && pixel.R % 2 == 1)
-                        {
-                            red = pixel.R - 1;
-                        }
-                        else if (binMessage[count] == '1' && pixel.R % 2 == 0)
-                        {
-                            red = pixel.R + 1;
-                        }
-                    }
 
-                    if (count + 1 < binMessage.Length)
-                    {
-                        //green
-                        if (binMessage[count + 1] == '0' && pixel.G % 2 == 1)
-                        {
-                            green = pixel.G - 1;
-                        }
-                        else if (binMessage[count + 1] == '1' && pixel.G % 2 == 0)
-                        {
-                            green = pixel.G + 1;
-                        }
-                    }
+                    
 
-                    if (count + 3 < binMessage.Length)
+                    for (int k = 0; k < 3; k++)
                     {
-                        //blue
-                        if (binMessage[count + 2] == '0' && pixel.B % 2 == 1)
+                        int RGB = (k == 0) ? pixel.R : (k == 1) ? pixel.G : pixel.B;
+                        if (count + k < binMessage.Length)
                         {
-                            blue = pixel.B - 1;
-                        }
-                        else if (binMessage[count + 2] == '1' && pixel.B % 2 == 0)
-                        {
-                            blue = pixel.B + 1;
+                            //red
+                            if (binMessage[count + k] == '0' && RGB % 2 == 1)
+                            {
+                                switch (k)
+                                {
+                                    case 0:
+                                        red = pixel.R - 1;
+                                        break;
+
+                                    case 1:
+                                        green = pixel.G - 1;
+                                        break;
+
+                                    case 2:
+                                        blue = pixel.B - 1;
+                                        break;
+                                }
+                                
+                            }
+                            else if (binMessage[count + k] == '1' && RGB % 2 == 0)
+                            {
+                                switch (k)
+                                {
+                                    case 0:
+                                        red = pixel.R + 1;
+                                        break;
+
+                                    case 1:
+                                        green = pixel.G + 1;
+                                        break;
+
+                                    case 2:
+                                        blue = pixel.B + 1;
+                                        break;
+                                }
+                            }
                         }
                     }
                     pixel2 = Color.FromArgb(red, green, blue);
@@ -104,7 +112,7 @@ namespace Steg
             File.Delete(@"C:\Users\Nico\Desktop\output.txt");
 
             //run this to test if the output pixels match your stuff.
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputDir +"output.txt", true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputDir + "output.txt", true))
             {
 
                 foreach (Color tempPixel in pixels)

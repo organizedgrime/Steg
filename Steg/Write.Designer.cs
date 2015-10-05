@@ -48,7 +48,7 @@ namespace Steg
             this.filename.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.filename.Size = new System.Drawing.Size(175, 20);
             this.filename.TabIndex = 0;
-            this.filename.Text = "C:\\Users\\Nico\\My Documents\\Visual Studio 2015\\Projects\\Steg\\lmao.png";
+            this.filename.Text = "C:\\Users\\Nico\\My Documents\\Visual Studio 2015\\Projects\\Steg\\white.png";
             this.filename.TextChanged += new System.EventHandler(this.filename_TextChanged);
             // 
             // retrieveInput
@@ -111,9 +111,9 @@ namespace Steg
             this.maxChars.AutoSize = true;
             this.maxChars.Location = new System.Drawing.Point(161, 128);
             this.maxChars.Name = "maxChars";
-            this.maxChars.Size = new System.Drawing.Size(60, 13);
+            this.maxChars.Size = new System.Drawing.Size(63, 13);
             this.maxChars.TabIndex = 7;
-            this.maxChars.Text = "Max Chars: " + Program.getMaxCharCount(new Bitmap(this.filename.Text));
+            this.maxChars.Text = "Max Chars: ";
             // 
             // Write
             // 
