@@ -29,13 +29,11 @@ namespace Steg
             {
                 Write lsbwrite = new Write();
                 lsbwrite.ShowDialog();
-                this.Close();
             }
             else if (this.methodDropdown.Text == "LSB Read")
             {
                 Read lsbread = new Read();
                 lsbread.ShowDialog();
-                this.Close();
             }
         }
     }

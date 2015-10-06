@@ -27,11 +27,39 @@ namespace Steg
 
         private void filename_TextChanged(object sender, EventArgs e)
         {
-            this.maxChars.Text = "Max Chars: " + Program.getMaxCharCount(new Bitmap(this.filename.Text));
+            if(File.Exists(this.filename.Text))
+            {
+                this.maxChars.Text = "Max Chars: " + Program.getMaxCharCount(new Bitmap(this.filename.Text));
+            }
         }
 
         private void message_TextChanged(object sender, EventArgs e)
         {
+        }
+
+        private void fileChooserDialog_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        OpenFileDialog fileChooserDialog = new OpenFileDialog();
+
+        private void fileChooser_Click(object sender, EventArgs e)
+        {
+            if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.filename.Text = fileChooserDialog.FileName;
+            }
+        }
+
+
+        FolderBrowserDialog folderChooserDialog = new FolderBrowserDialog();
+        private void folderChooser_Click(object sender, EventArgs e)
+        {
+            if(folderChooserDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.outputDirectory.Text = folderChooserDialog.SelectedPath;
+            }
         }
     }
 }

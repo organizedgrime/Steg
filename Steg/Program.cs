@@ -38,31 +38,25 @@ namespace Steg
             }
 
             ArrayList pixels = new ArrayList();
-            Bitmap newImg = new Bitmap(img.Width, img.Height);
-            Color pixel, pixel2;
-            int count = 0, red, green, blue;
+            Color pixel;
+            int count = 0, red, green, blue, RGB;
             for (int i = 0; i < img.Width; i++)
             {
                 for (int j = 0; j < img.Height; j++)
                 {
                     pixel = img.GetPixel(i, j);
-                    pixel2 = pixel;
+                    //pixel2 = pixel;
 
                     //run 3 times, one for each color value
                     red = pixel.R;
                     green = pixel.G;
                     blue = pixel.B;
                     //apply message
-                    //test if the message length has been exceded yet
-
-                    
-
                     for (int k = 0; k < 3; k++)
                     {
-                        int RGB = (k == 0) ? pixel.R : (k == 1) ? pixel.G : pixel.B;
+                        RGB = (k == 0) ? pixel.R : (k == 1) ? pixel.G : pixel.B;
                         if (count + k < binMessage.Length)
                         {
-                            //red
                             if (binMessage[count + k] == '0' && RGB % 2 == 1)
                             {
                                 switch (k)
@@ -79,7 +73,6 @@ namespace Steg
                                         blue = pixel.B - 1;
                                         break;
                                 }
-                                
                             }
                             else if (binMessage[count + k] == '1' && RGB % 2 == 0)
                             {
@@ -98,14 +91,16 @@ namespace Steg
                                         break;
                                 }
                             }
+                            else
+                            {
+                                continue;
+                            }
+                            pixel = Color.FromArgb(red, green, blue);
+                            img.SetPixel(i, j, pixel);
                         }
                     }
-                    pixel2 = Color.FromArgb(red, green, blue);
-
-                    //add the modified pixel to the new bmp
-                    newImg.SetPixel(i, j, pixel2);
                     count += 3;
-                    pixels.Add(pixel2);
+                    pixels.Add(pixel);
                 }
             }
             //going through all of the pixels is now complete
@@ -121,7 +116,7 @@ namespace Steg
                 }
             }
 
-            newImg.Save(outputDir + "output.png");
+            img.Save(outputDir + "output.png");
         }
 
         public static int getMaxCharCount(Bitmap img)
@@ -171,9 +166,10 @@ namespace Steg
                     }
                 }
             }
+            //MessageBox.Show(binMessage);
             var data = GetBytesFromBinaryString(binMessage);
             var text = Encoding.ASCII.GetString(data);
-            MessageBox.Show(text);
+            MessageBox.Show(text.Substring(6, text.Length - 12));
 
         }
 

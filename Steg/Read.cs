@@ -21,5 +21,15 @@ namespace Steg
         {
             Program.readLSB(this.filename.Text);
         }
+
+        OpenFileDialog fileChooserDialog = new OpenFileDialog();
+
+        private void fileChooser_Click(object sender, EventArgs e)
+        {
+            if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.filename.Text = fileChooserDialog.FileName;
+            }
+        }
     }
 }

@@ -38,6 +38,8 @@ namespace Steg
             this.OutputDirectoryLabel = new System.Windows.Forms.Label();
             this.outputDirectory = new System.Windows.Forms.TextBox();
             this.maxChars = new System.Windows.Forms.Label();
+            this.fileChooser = new System.Windows.Forms.Button();
+            this.folderChooser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // filename
@@ -115,11 +117,33 @@ namespace Steg
             this.maxChars.TabIndex = 7;
             this.maxChars.Text = "Max Chars: ";
             // 
+            // fileChooser
+            // 
+            this.fileChooser.Location = new System.Drawing.Point(231, 35);
+            this.fileChooser.Name = "fileChooser";
+            this.fileChooser.Size = new System.Drawing.Size(30, 20);
+            this.fileChooser.TabIndex = 8;
+            this.fileChooser.Text = "...";
+            this.fileChooser.UseVisualStyleBackColor = true;
+            this.fileChooser.Click += new System.EventHandler(this.fileChooser_Click);
+            // 
+            // folderChooser
+            // 
+            this.folderChooser.Location = new System.Drawing.Point(231, 76);
+            this.folderChooser.Name = "folderChooser";
+            this.folderChooser.Size = new System.Drawing.Size(30, 20);
+            this.folderChooser.TabIndex = 9;
+            this.folderChooser.Text = "...";
+            this.folderChooser.UseVisualStyleBackColor = true;
+            this.folderChooser.Click += new System.EventHandler(this.folderChooser_Click);
+            // 
             // Write
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.folderChooser);
+            this.Controls.Add(this.fileChooser);
             this.Controls.Add(this.maxChars);
             this.Controls.Add(this.outputDirectory);
             this.Controls.Add(this.OutputDirectoryLabel);
@@ -145,6 +169,8 @@ namespace Steg
         private System.Windows.Forms.Label OutputDirectoryLabel;
         private System.Windows.Forms.TextBox outputDirectory;
         private System.Windows.Forms.Label maxChars;
+        private System.Windows.Forms.Button fileChooser;
+        private System.Windows.Forms.Button folderChooser;
     }
 }
 

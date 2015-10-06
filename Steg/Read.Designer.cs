@@ -31,12 +31,13 @@
             this.FileNameLabel = new System.Windows.Forms.Label();
             this.filename = new System.Windows.Forms.TextBox();
             this.selectFileButton = new System.Windows.Forms.Button();
+            this.fileChooser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // FileNameLabel
             // 
             this.FileNameLabel.AutoSize = true;
-            this.FileNameLabel.Location = new System.Drawing.Point(47, 19);
+            this.FileNameLabel.Location = new System.Drawing.Point(19, 19);
             this.FileNameLabel.Name = "FileNameLabel";
             this.FileNameLabel.Size = new System.Drawing.Size(84, 13);
             this.FileNameLabel.TabIndex = 0;
@@ -44,7 +45,7 @@
             // 
             // filename
             // 
-            this.filename.Location = new System.Drawing.Point(50, 35);
+            this.filename.Location = new System.Drawing.Point(22, 35);
             this.filename.Name = "filename";
             this.filename.Size = new System.Drawing.Size(130, 20);
             this.filename.TabIndex = 1;
@@ -52,7 +53,7 @@
             // 
             // selectFileButton
             // 
-            this.selectFileButton.Location = new System.Drawing.Point(186, 35);
+            this.selectFileButton.Location = new System.Drawing.Point(194, 35);
             this.selectFileButton.Name = "selectFileButton";
             this.selectFileButton.Size = new System.Drawing.Size(70, 20);
             this.selectFileButton.TabIndex = 2;
@@ -60,11 +61,22 @@
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
+            // fileChooser
+            // 
+            this.fileChooser.Location = new System.Drawing.Point(158, 35);
+            this.fileChooser.Name = "fileChooser";
+            this.fileChooser.Size = new System.Drawing.Size(30, 20);
+            this.fileChooser.TabIndex = 9;
+            this.fileChooser.Text = "...";
+            this.fileChooser.UseVisualStyleBackColor = true;
+            this.fileChooser.Click += new System.EventHandler(this.fileChooser_Click);
+            // 
             // Read
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 112);
+            this.Controls.Add(this.fileChooser);
             this.Controls.Add(this.selectFileButton);
             this.Controls.Add(this.filename);
             this.Controls.Add(this.FileNameLabel);
@@ -80,5 +92,6 @@
         private System.Windows.Forms.Label FileNameLabel;
         private System.Windows.Forms.TextBox filename;
         private System.Windows.Forms.Button selectFileButton;
+        private System.Windows.Forms.Button fileChooser;
     }
 }
