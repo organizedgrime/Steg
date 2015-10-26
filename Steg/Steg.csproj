@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DCTFunctions.cs" />
+    <Compile Include="LSBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LSBForm.Designer.cs">
+      <DependentUpon>LSBForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LSBFunctions.cs" />
     <Compile Include="MethodChooser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +75,9 @@
     <Compile Include="Write.Designer.cs">
       <DependentUpon>Write.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LSBForm.resx">
+      <DependentUpon>LSBForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MethodChooser.resx">
       <DependentUpon>MethodChooser.cs</DependentUpon>
     </EmbeddedResource>
