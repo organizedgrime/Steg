@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,105 +18,71 @@ namespace Steg
         {
             Bitmap img = new Bitmap(src);
 
-            //test to insure the image is being selected properly
-            message = "[/LSB]" + message + "[\\LSB]";
-            string binMessage = "";
-
             //convert the message to binary 1s and zeros
-            foreach (char c in message)
-            {
-                binMessage += Convert.ToString(c, 2).PadLeft(8, '0');
-            }
+            var byteMsg = new BitArray(Encoding.UTF8.GetBytes(message));
+            byte[] imgData = ImageToByte(img);
 
-            ArrayList pixels = new ArrayList();
-            Color pixel;
-            int count = 0, red, green, blue, RGB;
             for (int i = 0; i < img.Width; i++)
             {
                 for (int j = 0; j < img.Height; j++)
                 {
-                    pixel = img.GetPixel(i, j);
-                    //pixel2 = pixel;
+                    imgData[(int)(i * j / 8)] = 1;
 
-                    //run 3 times, one for each color value
-                    red = pixel.R;
-                    green = pixel.G;
-                    blue = pixel.B;
-                    //apply message
-                    for (int k = 0; k < 3; k++)
+                    if (byteMsg[i * j])
                     {
-                        RGB = (k == 0) ? pixel.R : (k == 1) ? pixel.G : pixel.B;
-                        if (count + k < binMessage.Length)
-                        {
-                            if (binMessage[count + k] == '0' && RGB % 2 == 1)
-                            {
-                                switch (k)
-                                {
-                                    case 0:
-                                        red = pixel.R - 1;
-                                        break;
-
-                                    case 1:
-                                        green = pixel.G - 1;
-                                        break;
-
-                                    case 2:
-                                        blue = pixel.B - 1;
-                                        break;
-                                }
-                            }
-                            else if (binMessage[count + k] == '1' && RGB % 2 == 0)
-                            {
-                                switch (k)
-                                {
-                                    case 0:
-                                        red = pixel.R + 1;
-                                        break;
-
-                                    case 1:
-                                        green = pixel.G + 1;
-                                        break;
-
-                                    case 2:
-                                        blue = pixel.B + 1;
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                            pixel = Color.FromArgb(red, green, blue);
-                            img.SetPixel(i, j, pixel);
-                        }
+                        imgData[(int)(i * j / 8)] = (byte)(imgData[(int)(i * j / 8)] | 1);     // Make LSB 1
                     }
-                    count += 3;
-                    pixels.Add(pixel);
+                    else
+                    {
+                        imgData[(int)(i * j / 8)] = (byte)(imgData[(int)(i * j / 8)] & 254);   // Make LSB 0
+                    }
                 }
             }
-            //going through all of the pixels is now complete
-            File.Delete(outputDir + "output.txt");
-
-            //run this to test if the output pixels match your stuff.
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputDir + "output.txt", true))
-            {
-
-                foreach (Color tempPixel in pixels)
-                {
-                    //file.WriteLine(tempPixel);
-                }
-            }
-
             img.Save(outputDir + "output.png");
         }
 
-
+        public static byte[] ImageToByte(Image img)
+        {
+            ImageConverter converter = new ImageConverter();
+            return (byte[])converter.ConvertTo(img, typeof(byte[]));
+        }
 
         public static void readLSB(string filename)
         {
-            Image img = Image.FromFile(filename);
-            Program.imageToByteArray(img);
-            
+            Bitmap bmp = new Bitmap(@"D:\Downloads\shades.png");
+            Color pixel;
+            string shades = "", final = "";
+            for (int i = 0; i < bmp.Width; i++)
+            {
+                for (int j = 0; j < bmp.Height; j++)
+                {
+                    pixel = bmp.GetPixel(i, j);
+                    shades += "" + (pixel.R % 2) + "" + (pixel.G % 2) + "" + (pixel.B % 2);
+                }
+            }
+
+            byte[] bytes = GetBytesFromBinaryString(shades);
+            foreach(byte b in bytes)
+            {
+                final += Convert.ToChar(b);
+            }
+            File.Delete(@"C:\Users\Nico\Desktop\shades.txt");
+            File.WriteAllText(@"C:\Users\Nico\Desktop\shades.txt", final, Encoding.GetEncoding("UTF-8"));
+            MessageBox.Show("done");
+        }
+
+        public static Byte[] GetBytesFromBinaryString(String binary)
+        {
+            var list = new List<Byte>();
+
+            for (int i = 0; i < binary.Length; i += 8)
+            {
+                String t = binary.Substring(i, 8);
+
+                list.Add(Convert.ToByte(t, 2));
+            }
+
+            return list.ToArray();
         }
 
     }
