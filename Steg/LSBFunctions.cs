@@ -16,29 +16,40 @@ namespace Steg
 
         public static void writeLSB(string src, string outputDir, string message)
         {
-            Bitmap img = new Bitmap(src);
+            Bitmap bmp = new Bitmap(src);
 
             //convert the message to binary 1s and zeros
-            var byteMsg = new BitArray(Encoding.UTF8.GetBytes(message));
-            byte[] imgData = ImageToByte(img);
+            byte[] byteMsg = new byte[message.Length * sizeof(char)];
+            Buffer.BlockCopy(message.ToCharArray(), 0, byteMsg, 0, byteMsg.Length);
 
-            for (int i = 0; i < img.Width; i++)
+            // Lock the bitmap's bits.  
+            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
+
+            // Get the address of the first line.
+            IntPtr ptr = bmpData.Scan0;
+
+            int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
+            byte[] rgbValues = new byte[bytes];
+
+            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+
+            for (int i = 2; i < byteMsg.Length; i++)
             {
-                for (int j = 0; j < img.Height; j++)
+                // If the intended message is different from the preexisting bit, write to it.
+                if ((byteMsg[i] ^ rgbValues[i] % 2) == 1)
                 {
-                    imgData[(int)(i * j / 8)] = 1;
-
-                    if (byteMsg[i * j])
-                    {
-                        imgData[(int)(i * j / 8)] = (byte)(imgData[(int)(i * j / 8)] | 1);     // Make LSB 1
-                    }
-                    else
-                    {
-                        imgData[(int)(i * j / 8)] = (byte)(imgData[(int)(i * j / 8)] & 254);   // Make LSB 0
-                    }
+                    //(n & ~1) | b
+                    rgbValues[i] = (byte)((rgbValues[i] & ~1) | byteMsg[i]);
                 }
             }
-            img.Save(outputDir + "output.png");
+
+            // Copy the RGB values back to the bitmap & unlock
+            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
+            bmp.UnlockBits(bmpData);
+
+            // Save the modified image.
+            bmp.Save(@"C:\Users\Nico\Desktop\output.png");
         }
 
         public static byte[] ImageToByte(Image img)
@@ -49,7 +60,7 @@ namespace Steg
 
         public static void readLSB(string filename)
         {
-            Bitmap bmp = new Bitmap(@"D:\Downloads\shades.png");
+            Bitmap bmp = new Bitmap(@"C:\Users\Nico\Desktop\output.png");
             Color pixel;
             string shades = "", final = "";
             for (int i = 0; i < bmp.Width; i++)
