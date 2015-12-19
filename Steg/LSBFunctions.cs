@@ -1,38 +1,25 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Steg
 {
     class LSBFunctions
     {
+        static Bitmap bmp;
+        static byte[] rgbValues;
+        static BitmapData bmpData;
+        static int bytes;
 
-        public static void writeLSB(string src, string outputDir, string message)
+        public static void writeLSB(string filename, string outputDir, string message)
         {
-            Bitmap bmp = new Bitmap(src);
+            openImg(filename);
 
-            //convert the message to binary 1s and zeros
+            // Convert the message to encode to binary
             byte[] byteMsg = new byte[message.Length * sizeof(char)];
             Buffer.BlockCopy(message.ToCharArray(), 0, byteMsg, 0, byteMsg.Length);
-
-            // Lock the bitmap's bits.  
-            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
-
-            // Get the address of the first line.
-            IntPtr ptr = bmpData.Scan0;
-
-            int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-            byte[] rgbValues = new byte[bytes];
-
-            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
 
             for (int i = 0; i < byteMsg.Length; i++)
             {
@@ -44,9 +31,7 @@ namespace Steg
                 }
             }
 
-            // Copy the RGB values back to the bitmap & unlock
-            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
-            bmp.UnlockBits(bmpData);
+            closeImg();
 
             // Save the modified image.
             bmp.Save(@"C:\Users\Nico\Desktop\output.png");
@@ -54,22 +39,10 @@ namespace Steg
 
         public static void readLSB(string filename)
         {
-            
-            Bitmap bmp = new Bitmap(filename);
+
+            openImg(filename);
+
             byte[] message = new byte[bmp.Height * bmp.Width];
-
-            // Lock the bitmap's bits.  
-            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
-
-            // Get the address of the first line.
-            IntPtr ptr = bmpData.Scan0;
-
-            int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-            byte[] rgbValues = new byte[bytes];
-
-            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
-
 
             int byteCount = -1;
             for (int i = 0; i < rgbValues.Length; i++)
@@ -81,12 +54,36 @@ namespace Steg
                 message[byteCount] += (byte)(rgbValues[i] & (1 << 7));
             }
 
-            // Copy the RGB values back to the bitmap & unlock
-            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
-            bmp.UnlockBits(bmpData);
+            closeImg();
 
             // Show the message
             MessageBox.Show(Encoding.Default.GetString(message));
+        }
+
+
+        public static void openImg(string filename)
+        {
+            bmp = new Bitmap(filename);
+            // Lock the bitmap's bits.  
+            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
+
+            // Get the address of the first line.
+            IntPtr ptr = bmpData.Scan0;
+
+            bytes = Math.Abs(bmpData.Stride) * bmp.Height;
+            rgbValues = new byte[bytes];
+
+            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+        }
+
+        public static void closeImg()
+        {
+            // Get the address of the first line.
+            IntPtr ptr = bmpData.Scan0;
+            // Copy the RGB values back to the bitmap & unlock
+            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
+            bmp.UnlockBits(bmpData);
         }
     }
 }
