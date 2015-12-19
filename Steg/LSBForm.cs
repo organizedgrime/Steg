@@ -51,7 +51,7 @@ namespace Steg
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            LSBFunctions.readLSB(filename.Text);
+            LSBFunctions.readLSB(filename2.Text);
         }
 
         OpenFileDialog fileChooserDialog2 = new OpenFileDialog();

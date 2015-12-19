@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
@@ -31,10 +32,10 @@ namespace Steg
                 }
             }
 
-            closeImg();
-
             // Save the modified image.
             bmp.Save(@"C:\Users\Nico\Desktop\output.png");
+
+            closeImg();
         }
 
         public static void readLSB(string filename)
@@ -42,7 +43,8 @@ namespace Steg
 
             openImg(filename);
 
-            byte[] message = new byte[bmp.Height * bmp.Width];
+            BitArray message = new BitArray(rgbValues.Length);
+            byte[] messageBytes = new byte[message.Length / 8];
 
             int byteCount = -1;
             for (int i = 0; i < rgbValues.Length; i++)
@@ -51,13 +53,17 @@ namespace Steg
                     byteCount++;
 
                 // Add the LSB to bitArray
-                message[byteCount] += (byte)(rgbValues[i] & (1 << 7));
+                //(rgbValues[i] & (1 << 0))
+                message[i] = (rgbValues[i] & (1 << 0)) == 1;
             }
 
             closeImg();
 
+            // Copy the bits from the image into the byte[]
+            message.CopyTo(messageBytes, 0);
+
             // Show the message
-            MessageBox.Show(Encoding.Default.GetString(message));
+            MessageBox.Show(Encoding.Default.GetString(messageBytes));
         }
 
 
