@@ -13,6 +13,7 @@ namespace Steg
         static byte[] rgbValues;
         static BitmapData bmpData;
         static int bytes;
+        static IntPtr ptr;
 
         public static void writeLSB(string filename, string outputDir, string message)
         {
@@ -32,10 +33,11 @@ namespace Steg
                 }
             }
 
+            closeImg();
+
             // Save the modified image.
             bmp.Save(@"C:\Users\Nico\Desktop\output.png");
-
-            closeImg();
+            bmp.Dispose();
         }
 
         public static void readLSB(string filename)
@@ -46,11 +48,8 @@ namespace Steg
             BitArray message = new BitArray(rgbValues.Length);
             byte[] messageBytes = new byte[message.Length / 8];
 
-            int byteCount = -1;
             for (int i = 0; i < rgbValues.Length; i++)
             {
-                if (i % 8 == 0)
-                    byteCount++;
 
                 // Add the LSB to bitArray
                 //(rgbValues[i] & (1 << 0))
@@ -63,7 +62,7 @@ namespace Steg
             message.CopyTo(messageBytes, 0);
 
             // Show the message
-            MessageBox.Show(Encoding.Default.GetString(messageBytes));
+            MessageBox.Show((messageBytes[0] + ""));
         }
 
 
@@ -75,7 +74,7 @@ namespace Steg
             bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
 
             // Get the address of the first line.
-            IntPtr ptr = bmpData.Scan0;
+            ptr = bmpData.Scan0;
 
             bytes = Math.Abs(bmpData.Stride) * bmp.Height;
             rgbValues = new byte[bytes];
@@ -86,7 +85,7 @@ namespace Steg
         public static void closeImg()
         {
             // Get the address of the first line.
-            IntPtr ptr = bmpData.Scan0;
+            ptr = bmpData.Scan0;
             // Copy the RGB values back to the bitmap & unlock
             System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
             bmp.UnlockBits(bmpData);
