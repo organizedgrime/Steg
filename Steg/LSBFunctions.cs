@@ -15,21 +15,30 @@ namespace Steg
         static int bytes;
         static IntPtr ptr;
 
+
+        /*
+        /////////////////////////////////////////////////
+        Functions for reading and writing the LSB of imgs
+        /////////////////////////////////////////////////
+        */
+
         public static void writeLSB(string filename, string outputDir, string message)
         {
             openImg(filename);
 
             // Convert the message to encode to binary
+            
             byte[] byteMsg = new byte[message.Length * sizeof(char)];
             Buffer.BlockCopy(message.ToCharArray(), 0, byteMsg, 0, byteMsg.Length);
+            BitArray bitMsg = new BitArray(byteMsg);
 
-            for (int i = 0; i < byteMsg.Length; i++)
+            for (int i = 0; i < byteMsg.Length * 8; i++)
             {
                 // If the intended message is different from the preexisting bit, write to it.
-                if ((byteMsg[i] ^ rgbValues[i] % 2) == 1)
+                if ((Convert.ToInt32(bitMsg[i]) ^ (rgbValues[i] & 1)) == 1)
                 {
                     //(n & ~1) | b
-                    rgbValues[i] = (byte)((rgbValues[i] & ~1) | byteMsg[i]);
+                    rgbValues[i] = (byte)((rgbValues[i] & ~1) | Convert.ToInt32(bitMsg[i]));
                 }
             }
 
@@ -50,21 +59,34 @@ namespace Steg
 
             for (int i = 0; i < rgbValues.Length; i++)
             {
-
                 // Add the LSB to bitArray
-                //(rgbValues[i] & (1 << 0))
-                message[i] = (rgbValues[i] & (1 << 0)) == 1;
+                //(rgbValues[i] & 1)
+                message[i] = (rgbValues[i] & 1) == 1;
+                //MessageBox.Show(message[i] + "");
             }
 
             closeImg();
+            bmp.Dispose();
 
             // Copy the bits from the image into the byte[]
             message.CopyTo(messageBytes, 0);
 
+            // Copy the byte[] into a char[] and into a string
+            char[] chars = new char[messageBytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
+            string str = new string(chars);
+
             // Show the message
-            MessageBox.Show((messageBytes[0] + ""));
+            MessageBox.Show(str);
         }
 
+
+
+        /*
+        /////////////////////////////////////////////////
+        Functions for opening and closing images
+        /////////////////////////////////////////////////
+        */
 
         public static void openImg(string filename)
         {
@@ -84,8 +106,6 @@ namespace Steg
 
         public static void closeImg()
         {
-            // Get the address of the first line.
-            ptr = bmpData.Scan0;
             // Copy the RGB values back to the bitmap & unlock
             System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
             bmp.UnlockBits(bmpData);

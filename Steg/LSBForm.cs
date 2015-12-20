@@ -19,7 +19,7 @@ namespace Steg
         }
 
 
-        //WRITE
+        // Write Form
         OpenFileDialog fileChooserDialog = new OpenFileDialog();
 
         private void fileChooser_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ namespace Steg
         }
 
 
-        //READ
+        // Read Form
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
