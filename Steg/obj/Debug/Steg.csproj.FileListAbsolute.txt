@@ -7,3 +7,4 @@ c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.csp
 c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.exe
 c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.pdb
 C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Debug\Steg.LSBForm.resources
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Debug\Steg.DisplayOutput.resources

@@ -84,7 +84,9 @@ namespace Steg
             }
 
             // Show the message
-            MessageBox.Show(str);
+            //MessageBox.Show(str);
+            DisplayOutput dispOutput = new DisplayOutput(str, null);
+            dispOutput.Show();
         }
 
 

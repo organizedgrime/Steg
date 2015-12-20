@@ -48,6 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DCTFunctions.cs" />
+    <Compile Include="DisplayOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayOutput.Designer.cs">
+      <DependentUpon>DisplayOutput.cs</DependentUpon>
+    </Compile>
     <Compile Include="LSBForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     <Compile Include="MIMEAssistant.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DisplayOutput.resx">
+      <DependentUpon>DisplayOutput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LSBForm.resx">
       <DependentUpon>LSBForm.cs</DependentUpon>
     </EmbeddedResource>
