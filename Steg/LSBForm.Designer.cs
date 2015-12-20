@@ -43,6 +43,7 @@
             this.filename2 = new System.Windows.Forms.TextBox();
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
+            this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -236,5 +237,6 @@
         private System.Windows.Forms.Button fileChooser2;
         private System.Windows.Forms.Button selectFileButton;
         private System.Windows.Forms.TextBox filename2;
+        private System.DirectoryServices.DirectoryEntry directoryEntry1;
     }
 }

@@ -24,6 +24,7 @@ namespace Steg
 
         private void fileChooser_Click(object sender, EventArgs e)
         {
+            fileChooserDialog.Filter = "PNG Files (.png)|*.png";
             if (fileChooserDialog.ShowDialog() == DialogResult.OK)
             {
                 filename.Text = fileChooserDialog.FileName;
@@ -58,6 +59,7 @@ namespace Steg
 
         private void fileChooser2_Click(object sender, EventArgs e)
         {
+            fileChooserDialog2.Filter = "PNG Files (.png)|*.png";
             if (fileChooserDialog2.ShowDialog() == DialogResult.OK)
             {
                 filename2.Text = fileChooserDialog2.FileName;
