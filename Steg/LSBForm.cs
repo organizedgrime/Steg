@@ -28,6 +28,10 @@ namespace Steg
             if (fileChooserDialog.ShowDialog() == DialogResult.OK)
             {
                 filename.Text = fileChooserDialog.FileName;
+
+                // Display how much text you can enter
+                Bitmap bmp = new Bitmap(filename.Text);
+                maxChars.Text = "Max Chars: " + ((bmp.Width * bmp.Height) / 8);
             }
         }
 
