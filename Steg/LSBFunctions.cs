@@ -60,14 +60,9 @@ namespace Steg
             for (int i = 0; i < rgbValues.Length; i++)
             {
                 // Add the LSB to bitArray
-<<<<<<< HEAD
                 //(rgbValues[i] & 1)
                 message[i] = (rgbValues[i] & 1) == 1;
                 //MessageBox.Show(message[i] + "");
-=======
-                //(rgbValues[i] & (1 << 0))
-                message[i] = (rgbValues[i] & 1) == 1;
->>>>>>> origin/master
             }
 
             closeImg();
