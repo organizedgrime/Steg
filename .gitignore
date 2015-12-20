@@ -1,10 +1,10 @@
 # Git Ignore my non-code files
-*.resx
-*.config
-*.csproj.*
-*.csproj
+Steg/*.resx
+Steg/*.config
+Steg/*.csproj.*
+Steg/*.csproj
 
 # Folders
-bin/
-obj/
-properties/
+Steg/bin/
+Steg/obj/
+Steg/properties/
