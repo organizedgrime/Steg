@@ -53,7 +53,7 @@ namespace Steg
 
                 // Add the LSB to bitArray
                 //(rgbValues[i] & (1 << 0))
-                message[i] = (rgbValues[i] & (1 << 0)) == 1;
+                message[i] = (rgbValues[i] & 1) == 1;
             }
 
             closeImg();
