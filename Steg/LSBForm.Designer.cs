@@ -1,4 +1,6 @@
-﻿namespace Steg
+﻿using System;
+
+namespace Steg
 {
     partial class LSBForm
     {
@@ -44,6 +46,7 @@
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
+            this.inputLabel = new System.Windows.Forms.Label();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -61,6 +64,7 @@
             // 
             // Write
             // 
+            this.Write.Controls.Add(this.inputLabel);
             this.Write.Controls.Add(this.folderChooser);
             this.Write.Controls.Add(this.fileChooser);
             this.Write.Controls.Add(this.maxChars);
@@ -80,7 +84,7 @@
             // 
             // folderChooser
             // 
-            this.folderChooser.Location = new System.Drawing.Point(187, 60);
+            this.folderChooser.Location = new System.Drawing.Point(187, 65);
             this.folderChooser.Name = "folderChooser";
             this.folderChooser.Size = new System.Drawing.Size(30, 20);
             this.folderChooser.TabIndex = 19;
@@ -90,7 +94,7 @@
             // 
             // fileChooser
             // 
-            this.fileChooser.Location = new System.Drawing.Point(187, 19);
+            this.fileChooser.Location = new System.Drawing.Point(187, 24);
             this.fileChooser.Name = "fileChooser";
             this.fileChooser.Size = new System.Drawing.Size(30, 20);
             this.fileChooser.TabIndex = 18;
@@ -101,7 +105,7 @@
             // maxChars
             // 
             this.maxChars.AutoSize = true;
-            this.maxChars.Location = new System.Drawing.Point(117, 93);
+            this.maxChars.Location = new System.Drawing.Point(117, 98);
             this.maxChars.Name = "maxChars";
             this.maxChars.Size = new System.Drawing.Size(63, 13);
             this.maxChars.TabIndex = 17;
@@ -109,16 +113,16 @@
             // 
             // outputDirectory
             // 
-            this.outputDirectory.Location = new System.Drawing.Point(6, 61);
+            this.outputDirectory.Location = new System.Drawing.Point(6, 66);
             this.outputDirectory.Name = "outputDirectory";
             this.outputDirectory.Size = new System.Drawing.Size(175, 20);
             this.outputDirectory.TabIndex = 16;
-            this.outputDirectory.Text = "C:\\Users\\Nico\\Desktop\\";
+            this.outputDirectory.Text = "C:\\Users\\Nico\\Desktop";
             // 
             // OutputDirectoryLabel
             // 
             this.OutputDirectoryLabel.AutoSize = true;
-            this.OutputDirectoryLabel.Location = new System.Drawing.Point(10, 45);
+            this.OutputDirectoryLabel.Location = new System.Drawing.Point(10, 50);
             this.OutputDirectoryLabel.Name = "OutputDirectoryLabel";
             this.OutputDirectoryLabel.Size = new System.Drawing.Size(87, 13);
             this.OutputDirectoryLabel.TabIndex = 15;
@@ -127,7 +131,7 @@
             // MessageLabel
             // 
             this.MessageLabel.AutoSize = true;
-            this.MessageLabel.Location = new System.Drawing.Point(7, 93);
+            this.MessageLabel.Location = new System.Drawing.Point(7, 98);
             this.MessageLabel.Name = "MessageLabel";
             this.MessageLabel.Size = new System.Drawing.Size(104, 13);
             this.MessageLabel.TabIndex = 14;
@@ -135,7 +139,7 @@
             // 
             // message
             // 
-            this.message.Location = new System.Drawing.Point(6, 109);
+            this.message.Location = new System.Drawing.Point(6, 114);
             this.message.Multiline = true;
             this.message.Name = "message";
             this.message.Size = new System.Drawing.Size(175, 61);
@@ -144,7 +148,7 @@
             // retrieveInput
             // 
             this.retrieveInput.AccessibleName = "";
-            this.retrieveInput.Location = new System.Drawing.Point(54, 182);
+            this.retrieveInput.Location = new System.Drawing.Point(54, 187);
             this.retrieveInput.Name = "retrieveInput";
             this.retrieveInput.Size = new System.Drawing.Size(75, 23);
             this.retrieveInput.TabIndex = 11;
@@ -155,12 +159,12 @@
             // filename
             // 
             this.filename.AccessibleName = "";
-            this.filename.Location = new System.Drawing.Point(6, 19);
+            this.filename.Location = new System.Drawing.Point(6, 24);
             this.filename.Name = "filename";
             this.filename.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.filename.Size = new System.Drawing.Size(175, 20);
             this.filename.TabIndex = 10;
-            this.filename.Text = "C:\\Users\\Nico\\My Documents\\Visual Studio 2015\\Projects\\Steg\\white.png";
+            this.filename.Text = "C:\\Users\\Nico\\Desktop";
             // 
             // Read
             // 
@@ -203,6 +207,15 @@
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
+            // inputLabel
+            // 
+            this.inputLabel.AutoSize = true;
+            this.inputLabel.Location = new System.Drawing.Point(13, 5);
+            this.inputLabel.Name = "inputLabel";
+            this.inputLabel.Size = new System.Drawing.Size(66, 13);
+            this.inputLabel.TabIndex = 20;
+            this.inputLabel.Text = "Input Image:";
+            // 
             // LSBForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -238,5 +251,6 @@
         private System.Windows.Forms.Button selectFileButton;
         private System.Windows.Forms.TextBox filename2;
         private System.DirectoryServices.DirectoryEntry directoryEntry1;
+        private System.Windows.Forms.Label inputLabel;
     }
 }
