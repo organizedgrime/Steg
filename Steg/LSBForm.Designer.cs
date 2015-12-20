@@ -47,6 +47,8 @@ namespace Steg
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
             this.inputLabel = new System.Windows.Forms.Label();
+            this.rawBool = new System.Windows.Forms.CheckBox();
+            this.concatBool = new System.Windows.Forms.CheckBox();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -168,6 +170,8 @@ namespace Steg
             // 
             // Read
             // 
+            this.Read.Controls.Add(this.concatBool);
+            this.Read.Controls.Add(this.rawBool);
             this.Read.Controls.Add(this.filename2);
             this.Read.Controls.Add(this.fileChooser2);
             this.Read.Controls.Add(this.selectFileButton);
@@ -216,6 +220,28 @@ namespace Steg
             this.inputLabel.TabIndex = 20;
             this.inputLabel.Text = "Input Image:";
             // 
+            // rawBool
+            // 
+            this.rawBool.AutoSize = true;
+            this.rawBool.Location = new System.Drawing.Point(7, 46);
+            this.rawBool.Name = "rawBool";
+            this.rawBool.Size = new System.Drawing.Size(79, 17);
+            this.rawBool.TabIndex = 14;
+            this.rawBool.Text = "Raw Dump";
+            this.rawBool.UseVisualStyleBackColor = true;
+            // 
+            // concatBool
+            // 
+            this.concatBool.AutoSize = true;
+            this.concatBool.Checked = true;
+            this.concatBool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.concatBool.Location = new System.Drawing.Point(7, 70);
+            this.concatBool.Name = "concatBool";
+            this.concatBool.Size = new System.Drawing.Size(119, 17);
+            this.concatBool.TabIndex = 15;
+            this.concatBool.Text = "Cut Non-ASCII Text";
+            this.concatBool.UseVisualStyleBackColor = true;
+            // 
             // LSBForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,5 +278,7 @@ namespace Steg
         private System.Windows.Forms.TextBox filename2;
         private System.DirectoryServices.DirectoryEntry directoryEntry1;
         private System.Windows.Forms.Label inputLabel;
+        private System.Windows.Forms.CheckBox rawBool;
+        private System.Windows.Forms.CheckBox concatBool;
     }
 }

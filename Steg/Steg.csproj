@@ -55,6 +55,7 @@
       <DependentUpon>LSBForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LSBFunctions.cs" />
+    <Compile Include="MIMEAssistant.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="LSBForm.resx">

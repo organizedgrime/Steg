@@ -48,8 +48,15 @@ namespace Steg
 
         private void retrieveInput_Click(object sender, EventArgs e)
         {
-            LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, message.Text);
-            MessageBox.Show("Writing Completed");
+            if(File.Exists(filename.Text) && Directory.Exists(outputDirectory.Text))
+            {
+                LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, message.Text);
+                MessageBox.Show("Writing Completed");
+            }
+            else
+            {
+                MessageBox.Show("Invalid Folder or File");
+            }
         }
 
 
@@ -57,7 +64,7 @@ namespace Steg
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            LSBFunctions.readLSB(filename2.Text);
+            LSBFunctions.readLSB(filename2.Text, concatBool.Checked);
         }
 
         OpenFileDialog fileChooserDialog2 = new OpenFileDialog();

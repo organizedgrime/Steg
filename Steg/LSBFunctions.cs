@@ -49,7 +49,7 @@ namespace Steg
             bmp.Dispose();
         }
 
-        public static void readLSB(string filename)
+        public static void readLSB(string filename, bool concat)
         {
 
             openImg(filename);
@@ -75,6 +75,13 @@ namespace Steg
             char[] chars = new char[messageBytes.Length / sizeof(char)];
             System.Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
             string str = new string(chars);
+
+
+            // Cut the gibberish if the user wants you to.
+            if(concat)
+            {
+                str = Encoding.ASCII.GetString(Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(Encoding.ASCII.EncodingName, new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback()), Encoding.UTF8.GetBytes(str)));
+            }
 
             // Show the message
             MessageBox.Show(str);
