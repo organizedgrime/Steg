@@ -18,13 +18,15 @@ namespace Steg
 
             if (outputStr != null)
             {
-                outputText.Visible = true;
                 outputText.Text = outputStr;
             }
             else if (outputData != null)
             {
-                outputText.Visible = false;
                 //TODO
+                string mime = MIMEAssistant.GetMIMEType(outputData);
+                outputText.Text = "File type: " + mime + " | " + GetDefaultExtension(mime) + " file.";
+                System.IO.File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "output." + GetDefaultExtension(mime), outputData);
+                MessageBox.Show("File Written to Desktop");
             }
             else
             {
@@ -35,6 +37,19 @@ namespace Steg
         private void copyButton_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(outputText.Text);
+        }
+
+        public static string GetDefaultExtension(string mimeType)
+        {
+            string result;
+            Microsoft.Win32.RegistryKey key;
+            object value;
+
+            key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"MIME\Database\Content Type\" + mimeType, false);
+            value = key != null ? key.GetValue("Extension", null) : null;
+            result = value != null ? value.ToString() : string.Empty;
+
+            return result;
         }
     }
 }

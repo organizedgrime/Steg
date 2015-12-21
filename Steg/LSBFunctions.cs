@@ -81,7 +81,7 @@ namespace Steg
 
             if (fileout)
             {
-                MessageBox.Show(MIMEAssistant.GetMIMEType(messageBytes));
+                dispOutput = new DisplayOutput(null, messageBytes);
             }
             else
             {
