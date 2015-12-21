@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.copyButton = new System.Windows.Forms.Button();
-            this.outputText = new System.Windows.Forms.Label();
+            this.outputText = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // copyButton
@@ -44,12 +44,11 @@
             // 
             // outputText
             // 
-            this.outputText.AutoSize = true;
-            this.outputText.Location = new System.Drawing.Point(13, 43);
+            this.outputText.Location = new System.Drawing.Point(13, 53);
+            this.outputText.Multiline = true;
             this.outputText.Name = "outputText";
-            this.outputText.Size = new System.Drawing.Size(37, 13);
-            this.outputText.TabIndex = 1;
-            this.outputText.Text = "output";
+            this.outputText.Size = new System.Drawing.Size(259, 196);
+            this.outputText.TabIndex = 13;
             // 
             // DisplayOutput
             // 
@@ -68,6 +67,6 @@
         #endregion
 
         private System.Windows.Forms.Button copyButton;
-        private System.Windows.Forms.Label outputText;
+        private System.Windows.Forms.TextBox outputText;
     }
 }

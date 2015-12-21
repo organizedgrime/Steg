@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Steg
+﻿namespace Steg
 {
     partial class LSBForm
     {
@@ -32,6 +30,11 @@ namespace Steg
         {
             this.LSBTab = new System.Windows.Forms.TabControl();
             this.Write = new System.Windows.Forms.TabPage();
+            this.fileInputButton = new System.Windows.Forms.Button();
+            this.fileInputFilename = new System.Windows.Forms.TextBox();
+            this.fileInputLabel = new System.Windows.Forms.Label();
+            this.fileInputBool = new System.Windows.Forms.CheckBox();
+            this.inputLabel = new System.Windows.Forms.Label();
             this.folderChooser = new System.Windows.Forms.Button();
             this.fileChooser = new System.Windows.Forms.Button();
             this.maxChars = new System.Windows.Forms.Label();
@@ -42,13 +45,12 @@ namespace Steg
             this.retrieveInput = new System.Windows.Forms.Button();
             this.filename = new System.Windows.Forms.TextBox();
             this.Read = new System.Windows.Forms.TabPage();
+            this.concatBool = new System.Windows.Forms.CheckBox();
             this.filename2 = new System.Windows.Forms.TextBox();
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
-            this.inputLabel = new System.Windows.Forms.Label();
-            this.rawBool = new System.Windows.Forms.CheckBox();
-            this.concatBool = new System.Windows.Forms.CheckBox();
+            this.fileOutputBool = new System.Windows.Forms.CheckBox();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -66,6 +68,10 @@ namespace Steg
             // 
             // Write
             // 
+            this.Write.Controls.Add(this.fileInputButton);
+            this.Write.Controls.Add(this.fileInputFilename);
+            this.Write.Controls.Add(this.fileInputLabel);
+            this.Write.Controls.Add(this.fileInputBool);
             this.Write.Controls.Add(this.inputLabel);
             this.Write.Controls.Add(this.folderChooser);
             this.Write.Controls.Add(this.fileChooser);
@@ -83,6 +89,55 @@ namespace Steg
             this.Write.TabIndex = 0;
             this.Write.Text = "Write";
             this.Write.UseVisualStyleBackColor = true;
+            // 
+            // fileInputButton
+            // 
+            this.fileInputButton.Location = new System.Drawing.Point(187, 128);
+            this.fileInputButton.Name = "fileInputButton";
+            this.fileInputButton.Size = new System.Drawing.Size(30, 20);
+            this.fileInputButton.TabIndex = 24;
+            this.fileInputButton.Text = "...";
+            this.fileInputButton.UseVisualStyleBackColor = true;
+            this.fileInputButton.Visible = false;
+            this.fileInputButton.Click += new System.EventHandler(this.fileInputButton_Click);
+            // 
+            // fileInputFilename
+            // 
+            this.fileInputFilename.Location = new System.Drawing.Point(6, 129);
+            this.fileInputFilename.Name = "fileInputFilename";
+            this.fileInputFilename.Size = new System.Drawing.Size(175, 20);
+            this.fileInputFilename.TabIndex = 23;
+            this.fileInputFilename.Visible = false;
+            // 
+            // fileInputLabel
+            // 
+            this.fileInputLabel.AutoSize = true;
+            this.fileInputLabel.Location = new System.Drawing.Point(10, 113);
+            this.fileInputLabel.Name = "fileInputLabel";
+            this.fileInputLabel.Size = new System.Drawing.Size(78, 13);
+            this.fileInputLabel.TabIndex = 22;
+            this.fileInputLabel.Text = "File to Encode:";
+            this.fileInputLabel.Visible = false;
+            // 
+            // fileInputBool
+            // 
+            this.fileInputBool.AutoSize = true;
+            this.fileInputBool.Location = new System.Drawing.Point(7, 93);
+            this.fileInputBool.Name = "fileInputBool";
+            this.fileInputBool.Size = new System.Drawing.Size(68, 17);
+            this.fileInputBool.TabIndex = 21;
+            this.fileInputBool.Text = "From File";
+            this.fileInputBool.UseVisualStyleBackColor = true;
+            this.fileInputBool.CheckedChanged += new System.EventHandler(this.fileInputBool_CheckedChanged);
+            // 
+            // inputLabel
+            // 
+            this.inputLabel.AutoSize = true;
+            this.inputLabel.Location = new System.Drawing.Point(13, 5);
+            this.inputLabel.Name = "inputLabel";
+            this.inputLabel.Size = new System.Drawing.Size(66, 13);
+            this.inputLabel.TabIndex = 20;
+            this.inputLabel.Text = "Input Image:";
             // 
             // folderChooser
             // 
@@ -107,7 +162,7 @@ namespace Steg
             // maxChars
             // 
             this.maxChars.AutoSize = true;
-            this.maxChars.Location = new System.Drawing.Point(117, 98);
+            this.maxChars.Location = new System.Drawing.Point(120, 113);
             this.maxChars.Name = "maxChars";
             this.maxChars.Size = new System.Drawing.Size(63, 13);
             this.maxChars.TabIndex = 17;
@@ -119,7 +174,6 @@ namespace Steg
             this.outputDirectory.Name = "outputDirectory";
             this.outputDirectory.Size = new System.Drawing.Size(175, 20);
             this.outputDirectory.TabIndex = 16;
-            this.outputDirectory.Text = "C:\\Users\\Nico\\Desktop";
             // 
             // OutputDirectoryLabel
             // 
@@ -133,7 +187,7 @@ namespace Steg
             // MessageLabel
             // 
             this.MessageLabel.AutoSize = true;
-            this.MessageLabel.Location = new System.Drawing.Point(7, 98);
+            this.MessageLabel.Location = new System.Drawing.Point(10, 113);
             this.MessageLabel.Name = "MessageLabel";
             this.MessageLabel.Size = new System.Drawing.Size(104, 13);
             this.MessageLabel.TabIndex = 14;
@@ -141,10 +195,10 @@ namespace Steg
             // 
             // message
             // 
-            this.message.Location = new System.Drawing.Point(6, 114);
+            this.message.Location = new System.Drawing.Point(6, 129);
             this.message.Multiline = true;
             this.message.Name = "message";
-            this.message.Size = new System.Drawing.Size(175, 61);
+            this.message.Size = new System.Drawing.Size(211, 52);
             this.message.TabIndex = 12;
             // 
             // retrieveInput
@@ -166,12 +220,11 @@ namespace Steg
             this.filename.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.filename.Size = new System.Drawing.Size(175, 20);
             this.filename.TabIndex = 10;
-            this.filename.Text = "C:\\Users\\Nico\\Desktop";
             // 
             // Read
             // 
+            this.Read.Controls.Add(this.fileOutputBool);
             this.Read.Controls.Add(this.concatBool);
-            this.Read.Controls.Add(this.rawBool);
             this.Read.Controls.Add(this.filename2);
             this.Read.Controls.Add(this.fileChooser2);
             this.Read.Controls.Add(this.selectFileButton);
@@ -183,13 +236,24 @@ namespace Steg
             this.Read.Text = "Read";
             this.Read.UseVisualStyleBackColor = true;
             // 
+            // concatBool
+            // 
+            this.concatBool.AutoSize = true;
+            this.concatBool.Checked = true;
+            this.concatBool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.concatBool.Location = new System.Drawing.Point(6, 45);
+            this.concatBool.Name = "concatBool";
+            this.concatBool.Size = new System.Drawing.Size(193, 17);
+            this.concatBool.TabIndex = 15;
+            this.concatBool.Text = "Cut Non-ASCII Text (only copyable)";
+            this.concatBool.UseVisualStyleBackColor = true;
+            // 
             // filename2
             // 
             this.filename2.Location = new System.Drawing.Point(6, 19);
             this.filename2.Name = "filename2";
             this.filename2.Size = new System.Drawing.Size(130, 20);
             this.filename2.TabIndex = 11;
-            this.filename2.Text = "C:\\Users\\Nico\\Desktop\\output.png";
             // 
             // fileChooser2
             // 
@@ -211,36 +275,16 @@ namespace Steg
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
-            // inputLabel
+            // fileOutputBool
             // 
-            this.inputLabel.AutoSize = true;
-            this.inputLabel.Location = new System.Drawing.Point(13, 5);
-            this.inputLabel.Name = "inputLabel";
-            this.inputLabel.Size = new System.Drawing.Size(66, 13);
-            this.inputLabel.TabIndex = 20;
-            this.inputLabel.Text = "Input Image:";
-            // 
-            // rawBool
-            // 
-            this.rawBool.AutoSize = true;
-            this.rawBool.Location = new System.Drawing.Point(7, 46);
-            this.rawBool.Name = "rawBool";
-            this.rawBool.Size = new System.Drawing.Size(79, 17);
-            this.rawBool.TabIndex = 14;
-            this.rawBool.Text = "Raw Dump";
-            this.rawBool.UseVisualStyleBackColor = true;
-            // 
-            // concatBool
-            // 
-            this.concatBool.AutoSize = true;
-            this.concatBool.Checked = true;
-            this.concatBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.concatBool.Location = new System.Drawing.Point(7, 70);
-            this.concatBool.Name = "concatBool";
-            this.concatBool.Size = new System.Drawing.Size(119, 17);
-            this.concatBool.TabIndex = 15;
-            this.concatBool.Text = "Cut Non-ASCII Text";
-            this.concatBool.UseVisualStyleBackColor = true;
+            this.fileOutputBool.AutoSize = true;
+            this.fileOutputBool.Location = new System.Drawing.Point(6, 69);
+            this.fileOutputBool.Name = "fileOutputBool";
+            this.fileOutputBool.Size = new System.Drawing.Size(146, 17);
+            this.fileOutputBool.TabIndex = 16;
+            this.fileOutputBool.Text = "File Output (not plain text)";
+            this.fileOutputBool.UseVisualStyleBackColor = true;
+            this.fileOutputBool.CheckedChanged += new System.EventHandler(this.fileOutputBool_CheckedChanged);
             // 
             // LSBForm
             // 
@@ -278,7 +322,11 @@ namespace Steg
         private System.Windows.Forms.TextBox filename2;
         private System.DirectoryServices.DirectoryEntry directoryEntry1;
         private System.Windows.Forms.Label inputLabel;
-        private System.Windows.Forms.CheckBox rawBool;
         private System.Windows.Forms.CheckBox concatBool;
+        private System.Windows.Forms.CheckBox fileInputBool;
+        private System.Windows.Forms.Button fileInputButton;
+        private System.Windows.Forms.TextBox fileInputFilename;
+        private System.Windows.Forms.Label fileInputLabel;
+        private System.Windows.Forms.CheckBox fileOutputBool;
     }
 }

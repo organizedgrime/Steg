@@ -18,11 +18,12 @@ namespace Steg
 
             if (outputStr != null)
             {
+                outputText.Visible = true;
                 outputText.Text = outputStr;
             }
             else if (outputData != null)
             {
-                outputText.Text = "";
+                outputText.Visible = false;
                 //TODO
             }
             else

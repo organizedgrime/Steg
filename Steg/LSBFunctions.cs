@@ -22,14 +22,22 @@ namespace Steg
         /////////////////////////////////////////////////
         */
 
-        public static void writeLSB(string filename, string outputDir, string message)
+        public static void writeLSB(string filename, string outputDir, string message = null, byte[] byteInput = null)
         {
             openImg(filename);
+            byte[] byteMsg = null;
 
-            // Convert the message to encode to binary
+            // Based on whether the input is via file or direct text, assign the byteMsg array
+            if (message != null)
+            {
+                byteMsg = new byte[message.Length * sizeof(char)];
+                Buffer.BlockCopy(message.ToCharArray(), 0, byteMsg, 0, byteMsg.Length);
+            }
+            else
+            {
+                byteMsg = byteInput;
+            }
             
-            byte[] byteMsg = new byte[message.Length * sizeof(char)];
-            Buffer.BlockCopy(message.ToCharArray(), 0, byteMsg, 0, byteMsg.Length);
             BitArray bitMsg = new BitArray(byteMsg);
 
             for (int i = 0; i < byteMsg.Length * 8; i++)
@@ -49,7 +57,7 @@ namespace Steg
             bmp.Dispose();
         }
 
-        public static void readLSB(string filename, bool concat)
+        public static void readLSB(string filename, bool concat, bool fileout)
         {
 
             openImg(filename);
@@ -60,9 +68,7 @@ namespace Steg
             for (int i = 0; i < rgbValues.Length; i++)
             {
                 // Add the LSB to bitArray
-                //(rgbValues[i] & 1)
                 message[i] = (rgbValues[i] & 1) == 1;
-                //MessageBox.Show(message[i] + "");
             }
 
             closeImg();
@@ -71,21 +77,28 @@ namespace Steg
             // Copy the bits from the image into the byte[]
             message.CopyTo(messageBytes, 0);
 
-            // Copy the byte[] into a char[] and into a string
-            char[] chars = new char[messageBytes.Length / sizeof(char)];
-            System.Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
-            string str = new string(chars);
+            DisplayOutput dispOutput = null;
 
-
-            // Cut the gibberish if the user wants you to.
-            if(concat)
+            if (fileout)
             {
-                str = Encoding.ASCII.GetString(Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(Encoding.ASCII.EncodingName, new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback()), Encoding.UTF8.GetBytes(str)));
+                MessageBox.Show(MIMEAssistant.GetMIMEType(messageBytes));
             }
+            else
+            {
+                // Copy the byte[] into a char[] and into a string
+                char[] chars = new char[messageBytes.Length / sizeof(char)];
+                Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
+                string str = new string(chars);
 
-            // Show the message
-            //MessageBox.Show(str);
-            DisplayOutput dispOutput = new DisplayOutput(str, null);
+                // Cut the gibberish if the user wants you to.
+                if (concat)
+                {
+                    str = Encoding.ASCII.GetString(Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(Encoding.ASCII.EncodingName, new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback()), Encoding.UTF8.GetBytes(str)));
+                }
+
+                // Show the message
+                dispOutput = new DisplayOutput(str, null);
+            }
             dispOutput.Show();
         }
 
