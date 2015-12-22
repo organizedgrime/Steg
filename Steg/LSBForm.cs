@@ -23,6 +23,8 @@ namespace Steg
         // Write Form
         OpenFileDialog fileChooserDialog = new OpenFileDialog();
 
+        int maxBytesNum;
+
         private void fileChooser_Click(object sender, EventArgs e)
         {
             fileChooserDialog.Filter = "PNG Files (.png)|*.png";
@@ -33,7 +35,10 @@ namespace Steg
 
                 // Display how much text you can enter
                 System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(filename.Text);
-                maxBytes.Text = "Max Bytes: " + ((bmp.Width * bmp.Height * 3) / 8);
+
+                maxBytesNum = ((bmp.Width * bmp.Height * 3) / 8);
+
+                maxBytes.Text = "Max Bytes: " + maxBytesNum;
             }
         }
 
@@ -49,18 +54,32 @@ namespace Steg
 
         private void retrieveInput_Click(object sender, EventArgs e)
         {
-            if(File.Exists(filename.Text) && Directory.Exists(outputDirectory.Text))
+            if (File.Exists(filename.Text) && Directory.Exists(outputDirectory.Text))
             {
                 if (fileInputBool.Checked && File.Exists(fileInputFilename.Text))
                 {
-                    //if(File.ReadAllBytes(fileInputFilename.Text).GetLength >)
-                    LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, null, File.ReadAllBytes(fileInputFilename.Text));
+                    if (new FileInfo(fileInputFilename.Text).Length <= maxBytesNum)
+                    {
+                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, null, File.ReadAllBytes(fileInputFilename.Text));
+                        MessageBox.Show("Writing Completed");
+                    }
+                    else
+                    {
+                        MessageBox.Show("File selected is too large to embed.");
+                    }
                 }
                 else
                 {
-                    LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, message.Text, null);
+                    if (message.Text.Length <= maxBytesNum)
+                    {
+                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, message.Text);
+                        MessageBox.Show("Writing Completed");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Message input is too large to embed.");
+                    }
                 }
-                MessageBox.Show("Writing Completed");
             }
             else
             {
@@ -90,11 +109,11 @@ namespace Steg
         private void fileInputBool_CheckedChanged(object sender, EventArgs e)
         {
             // When checked or unchecked, switch between the file input and text input
-                message.Visible ^= true;
-                MessageLabel.Visible ^= true;
-                fileInputButton.Visible ^= true;
-                fileInputLabel.Visible ^= true;
-                fileInputFilename.Visible ^= true;
+            message.Visible ^= true;
+            MessageLabel.Visible ^= true;
+            fileInputButton.Visible ^= true;
+            fileInputLabel.Visible ^= true;
+            fileInputFilename.Visible ^= true;
         }
 
         OpenFileDialog fileChooserDialog3 = new OpenFileDialog();
