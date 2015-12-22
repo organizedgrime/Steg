@@ -36,7 +36,7 @@ namespace Steg
             {
                 byteMsg = byteInput;
             }
-            
+
             BitArray bitMsg = new BitArray(byteMsg);
 
             for (int i = 0; i < byteMsg.Length * 8; i++)

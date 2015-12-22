@@ -24,10 +24,10 @@ namespace Steg
 
             byte[] buffer = new byte[256];
             MemoryStream ms = new MemoryStream(bytes);
-                if (ms.Length >= 256)
-                    ms.Read(buffer, 0, 256);
-                else
-                    ms.Read(buffer, 0, (int)ms.Length);
+            if (ms.Length >= 256)
+                ms.Read(buffer, 0, 256);
+            else
+                ms.Read(buffer, 0, (int)ms.Length);
             try
             {
                 UInt32 mimetype;

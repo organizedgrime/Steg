@@ -26,14 +26,14 @@ namespace Steg
                 for (int i = 0; i < outputData.Length; i++)
                 {
                     mime = MIMEAssistant.GetMIMEType(outputData);
-                    if(mime != "application/octet-stream")
+                    if (mime != "application/octet-stream")
                     {
                         outputText.Text = "File type recognized as: " + mime + " | " + GetDefaultExtension(mime) + " file.";
                         break;
                     }
                     outputData = outputData.Take(outputData.Count() - 1).ToArray();
                 }
-                if(mime == "application/octet-stream")
+                if (mime == "application/octet-stream")
                 {
                     outputText.Text = "File type not recognized.";
                     // Restore the data to its original state, to be saved without file extension
