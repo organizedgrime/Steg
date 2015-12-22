@@ -37,7 +37,7 @@
             this.inputLabel = new System.Windows.Forms.Label();
             this.folderChooser = new System.Windows.Forms.Button();
             this.fileChooser = new System.Windows.Forms.Button();
-            this.maxChars = new System.Windows.Forms.Label();
+            this.maxBytes = new System.Windows.Forms.Label();
             this.outputDirectory = new System.Windows.Forms.TextBox();
             this.OutputDirectoryLabel = new System.Windows.Forms.Label();
             this.MessageLabel = new System.Windows.Forms.Label();
@@ -45,12 +45,12 @@
             this.retrieveInput = new System.Windows.Forms.Button();
             this.filename = new System.Windows.Forms.TextBox();
             this.Read = new System.Windows.Forms.TabPage();
+            this.fileOutputBool = new System.Windows.Forms.CheckBox();
             this.concatBool = new System.Windows.Forms.CheckBox();
             this.filename2 = new System.Windows.Forms.TextBox();
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
-            this.fileOutputBool = new System.Windows.Forms.CheckBox();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -75,7 +75,7 @@
             this.Write.Controls.Add(this.inputLabel);
             this.Write.Controls.Add(this.folderChooser);
             this.Write.Controls.Add(this.fileChooser);
-            this.Write.Controls.Add(this.maxChars);
+            this.Write.Controls.Add(this.maxBytes);
             this.Write.Controls.Add(this.outputDirectory);
             this.Write.Controls.Add(this.OutputDirectoryLabel);
             this.Write.Controls.Add(this.MessageLabel);
@@ -159,14 +159,14 @@
             this.fileChooser.UseVisualStyleBackColor = true;
             this.fileChooser.Click += new System.EventHandler(this.fileChooser_Click);
             // 
-            // maxChars
+            // maxBytes
             // 
-            this.maxChars.AutoSize = true;
-            this.maxChars.Location = new System.Drawing.Point(120, 113);
-            this.maxChars.Name = "maxChars";
-            this.maxChars.Size = new System.Drawing.Size(63, 13);
-            this.maxChars.TabIndex = 17;
-            this.maxChars.Text = "Max Chars: ";
+            this.maxBytes.AutoSize = true;
+            this.maxBytes.Location = new System.Drawing.Point(120, 113);
+            this.maxBytes.Name = "maxBytes";
+            this.maxBytes.Size = new System.Drawing.Size(62, 13);
+            this.maxBytes.TabIndex = 17;
+            this.maxBytes.Text = "Max Bytes: ";
             // 
             // outputDirectory
             // 
@@ -236,6 +236,17 @@
             this.Read.Text = "Read";
             this.Read.UseVisualStyleBackColor = true;
             // 
+            // fileOutputBool
+            // 
+            this.fileOutputBool.AutoSize = true;
+            this.fileOutputBool.Location = new System.Drawing.Point(6, 69);
+            this.fileOutputBool.Name = "fileOutputBool";
+            this.fileOutputBool.Size = new System.Drawing.Size(146, 17);
+            this.fileOutputBool.TabIndex = 16;
+            this.fileOutputBool.Text = "File Output (not plain text)";
+            this.fileOutputBool.UseVisualStyleBackColor = true;
+            this.fileOutputBool.CheckedChanged += new System.EventHandler(this.fileOutputBool_CheckedChanged);
+            // 
             // concatBool
             // 
             this.concatBool.AutoSize = true;
@@ -275,17 +286,6 @@
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
-            // fileOutputBool
-            // 
-            this.fileOutputBool.AutoSize = true;
-            this.fileOutputBool.Location = new System.Drawing.Point(6, 69);
-            this.fileOutputBool.Name = "fileOutputBool";
-            this.fileOutputBool.Size = new System.Drawing.Size(146, 17);
-            this.fileOutputBool.TabIndex = 16;
-            this.fileOutputBool.Text = "File Output (not plain text)";
-            this.fileOutputBool.UseVisualStyleBackColor = true;
-            this.fileOutputBool.CheckedChanged += new System.EventHandler(this.fileOutputBool_CheckedChanged);
-            // 
             // LSBForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -310,7 +310,7 @@
         private System.Windows.Forms.TabPage Read;
         private System.Windows.Forms.Button folderChooser;
         private System.Windows.Forms.Button fileChooser;
-        private System.Windows.Forms.Label maxChars;
+        private System.Windows.Forms.Label maxBytes;
         private System.Windows.Forms.TextBox outputDirectory;
         private System.Windows.Forms.Label OutputDirectoryLabel;
         private System.Windows.Forms.Label MessageLabel;

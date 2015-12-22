@@ -40,7 +40,7 @@ namespace Steg
 
                 // Display how much text you can enter
                 Bitmap bmp = new Bitmap(filename.Text);
-                maxChars.Text = "Max Chars: " + ((bmp.Width * bmp.Height * 3) / 8);
+                maxBytes.Text = "Max Bytes: " + ((bmp.Width * bmp.Height * 3) / 8);
             }
         }
 
@@ -60,6 +60,7 @@ namespace Steg
             {
                 if (fileInputBool.Checked && File.Exists(fileInputFilename.Text))
                 {
+                    //if(File.ReadAllBytes(fileInputFilename.Text).GetLength >)
                     LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, null, File.ReadAllBytes(fileInputFilename.Text));
                 }
                 else
@@ -98,7 +99,6 @@ namespace Steg
             // When checked or unchecked, switch between the file input and text input
                 message.Visible ^= true;
                 MessageLabel.Visible ^= true;
-                maxChars.Visible ^= true;
                 fileInputButton.Visible ^= true;
                 fileInputLabel.Visible ^= true;
                 fileInputFilename.Visible ^= true;

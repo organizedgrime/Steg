@@ -22,14 +22,36 @@ namespace Steg
             }
             else if (outputData != null)
             {
-                //TODO
-                string mime = MIMEAssistant.GetMIMEType(outputData);
-                outputText.Text = "File type: " + mime + " | " + GetDefaultExtension(mime) + " file.";
-                System.IO.File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "output." + GetDefaultExtension(mime), outputData);
-                MessageBox.Show("File Written to Desktop");
+                // Store a backup of the original array in case a file type is NOT recognized
+                byte[] outputDataCopy = outputData;
+
+
+                string mime = null;
+
+                // Cut down the bytes of the LSB bytes by 1 byte until a readable structure is found
+                for (int i = 0; i < outputData.Length; i++)
+                {
+                    mime = MIMEAssistant.GetMIMEType(outputData);
+                    if(mime != "application/octet-stream")
+                    {
+                        outputText.Text = "File type recognized as: " + mime + " | " + GetDefaultExtension(mime) + " file.";
+                        break;
+                    }
+                    outputData = outputData.Take(outputData.Count() - 1).ToArray();
+                }
+                if(mime == "application/octet-stream")
+                {
+                    outputText.Text = "File type not recognized.";
+                    // Restore the data to its original state, to be saved without file extension
+                    outputData = outputDataCopy;
+                }
+                // Write the file out
+                System.IO.File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\embedded" + GetDefaultExtension(mime), outputData);
+                MessageBox.Show("File Written to Desktop as \"embedded" + GetDefaultExtension(mime) + "\"");
             }
             else
             {
+                // This should never happen. If it does, you are calling this function incorrectly.
                 outputText.Text = "PROGRAM ERROR: Data is null.";
             }
         }
