@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Steg
 {
@@ -92,7 +92,7 @@ namespace Steg
                 // Cut the gibberish if the user wants you to.
                 if (concat)
                 {
-                    str = Encoding.ASCII.GetString(Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(Encoding.ASCII.EncodingName, new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback()), Encoding.UTF8.GetBytes(str)));
+                    str = Regex.Replace(str, "[^a-zA-Z0-9]", "");
                 }
 
                 // Show the message
