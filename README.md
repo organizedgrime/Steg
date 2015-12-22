@@ -10,11 +10,11 @@ Using this program should be fairly intuitive. There are text boxes and file/fol
 ## Features
 At the moment, the only method that this program implements is LSB Steg, or Least Significant Bit Steganography.
 
-Formats that can be embedded in images via Steg 1.0:
-• Any plaintext input
-• Any images(png/jpg/tiff/etc)
-• Any compressed files
-• Any other unlisted file type that has a standard MIME
+1. Formats that can be embedded in images via Steg 1.0:
+* Any plaintext input
+* Any images(png/jpg/tiff/etc)
+* Any compressed files
+* Any other unlisted file type that has a standard MIME
 
-Image types that can be used for embedding via Steg 1.0:
-• PNG
+2. Image types that can be used for embedding via Steg 1.0:
+* PNG
