@@ -3,7 +3,6 @@ using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Steg
 {
@@ -43,7 +42,7 @@ namespace Steg
             for (int i = 0; i < byteMsg.Length * 8; i++)
             {
                 // If the intended message is different from the preexisting bit, write to it.
-                if ((Convert.ToInt32(bitMsg[i]) ^ (rgbValues[i] & 1)) == 1)
+                if (bitMsg[i] ^ Convert.ToBoolean(rgbValues[i] & 1))
                 {
                     //(n & ~1) | b
                     rgbValues[i] = (byte)((rgbValues[i] & ~1) | Convert.ToInt32(bitMsg[i]));

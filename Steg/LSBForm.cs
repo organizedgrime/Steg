@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Steg
@@ -39,7 +32,7 @@ namespace Steg
                 filename.Text = fileChooserDialog.FileName;
 
                 // Display how much text you can enter
-                Bitmap bmp = new Bitmap(filename.Text);
+                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(filename.Text);
                 maxBytes.Text = "Max Bytes: " + ((bmp.Width * bmp.Height * 3) / 8);
             }
         }
