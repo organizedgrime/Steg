@@ -42,5 +42,18 @@ namespace Steg
                 return "unknown/unknown";
             }
         }
+
+        public static string GetDefaultExtension(string mimeType)
+        {
+            string result;
+            Microsoft.Win32.RegistryKey key;
+            object value;
+
+            key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"MIME\Database\Content Type\" + mimeType, false);
+            value = key != null ? key.GetValue("Extension", null) : null;
+            result = value != null ? value.ToString() : string.Empty;
+
+            return result;
+        }
     }
 }

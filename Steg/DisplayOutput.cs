@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,42 +7,52 @@ namespace Steg
 {
     public partial class DisplayOutput : Form
     {
-        public DisplayOutput(string outputStr = null, byte[] outputData = null)
+        public DisplayOutput(string outputStr = null, byte[] _outputData = null)
         {
             InitializeComponent();
+
+            
 
             if (outputStr != null)
             {
                 outputText.Text = outputStr;
             }
-            else if (outputData != null)
+            else if (_outputData != null)
             {
+                List<byte> outputData = _outputData.ToList();
+
                 // Store a backup of the original array in case a file type is NOT recognized
-                byte[] outputDataCopy = outputData;
+                List<byte> outputDataCopy = outputData;
 
+                string mime;
 
-                string mime = null;
-
+                outputText.Text = "File type not recognized.";
                 // Cut down the bytes of the LSB bytes by 1 byte until a readable structure is found
-                for (int i = 0; i < outputData.Length; i++)
+                mime = MIMEAssistant.GetMIMEType(outputData.ToArray());
+
+                while (mime != "application/octet-stream" && outputData.Count() > 1)
                 {
-                    mime = MIMEAssistant.GetMIMEType(outputData);
-                    if (mime != "application/octet-stream")
-                    {
-                        outputText.Text = "File type recognized as: " + mime + " | " + GetDefaultExtension(mime) + " file.";
-                        break;
-                    }
-                    outputData = outputData.Take(outputData.Count() - 1).ToArray();
+                    mime = MIMEAssistant.GetMIMEType(outputData.ToArray());
+                    outputData.RemoveAt(outputData.Count() - 1);
                 }
-                if (mime == "application/octet-stream")
+                
+                if(mime == "application/octet-stream")
                 {
-                    outputText.Text = "File type not recognized.";
-                    // Restore the data to its original state, to be saved without file extension
                     outputData = outputDataCopy;
                 }
+                else
+                {
+                    outputDataCopy.RemoveRange(outputData.Count() + 1, outputDataCopy.Count());
+                    outputData = outputDataCopy;
+                }
+
+
+                outputText.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
+
                 // Write the file out
-                System.IO.File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\embedded" + GetDefaultExtension(mime), outputData);
-                MessageBox.Show("File Written to Desktop as \"embedded" + GetDefaultExtension(mime) + "\"");
+                System.IO.File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\embedded" + MIMEAssistant.GetDefaultExtension(mime), outputData.ToArray());
+                MessageBox.Show("File Written to Desktop as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
+                MessageBox.Show(outputData.Count() + "");
             }
             else
             {
@@ -55,17 +66,6 @@ namespace Steg
             Clipboard.SetText(outputText.Text);
         }
 
-        public static string GetDefaultExtension(string mimeType)
-        {
-            string result;
-            Microsoft.Win32.RegistryKey key;
-            object value;
-
-            key = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(@"MIME\Database\Content Type\" + mimeType, false);
-            value = key != null ? key.GetValue("Extension", null) : null;
-            result = value != null ? value.ToString() : string.Empty;
-
-            return result;
-        }
+        
     }
 }
