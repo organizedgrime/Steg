@@ -7,52 +7,41 @@ namespace Steg
 {
     public partial class DisplayOutput : Form
     {
+        string mime;
+        byte[] outputData;
+
         public DisplayOutput(string outputStr = null, byte[] _outputData = null)
         {
             InitializeComponent();
 
-            
+            // Transfer the temporary variable into the class level one.
+            outputData = _outputData;
 
             if (outputStr != null)
             {
                 outputText.Text = outputStr;
             }
-            else if (_outputData != null)
+            else if (outputData != null)
             {
-                List<byte> outputData = _outputData.ToList();
+                // Change to the file output GUI
+                outputText.Visible = false;
+                copyButton.Visible = false;
+                fileType.Visible = true;
+                writeEmbeddedButton.Visible = true;
+                embeddedFolderChooser.Visible = true;
+                embeddedOutputDirectory.Visible = true;
 
-                // Store a backup of the original array in case a file type is NOT recognized
-                List<byte> outputDataCopy = outputData;
+                // Get the default Desktop folder for writing.
+                string initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                embeddedOutputDirectory.Text = initialPath;
 
-                string mime;
 
-                outputText.Text = "File type not recognized.";
-                // Cut down the bytes of the LSB bytes by 1 byte until a readable structure is found
-                mime = MIMEAssistant.GetMIMEType(outputData.ToArray());
-
-                while (mime != "application/octet-stream" && outputData.Count() > 1)
+                fileType.Text = "File type not recognized.";
+                mime = MIMEAssistant.GetMIMEType(outputData);
+                if(mime != "application/octet-stream")
                 {
-                    mime = MIMEAssistant.GetMIMEType(outputData.ToArray());
-                    outputData.RemoveAt(outputData.Count() - 1);
+                    fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
                 }
-                
-                if(mime == "application/octet-stream")
-                {
-                    outputData = outputDataCopy;
-                }
-                else
-                {
-                    outputDataCopy.RemoveRange(outputData.Count() + 1, outputDataCopy.Count());
-                    outputData = outputDataCopy;
-                }
-
-
-                outputText.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
-
-                // Write the file out
-                System.IO.File.WriteAllBytes(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\embedded" + MIMEAssistant.GetDefaultExtension(mime), outputData.ToArray());
-                MessageBox.Show("File Written to Desktop as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
-                MessageBox.Show(outputData.Count() + "");
             }
             else
             {
@@ -66,6 +55,11 @@ namespace Steg
             Clipboard.SetText(outputText.Text);
         }
 
-        
+        private void writeEmbeddedButton_Click(object sender, EventArgs e)
+        {
+            // Write the file out
+            System.IO.File.WriteAllBytes(embeddedOutputDirectory.Text + "\\embedded" + MIMEAssistant.GetDefaultExtension(mime), outputData);
+            MessageBox.Show("File Written to directory as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
+        }
     }
 }
