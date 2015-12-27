@@ -21,34 +21,39 @@ namespace Steg
 
 
         // Write Form
-        OpenFileDialog fileChooserDialog = new OpenFileDialog();
 
         int maxBytesNum;
 
         private void fileChooser_Click(object sender, EventArgs e)
         {
-            fileChooserDialog.Filter = "PNG Files (.png)|*.png";
-            fileChooserDialog.InitialDirectory = filename.Text;
-            if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
             {
-                filename.Text = fileChooserDialog.FileName;
+                fileChooserDialog.Filter = "PNG Files (.png)|*.png";
+                fileChooserDialog.InitialDirectory = filename.Text;
+                if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filename.Text = fileChooserDialog.FileName;
 
-                // Display how much text you can enter
-                System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(filename.Text);
+                    // Display how much text you can enter
+                    System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(filename.Text);
 
-                maxBytesNum = ((bmp.Width * bmp.Height * 3) / 8);
+                    maxBytesNum = ((bmp.Width * bmp.Height * 3) / 8);
 
-                maxBytes.Text = "Max Bytes: " + maxBytesNum;
+                    maxBytes.Text = "Max Bytes: " + maxBytesNum;
+                }
             }
         }
 
-        FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+        
 
         private void folderChooser_Click(object sender, EventArgs e)
         {
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
             {
-                outputDirectory.Text = folderBrowserDialog.SelectedPath;
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    outputDirectory.Text = folderBrowserDialog.SelectedPath;
+                }
             }
         }
 
@@ -95,14 +100,15 @@ namespace Steg
             LSBFunctions.readLSB(filename2.Text, concatBool.Checked, fileOutputBool.Checked);
         }
 
-        OpenFileDialog fileChooserDialog2 = new OpenFileDialog();
-
         private void fileChooser2_Click(object sender, EventArgs e)
         {
-            fileChooserDialog2.Filter = "PNG Files (.png)|*.png";
-            if (fileChooserDialog2.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
             {
-                filename2.Text = fileChooserDialog2.FileName;
+                fileChooserDialog.Filter = "PNG Files (.png)|*.png";
+                if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filename2.Text = fileChooserDialog.FileName;
+                }
             }
         }
 
@@ -116,13 +122,14 @@ namespace Steg
             fileInputFilename.Visible ^= true;
         }
 
-        OpenFileDialog fileChooserDialog3 = new OpenFileDialog();
-
         private void fileInputButton_Click(object sender, EventArgs e)
         {
-            if (fileChooserDialog3.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
             {
-                fileInputFilename.Text = fileChooserDialog3.FileName;
+                if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fileInputFilename.Text = fileChooserDialog.FileName;
+                }
             }
         }
 

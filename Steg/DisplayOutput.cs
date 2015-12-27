@@ -36,7 +36,7 @@ namespace Steg
 
                 fileType.Text = "File type not recognized.";
                 mime = MIMEAssistant.GetMIMEType(outputData);
-                if(mime != "application/octet-stream")
+                if (mime != "application/octet-stream")
                 {
                     fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
                 }
@@ -60,13 +60,16 @@ namespace Steg
             MessageBox.Show("File Written to directory as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
         }
 
-        FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog();
+
 
         private void embeddedFolderChooser_Click(object sender, EventArgs e)
         {
-            if (embedOutputFolder.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog())
             {
-                embeddedOutputDirectory.Text = embedOutputFolder.SelectedPath;
+                if (embedOutputFolder.ShowDialog() == DialogResult.OK)
+                {
+                    embeddedOutputDirectory.Text = embedOutputFolder.SelectedPath;
+                }
             }
         }
     }
