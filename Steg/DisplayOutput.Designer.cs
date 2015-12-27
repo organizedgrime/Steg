@@ -73,6 +73,7 @@
             this.embeddedFolderChooser.Text = "...";
             this.embeddedFolderChooser.UseVisualStyleBackColor = true;
             this.embeddedFolderChooser.Visible = false;
+            this.embeddedFolderChooser.Click += new System.EventHandler(this.embeddedFolderChooser_Click);
             // 
             // embeddedOutputDirectory
             // 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Steg
@@ -60,6 +58,16 @@ namespace Steg
             // Write the file out
             System.IO.File.WriteAllBytes(embeddedOutputDirectory.Text + "\\embedded" + MIMEAssistant.GetDefaultExtension(mime), outputData);
             MessageBox.Show("File Written to directory as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
+        }
+
+        FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog();
+
+        private void embeddedFolderChooser_Click(object sender, EventArgs e)
+        {
+            if (embedOutputFolder.ShowDialog() == DialogResult.OK)
+            {
+                embeddedOutputDirectory.Text = embedOutputFolder.SelectedPath;
+            }
         }
     }
 }
