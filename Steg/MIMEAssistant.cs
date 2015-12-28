@@ -21,7 +21,6 @@ namespace Steg
 
         public static string GetMIMEType(byte[] bytes)
         {
-
             byte[] buffer = new byte[256];
             MemoryStream ms = new MemoryStream(bytes);
             if (ms.Length >= 256)
