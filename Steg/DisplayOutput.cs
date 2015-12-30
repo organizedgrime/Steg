@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -38,7 +36,7 @@ namespace Steg
                 embeddedOutputDirectory.Text = initialPath;
 
 
-                
+
                 mime = MIMEAssistant.GetMIMEType(outputData);
 
                 fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
@@ -54,7 +52,7 @@ namespace Steg
 
                     for (int i = 1; i < outputData.Length; i++)
                     {
-                        if (outputData[i] == 0xD9 && outputData[i-1] == 0xFF)
+                        if (outputData[i] == 0xD9 && outputData[i - 1] == 0xFF)
                         {
                             // Make bytes the original array cut at the last instance of FFD9
                             bytes = outputData.Take(i).ToList();
@@ -62,7 +60,7 @@ namespace Steg
                     }
                     outputData = bytes.ToArray();
                 }
-                
+
             }
             else
             {
