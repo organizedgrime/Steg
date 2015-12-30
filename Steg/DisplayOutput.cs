@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Steg
@@ -34,12 +38,31 @@ namespace Steg
                 embeddedOutputDirectory.Text = initialPath;
 
 
-                fileType.Text = "File type not recognized.";
+                
                 mime = MIMEAssistant.GetMIMEType(outputData);
-                if (mime != "application/octet-stream")
+
+                fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
+
+                if (mime == "application/octet-stream")
                 {
-                    fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
+                    fileType.Text = "File type not recognized.";
                 }
+                else if (mime.Contains("jpeg"))
+                {
+                    // Make another array to test 
+                    List<byte> bytes = outputData.ToList();
+
+                    for (int i = 1; i < outputData.Length; i++)
+                    {
+                        if (outputData[i] == 0xD9 && outputData[i-1] == 0xFF)
+                        {
+                            // Make bytes the original array cut at the last instance of FFD9
+                            bytes = outputData.Take(i).ToList();
+                        }
+                    }
+                    outputData = bytes.ToArray();
+                }
+                
             }
             else
             {
@@ -59,8 +82,6 @@ namespace Steg
             System.IO.File.WriteAllBytes(embeddedOutputDirectory.Text + "\\embedded" + MIMEAssistant.GetDefaultExtension(mime), outputData);
             MessageBox.Show("File Written to directory as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
         }
-
-
 
         private void embeddedFolderChooser_Click(object sender, EventArgs e)
         {
