@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.IO;
-using System.Windows.Forms;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Steg
 {
@@ -62,70 +60,26 @@ namespace Steg
         {
             // Make an int to keep track of how many stages have been passed.
             // Once all 11 have been passed, the JPEG is VALID.
-            bool skip = false;
-            for (int i = 1; i < outputData.Length; i++)
+            int i = 1, key = 0;
+            int[] keywords = new int[10] {0xD8, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5, 0xD6, 0xD7, 0xD9};
+            while (i < outputData.Length)
             {
-                if (outputData[i - 1] == 0xFF)
+                // Check if the current 2 bytes are a marker
+                if (outputData[i - 1] == 0xFF && outputData[i] == keywords[key])
                 {
-                    switch (outputData[i])
+                    if(key == 9)
                     {
-
-                        case 0xD8:
-                            skip = true;
-                            break;
-
-                        case 0x01:
-                            skip = true;
-                            break;
-
-                        case 0xD0:
-                            skip = true;
-                            break;
-
-                        case 0xD1:
-                            skip = true;
-                            break;
-
-                        case 0xD2:
-                            skip = true;
-                            break;
-
-                        case 0xD3:
-                            skip = true;
-                            break;
-
-                        case 0xD4:
-                            skip = true;
-                            break;
-
-                        case 0xD5:
-                            skip = true;
-                            break;
-
-                        case 0xD6:
-                            skip = true;
-                            break;
-
-                        case 0xD7:
-                            skip = true;
-                            break;
-
-                        case 0xD9:
-                            return outputData.ToList().Take(i).ToArray();
-
-                        default:
-                            break;
-
+                        return outputData.ToList().Take(i).ToArray();
                     }
-                    if (skip)
-                    {
-                        int add = BitConverter.ToInt16(outputData, i) - 2;
-                        MessageBox.Show("i: " + i + ", add: " + outputData[i + 2] + ":" + outputData[i + 1]);
-                        //i -= add;
-                        skip = false;
-                    }
+                    int add = (outputData[i + 1] << 8) + outputData[i + 2] - 2;
+                    //MessageBox.Show("i: " + i + ", (i + 1): " + outputData[i+1] + ", (i + 2): " + outputData[i+2] + ", add: " + add);
+                    i += add;
+                    key++;
                 }
-
+                else
+                {
+                    i++;
+                }
             }
             return outputData;
         }
