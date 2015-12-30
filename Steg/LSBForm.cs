@@ -138,6 +138,7 @@ namespace Steg
             // Invert current values of relevant buttons
             concatBool.Checked ^= true;
             concatBool.AutoCheck ^= true;
+            trimBool.AutoCheck ^= true;
         }
     }
 }

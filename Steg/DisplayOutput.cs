@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -47,18 +50,7 @@ namespace Steg
                 }
                 else if (mime.Contains("jpeg"))
                 {
-                    // Make another array to test 
-                    List<byte> bytes = outputData.ToList();
-
-                    for (int i = 1; i < outputData.Length; i++)
-                    {
-                        if (outputData[i] == 0xD9 && outputData[i - 1] == 0xFF)
-                        {
-                            // Make bytes the original array cut at the last instance of FFD9
-                            bytes = outputData.Take(i).ToList();
-                        }
-                    }
-                    outputData = bytes.ToArray();
+                    outputData = MIMEAssistant.VerifyJPEG(outputData);
                 }
 
             }

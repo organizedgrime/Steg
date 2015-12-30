@@ -92,6 +92,8 @@ namespace Steg
                 // Cut the gibberish if the user wants you to.
                 if (concat)
                 {
+                    // TODO write some ascii thing, not regex bullshit
+                    // smfh
                     str = Regex.Replace(str, "[^a-zA-Z0-9]", "");
                 }
 

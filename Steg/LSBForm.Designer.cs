@@ -45,6 +45,7 @@
             this.retrieveInput = new System.Windows.Forms.Button();
             this.filename = new System.Windows.Forms.TextBox();
             this.Read = new System.Windows.Forms.TabPage();
+            this.trimBool = new System.Windows.Forms.CheckBox();
             this.fileOutputBool = new System.Windows.Forms.CheckBox();
             this.concatBool = new System.Windows.Forms.CheckBox();
             this.filename2 = new System.Windows.Forms.TextBox();
@@ -223,6 +224,7 @@
             // 
             // Read
             // 
+            this.Read.Controls.Add(this.trimBool);
             this.Read.Controls.Add(this.fileOutputBool);
             this.Read.Controls.Add(this.concatBool);
             this.Read.Controls.Add(this.filename2);
@@ -235,6 +237,17 @@
             this.Read.TabIndex = 1;
             this.Read.Text = "Read";
             this.Read.UseVisualStyleBackColor = true;
+            // 
+            // trimBool
+            // 
+            this.trimBool.AutoCheck = false;
+            this.trimBool.AutoSize = true;
+            this.trimBool.Location = new System.Drawing.Point(7, 93);
+            this.trimBool.Name = "trimBool";
+            this.trimBool.Size = new System.Drawing.Size(189, 17);
+            this.trimBool.TabIndex = 17;
+            this.trimBool.Text = "Trim Excess Bytes (file output only)";
+            this.trimBool.UseVisualStyleBackColor = true;
             // 
             // fileOutputBool
             // 
@@ -328,5 +341,6 @@
         private System.Windows.Forms.TextBox fileInputFilename;
         private System.Windows.Forms.Label fileInputLabel;
         private System.Windows.Forms.CheckBox fileOutputBool;
+        private System.Windows.Forms.CheckBox trimBool;
     }
 }
