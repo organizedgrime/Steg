@@ -34,6 +34,7 @@
             this.embeddedFolderChooser = new System.Windows.Forms.Button();
             this.embeddedOutputDirectory = new System.Windows.Forms.TextBox();
             this.writeEmbeddedButton = new System.Windows.Forms.Button();
+            this.fileSize = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // copyButton
@@ -94,11 +95,21 @@
             this.writeEmbeddedButton.Visible = false;
             this.writeEmbeddedButton.Click += new System.EventHandler(this.writeEmbeddedButton_Click);
             // 
+            // fileSize
+            // 
+            this.fileSize.AutoSize = true;
+            this.fileSize.Location = new System.Drawing.Point(13, 86);
+            this.fileSize.Name = "fileSize";
+            this.fileSize.Size = new System.Drawing.Size(36, 13);
+            this.fileSize.TabIndex = 23;
+            this.fileSize.Text = "Bytes:";
+            // 
             // DisplayOutput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.fileSize);
             this.Controls.Add(this.writeEmbeddedButton);
             this.Controls.Add(this.embeddedFolderChooser);
             this.Controls.Add(this.embeddedOutputDirectory);
@@ -120,5 +131,6 @@
         private System.Windows.Forms.Button embeddedFolderChooser;
         private System.Windows.Forms.TextBox embeddedOutputDirectory;
         private System.Windows.Forms.Button writeEmbeddedButton;
+        private System.Windows.Forms.Label fileSize;
     }
 }

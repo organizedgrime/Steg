@@ -8,3 +8,6 @@
 Steg/bin/
 Steg/obj/
 Steg/properties/
+
+# Keep the binary
+!Steg/obj/Debug/Steg.exe

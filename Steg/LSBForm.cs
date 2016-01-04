@@ -44,8 +44,6 @@ namespace Steg
             }
         }
 
-        
-
         private void folderChooser_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
@@ -137,7 +135,6 @@ namespace Steg
         private void fileOutputBool_CheckedChanged(object sender, EventArgs e)
         {
             // Invert current values of relevant buttons
-            concatBool.Checked ^= true;
             concatBool.AutoCheck ^= true;
             trimBool.AutoCheck ^= true;
         }

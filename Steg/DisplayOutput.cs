@@ -52,6 +52,7 @@ namespace Steg
                 {
                     outputData = MIMEAssistant.Cut(outputData);
                 }
+                fileSize.Text = "Bytes: " + outputData.Length;
             }
             else
             {

@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Steg
@@ -60,6 +59,7 @@ namespace Steg
 
         public static byte[] Cut(byte[] outputData)
         {
+            // Go through every item in outputData and check if it matched the EOF marker
             for (int i = 2; i < outputData.Length; i++)
             {
                 if (outputData[i] == 0x42 && outputData[i - 1] == 0x53 && outputData[i - 2] == 0x4C)
