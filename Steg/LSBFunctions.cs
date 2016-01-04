@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Steg
@@ -21,7 +23,7 @@ namespace Steg
         /////////////////////////////////////////////////
         */
 
-        public static void writeLSB(string filename, string outputDir, string message = null, byte[] byteInput = null)
+        public static void writeLSB(string filename, string outputDir, string message = null, byte[] byteInput = null, bool endMarker = false)
         {
             openImg(filename);
             byte[] byteMsg = null;
@@ -34,7 +36,9 @@ namespace Steg
             }
             else
             {
-                byteMsg = byteInput;
+                List<byte> tempBytes = byteInput.ToList();
+                tempBytes.AddRange(new List<byte>() {0x4c, 0x53, 0x42});
+                byteMsg = tempBytes.ToArray();
             }
 
             BitArray bitMsg = new BitArray(byteMsg);
@@ -56,7 +60,7 @@ namespace Steg
             bmp.Dispose();
         }
 
-        public static void readLSB(string filename, bool concat, bool fileout)
+        public static void readLSB(string filename, bool concat, bool fileout, bool trim)
         {
 
             openImg(filename);
@@ -80,7 +84,7 @@ namespace Steg
 
             if (fileout)
             {
-                dispOutput = new DisplayOutput(null, messageBytes);
+                dispOutput = new DisplayOutput(null, messageBytes, trim);
             }
             else
             {
@@ -98,7 +102,7 @@ namespace Steg
                 }
 
                 // Show the message
-                dispOutput = new DisplayOutput(str, null);
+                dispOutput = new DisplayOutput(str, null, false);
             }
             dispOutput.Show();
         }

@@ -30,6 +30,7 @@
         {
             this.LSBTab = new System.Windows.Forms.TabControl();
             this.Write = new System.Windows.Forms.TabPage();
+            this.endMarkBool = new System.Windows.Forms.CheckBox();
             this.fileInputButton = new System.Windows.Forms.Button();
             this.fileInputFilename = new System.Windows.Forms.TextBox();
             this.fileInputLabel = new System.Windows.Forms.Label();
@@ -69,6 +70,7 @@
             // 
             // Write
             // 
+            this.Write.Controls.Add(this.endMarkBool);
             this.Write.Controls.Add(this.fileInputButton);
             this.Write.Controls.Add(this.fileInputFilename);
             this.Write.Controls.Add(this.fileInputLabel);
@@ -90,6 +92,19 @@
             this.Write.TabIndex = 0;
             this.Write.Text = "Write";
             this.Write.UseVisualStyleBackColor = true;
+            // 
+            // endMarkBool
+            // 
+            this.endMarkBool.AutoSize = true;
+            this.endMarkBool.Checked = true;
+            this.endMarkBool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.endMarkBool.Location = new System.Drawing.Point(6, 155);
+            this.endMarkBool.Name = "endMarkBool";
+            this.endMarkBool.Size = new System.Drawing.Size(220, 17);
+            this.endMarkBool.TabIndex = 25;
+            this.endMarkBool.Text = "End Marker(allows more efficient reading)";
+            this.endMarkBool.UseVisualStyleBackColor = true;
+            this.endMarkBool.Visible = false;
             // 
             // fileInputButton
             // 
@@ -242,6 +257,8 @@
             // 
             this.trimBool.AutoCheck = false;
             this.trimBool.AutoSize = true;
+            this.trimBool.Checked = true;
+            this.trimBool.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trimBool.Location = new System.Drawing.Point(7, 93);
             this.trimBool.Name = "trimBool";
             this.trimBool.Size = new System.Drawing.Size(189, 17);
@@ -254,9 +271,9 @@
             this.fileOutputBool.AutoSize = true;
             this.fileOutputBool.Location = new System.Drawing.Point(6, 69);
             this.fileOutputBool.Name = "fileOutputBool";
-            this.fileOutputBool.Size = new System.Drawing.Size(146, 17);
+            this.fileOutputBool.Size = new System.Drawing.Size(127, 17);
             this.fileOutputBool.TabIndex = 16;
-            this.fileOutputBool.Text = "File Output (not plain text)";
+            this.fileOutputBool.Text = "File Output (raw data)";
             this.fileOutputBool.UseVisualStyleBackColor = true;
             this.fileOutputBool.CheckedChanged += new System.EventHandler(this.fileOutputBool_CheckedChanged);
             // 
@@ -342,5 +359,6 @@
         private System.Windows.Forms.Label fileInputLabel;
         private System.Windows.Forms.CheckBox fileOutputBool;
         private System.Windows.Forms.CheckBox trimBool;
+        private System.Windows.Forms.CheckBox endMarkBool;
     }
 }

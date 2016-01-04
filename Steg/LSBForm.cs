@@ -65,7 +65,7 @@ namespace Steg
                 {
                     if (new FileInfo(fileInputFilename.Text).Length <= maxBytesNum)
                     {
-                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, null, File.ReadAllBytes(fileInputFilename.Text));
+                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, null, File.ReadAllBytes(fileInputFilename.Text), endMarkBool.Checked);
                         MessageBox.Show("Writing Completed");
                     }
                     else
@@ -97,7 +97,7 @@ namespace Steg
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            LSBFunctions.readLSB(filename2.Text, concatBool.Checked, fileOutputBool.Checked);
+            LSBFunctions.readLSB(filename2.Text, concatBool.Checked, fileOutputBool.Checked, trimBool.Checked);
         }
 
         private void fileChooser2_Click(object sender, EventArgs e)
@@ -120,6 +120,7 @@ namespace Steg
             fileInputButton.Visible ^= true;
             fileInputLabel.Visible ^= true;
             fileInputFilename.Visible ^= true;
+            endMarkBool.Visible ^= true;
         }
 
         private void fileInputButton_Click(object sender, EventArgs e)

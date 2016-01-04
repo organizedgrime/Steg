@@ -13,7 +13,7 @@ namespace Steg
         string mime;
         byte[] outputData;
 
-        public DisplayOutput(string outputStr = null, byte[] _outputData = null)
+        public DisplayOutput(string outputStr = null, byte[] _outputData = null, bool trim = false)
         {
             InitializeComponent();
 
@@ -48,11 +48,10 @@ namespace Steg
                 {
                     fileType.Text = "File type not recognized.";
                 }
-                else if (mime.Contains("jpeg"))
+                else if (trim)
                 {
-                    outputData = MIMEAssistant.VerifyJPEG(outputData);
+                    outputData = MIMEAssistant.Cut(outputData);
                 }
-
             }
             else
             {

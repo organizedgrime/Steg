@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace Steg
 {
@@ -56,29 +58,14 @@ namespace Steg
             return result;
         }
 
-        public static byte[] VerifyJPEG(byte[] outputData)
+        public static byte[] Cut(byte[] outputData)
         {
-            // Make an int to keep track of how many stages have been passed.
-            // Once all 11 have been passed, the JPEG is VALID.
-            int i = 1, key = 0;
-            int[] keywords = new int[10] {0xD8, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0xD5, 0xD6, 0xD7, 0xD9};
-            while (i < outputData.Length)
+            for (int i = 2; i < outputData.Length; i++)
             {
-                // Check if the current 2 bytes are a marker
-                if (outputData[i - 1] == 0xFF && outputData[i] == keywords[key])
+                if (outputData[i] == 0x42 && outputData[i - 1] == 0x53 && outputData[i - 2] == 0x4C)
                 {
-                    if(key == 9)
-                    {
-                        return outputData.ToList().Take(i).ToArray();
-                    }
-                    int add = (outputData[i + 1] << 8) + outputData[i + 2] - 2;
-                    //MessageBox.Show("i: " + i + ", (i + 1): " + outputData[i+1] + ", (i + 2): " + outputData[i+2] + ", add: " + add);
-                    i += add;
-                    key++;
-                }
-                else
-                {
-                    i++;
+                    MessageBox.Show("Sucessfully Trimmed");
+                    return outputData.ToList().Take(i - 2).ToArray();
                 }
             }
             return outputData;
