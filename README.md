@@ -2,7 +2,7 @@
 This project is a practical implementation of simple(soon to be advanced) Steganography Cryptography methods.
 As this program develops, it will be made increasingly more efficient, and have more secure methods of message hiding.
 
-If you have any questions or comments, you can email me at *nicolasnicogonzalez@gmail.com*, or visit my website at *nicogonzo.tk*
+If you have any questions or comments, you can email me at *nicolasnicogonzalez@gmail.com*, or visit my website at *http://nicogonzo.tk*
 
 ## Usage Tutorial
 Using this program should be fairly intuitive. There are text boxes and file/folder selectors for all input and output, so you don't have to worry about weird syntax. It's all done for you.
@@ -18,3 +18,9 @@ At the moment, the only method that this program implements is LSB Steg, or Leas
 
 2. Image types that can be used for embedding via Steg 1.0:
 	* PNG
+
+## Download
+To download, simply click this link:
+http://nicogonzo.tk/Steg.exe
+
+Note that this program is intended for use on Windows only and relies on WinForms and the .NET framework.
