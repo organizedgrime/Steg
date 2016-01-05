@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Steg
@@ -29,6 +24,7 @@ namespace Steg
                 // Change to the file output GUI
                 outputText.Visible = false;
                 copyButton.Visible = false;
+                fileSize.Visible = true;
                 fileType.Visible = true;
                 writeEmbeddedButton.Visible = true;
                 embeddedFolderChooser.Visible = true;

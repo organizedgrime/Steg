@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Steg
 {
@@ -37,7 +36,7 @@ namespace Steg
             else
             {
                 List<byte> tempBytes = byteInput.ToList();
-                tempBytes.AddRange(new List<byte>() {0x4c, 0x53, 0x42});
+                tempBytes.AddRange(new List<byte>() { 0x4c, 0x53, 0x42 });
                 byteMsg = tempBytes.ToArray();
             }
 
@@ -56,7 +55,7 @@ namespace Steg
             closeImg();
 
             // Save the modified image.
-            bmp.Save(@"C:\Users\Nico\Desktop\output.png");
+            bmp.Save(LSBForm.initialPath + "\\output.png");
             bmp.Dispose();
         }
 
@@ -96,13 +95,20 @@ namespace Steg
                 // Cut the gibberish if the user wants you to.
                 if (concat)
                 {
-                    // TODO write some ascii thing, not regex bullshit
-                    // smfh
-                    str = Regex.Replace(str, "[^a-zA-Z0-9]", "");
+                    String tmp = "";
+                    foreach (char c in str)
+                    {
+                        // Check if each character is in the desired ascii range
+                        if (c >= 0x20 && c <= 0x7F)
+                        {
+                            tmp += c;
+                        }
+                    }
+                    str = tmp;
                 }
 
                 // Show the message
-                dispOutput = new DisplayOutput(str, null, false);
+                dispOutput = new DisplayOutput(str);
             }
             dispOutput.Show();
         }

@@ -103,6 +103,7 @@
             this.fileSize.Size = new System.Drawing.Size(36, 13);
             this.fileSize.TabIndex = 23;
             this.fileSize.Text = "Bytes:";
+            this.fileSize.Visible = false;
             // 
             // DisplayOutput
             // 

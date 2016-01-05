@@ -6,12 +6,13 @@ namespace Steg
 {
     public partial class LSBForm : Form
     {
+        public static string initialPath;
         public LSBForm()
         {
             FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
 
-            string initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             filename.Text = initialPath;
             filename2.Text = initialPath + "\\output.png";
             outputDirectory.Text = initialPath;
