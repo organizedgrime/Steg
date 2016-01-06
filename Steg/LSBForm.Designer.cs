@@ -259,7 +259,7 @@
             this.trimBool.AutoSize = true;
             this.trimBool.Checked = true;
             this.trimBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.trimBool.Location = new System.Drawing.Point(7, 93);
+            this.trimBool.Location = new System.Drawing.Point(6, 92);
             this.trimBool.Name = "trimBool";
             this.trimBool.Size = new System.Drawing.Size(189, 17);
             this.trimBool.TabIndex = 17;
