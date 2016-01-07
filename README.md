@@ -23,4 +23,7 @@ At the moment, the only method that this program implements is LSB Steg, or Leas
 To download, simply click this link:
 http://nicogonzo.tk/Steg.exe
 
+Mirror:
+http://www.mediafire.com/download/chwqcr0a196x6y8/Steg.exe
+
 Note that this program is intended for use on Windows only and relies on WinForms and the .NET framework.
