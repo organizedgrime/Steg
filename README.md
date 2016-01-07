@@ -15,6 +15,7 @@ At the moment, the only method that this program implements is LSB Steg, or Leas
 	* Any images(png/jpg/tiff/etc)
 	* Any compressed files
 	* Any other unlisted file type that has a standard MIME
+	* See http://www.freeformatter.com/mime-types-list.html for a list of all recognizable file formats.
 
 2. Image types that can be used for embedding via Steg 1.0:
 	* PNG
