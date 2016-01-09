@@ -24,8 +24,6 @@ namespace Steg
 
         // Write Form
 
-        int maxBytesNum;
-
         private void fileChooser_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
@@ -59,9 +57,9 @@ namespace Steg
             {
                 if (fileInputBool.Checked && File.Exists(fileInputFilename.Text))
                 {
-                    if (new FileInfo(fileInputFilename.Text).Length <= maxBytesNum)
+                    if (new FileInfo(fileInputFilename.Text).Length <= getMaxBytes(filename.Text))
                     {
-                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, null, File.ReadAllBytes(fileInputFilename.Text), endMarkBool.Checked);
+                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, Convert.ToInt32(bitCount.Value), null, File.ReadAllBytes(fileInputFilename.Text), endMarkBool.Checked);
                         MessageBox.Show("Writing Completed");
                     }
                     else
@@ -71,9 +69,9 @@ namespace Steg
                 }
                 else
                 {
-                    if (message.Text.Length <= maxBytesNum)
+                    if (message.Text.Length <= getMaxBytes(filename.Text))
                     {
-                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, message.Text);
+                        LSBFunctions.writeLSB(filename.Text, outputDirectory.Text, Convert.ToInt32(bitCount.Value), message.Text);
                         MessageBox.Show("Writing Completed");
                     }
                     else
@@ -93,7 +91,7 @@ namespace Steg
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            LSBFunctions.readLSB(filename2.Text, concatBool.Checked, fileOutputBool.Checked, trimBool.Checked);
+            LSBFunctions.readLSB(filename2.Text, Convert.ToInt32(bitCountRead.Value), concatBool.Checked, fileOutputBool.Checked, trimBool.Checked);
         }
 
         private void fileChooser2_Click(object sender, EventArgs e)
@@ -144,8 +142,8 @@ namespace Steg
 
         int getMaxBytes(string filename)
         {
-            List<string> imageTypes = new List<string>() { ".jpg", ".jpeg", ".png", ".tiff"};
-            if(File.Exists(filename) && imageTypes.Contains(Path.GetExtension(filename)))
+            List<string> imageTypes = new List<string>() { ".jpg", ".jpeg", ".png", ".tiff" };
+            if (File.Exists(filename) && imageTypes.Contains(Path.GetExtension(filename)))
             {
                 System.Drawing.Image img = System.Drawing.Image.FromFile(filename);
                 return Convert.ToInt32((img.Width * img.Height * 3) / 8 * bitCount.Value);

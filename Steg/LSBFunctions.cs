@@ -22,7 +22,7 @@ namespace Steg
         /////////////////////////////////////////////////
         */
 
-        public static void writeLSB(string filename, string outputDir, string message = null, byte[] byteInput = null, bool endMarker = false)
+        public static void writeLSB(string filename, string outputDir, int bitCount, string message = null, byte[] byteInput = null, bool endMarker = false)
         {
             openImg(filename);
             byte[] byteMsg = null;
@@ -42,16 +42,25 @@ namespace Steg
 
             BitArray bitMsg = new BitArray(byteMsg);
 
-            for (int i = 0; i < byteMsg.Length * 8; i++)
+            for (int j = 1; j <= bitCount; j++)
             {
-                // If the intended message is different from the preexisting bit, write to it.
-                if (bitMsg[i] ^ Convert.ToBoolean(rgbValues[i] & 1))
+                for (int i = 0; i < rgbValues.Length; i++)
                 {
-                    //(n & ~1) | b
-                    rgbValues[i] = (byte)((rgbValues[i] & ~1) | Convert.ToInt32(bitMsg[i]));
+                    if(i * j <  bitMsg.Length)
+                    {
+                        // If the intended message is different from the preexisting bit, write to it.
+                        if (bitMsg[i * j] ^ Convert.ToBoolean(rgbValues[i] & j))
+                        {
+                            //(n & ~1) | b
+                            rgbValues[i] = (byte)((rgbValues[i] & ~j) | Convert.ToInt32(bitMsg[i * j]));
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
-
             closeImg();
 
             // Save the modified image.
@@ -59,7 +68,7 @@ namespace Steg
             bmp.Dispose();
         }
 
-        public static void readLSB(string filename, bool concat, bool fileout, bool trim)
+        public static void readLSB(string filename, int bitCount, bool concat, bool fileout, bool trim)
         {
 
             openImg(filename);

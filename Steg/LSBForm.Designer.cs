@@ -30,6 +30,8 @@
         {
             this.LSBTab = new System.Windows.Forms.TabControl();
             this.Write = new System.Windows.Forms.TabPage();
+            this.bitCountLabel = new System.Windows.Forms.Label();
+            this.bitCount = new System.Windows.Forms.NumericUpDown();
             this.endMarkBool = new System.Windows.Forms.CheckBox();
             this.fileInputButton = new System.Windows.Forms.Button();
             this.fileInputFilename = new System.Windows.Forms.TextBox();
@@ -53,12 +55,14 @@
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
-            this.bitCount = new System.Windows.Forms.NumericUpDown();
-            this.bitCountLabel = new System.Windows.Forms.Label();
+            this.bitCountRead = new System.Windows.Forms.NumericUpDown();
+            this.bitCountReadLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
-            this.Read.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bitCount)).BeginInit();
+            this.Read.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bitCountRead)).BeginInit();
             this.SuspendLayout();
             // 
             // LSBTab
@@ -68,7 +72,7 @@
             this.LSBTab.Location = new System.Drawing.Point(13, 13);
             this.LSBTab.Name = "LSBTab";
             this.LSBTab.SelectedIndex = 0;
-            this.LSBTab.Size = new System.Drawing.Size(259, 259);
+            this.LSBTab.Size = new System.Drawing.Size(235, 260);
             this.LSBTab.TabIndex = 0;
             // 
             // Write
@@ -93,10 +97,42 @@
             this.Write.Location = new System.Drawing.Point(4, 22);
             this.Write.Name = "Write";
             this.Write.Padding = new System.Windows.Forms.Padding(3);
-            this.Write.Size = new System.Drawing.Size(251, 233);
+            this.Write.Size = new System.Drawing.Size(227, 234);
             this.Write.TabIndex = 0;
             this.Write.Text = "Write";
             this.Write.UseVisualStyleBackColor = true;
+            // 
+            // bitCountLabel
+            // 
+            this.bitCountLabel.AutoSize = true;
+            this.bitCountLabel.Location = new System.Drawing.Point(120, 97);
+            this.bitCountLabel.Name = "bitCountLabel";
+            this.bitCountLabel.Size = new System.Drawing.Size(61, 13);
+            this.bitCountLabel.TabIndex = 27;
+            this.bitCountLabel.Text = "Bits to Use:";
+            // 
+            // bitCount
+            // 
+            this.bitCount.Location = new System.Drawing.Point(187, 95);
+            this.bitCount.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.bitCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.bitCount.Name = "bitCount";
+            this.bitCount.Size = new System.Drawing.Size(30, 20);
+            this.bitCount.TabIndex = 26;
+            this.bitCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.bitCount.ValueChanged += new System.EventHandler(this.bitCount_ValueChanged);
             // 
             // endMarkBool
             // 
@@ -225,9 +261,9 @@
             // retrieveInput
             // 
             this.retrieveInput.AccessibleName = "";
-            this.retrieveInput.Location = new System.Drawing.Point(55, 197);
+            this.retrieveInput.Location = new System.Drawing.Point(80, 205);
             this.retrieveInput.Name = "retrieveInput";
-            this.retrieveInput.Size = new System.Drawing.Size(75, 23);
+            this.retrieveInput.Size = new System.Drawing.Size(75, 25);
             this.retrieveInput.TabIndex = 11;
             this.retrieveInput.Text = "Write";
             this.retrieveInput.UseVisualStyleBackColor = true;
@@ -244,6 +280,9 @@
             // 
             // Read
             // 
+            this.Read.Controls.Add(this.label1);
+            this.Read.Controls.Add(this.bitCountReadLabel);
+            this.Read.Controls.Add(this.bitCountRead);
             this.Read.Controls.Add(this.trimBool);
             this.Read.Controls.Add(this.fileOutputBool);
             this.Read.Controls.Add(this.concatBool);
@@ -253,7 +292,7 @@
             this.Read.Location = new System.Drawing.Point(4, 22);
             this.Read.Name = "Read";
             this.Read.Padding = new System.Windows.Forms.Padding(3);
-            this.Read.Size = new System.Drawing.Size(251, 211);
+            this.Read.Size = new System.Drawing.Size(227, 234);
             this.Read.TabIndex = 1;
             this.Read.Text = "Read";
             this.Read.UseVisualStyleBackColor = true;
@@ -264,7 +303,7 @@
             this.trimBool.AutoSize = true;
             this.trimBool.Checked = true;
             this.trimBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.trimBool.Location = new System.Drawing.Point(6, 92);
+            this.trimBool.Location = new System.Drawing.Point(6, 97);
             this.trimBool.Name = "trimBool";
             this.trimBool.Size = new System.Drawing.Size(189, 17);
             this.trimBool.TabIndex = 17;
@@ -274,7 +313,7 @@
             // fileOutputBool
             // 
             this.fileOutputBool.AutoSize = true;
-            this.fileOutputBool.Location = new System.Drawing.Point(6, 69);
+            this.fileOutputBool.Location = new System.Drawing.Point(6, 74);
             this.fileOutputBool.Name = "fileOutputBool";
             this.fileOutputBool.Size = new System.Drawing.Size(127, 17);
             this.fileOutputBool.TabIndex = 16;
@@ -287,7 +326,7 @@
             this.concatBool.AutoSize = true;
             this.concatBool.Checked = true;
             this.concatBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.concatBool.Location = new System.Drawing.Point(6, 45);
+            this.concatBool.Location = new System.Drawing.Point(6, 50);
             this.concatBool.Name = "concatBool";
             this.concatBool.Size = new System.Drawing.Size(193, 17);
             this.concatBool.TabIndex = 15;
@@ -296,14 +335,14 @@
             // 
             // filename2
             // 
-            this.filename2.Location = new System.Drawing.Point(6, 19);
+            this.filename2.Location = new System.Drawing.Point(6, 24);
             this.filename2.Name = "filename2";
-            this.filename2.Size = new System.Drawing.Size(130, 20);
+            this.filename2.Size = new System.Drawing.Size(175, 20);
             this.filename2.TabIndex = 11;
             // 
             // fileChooser2
             // 
-            this.fileChooser2.Location = new System.Drawing.Point(142, 19);
+            this.fileChooser2.Location = new System.Drawing.Point(187, 24);
             this.fileChooser2.Name = "fileChooser2";
             this.fileChooser2.Size = new System.Drawing.Size(30, 20);
             this.fileChooser2.TabIndex = 13;
@@ -313,60 +352,69 @@
             // 
             // selectFileButton
             // 
-            this.selectFileButton.Location = new System.Drawing.Point(178, 19);
+            this.selectFileButton.Location = new System.Drawing.Point(80, 205);
             this.selectFileButton.Name = "selectFileButton";
-            this.selectFileButton.Size = new System.Drawing.Size(70, 20);
+            this.selectFileButton.Size = new System.Drawing.Size(75, 25);
             this.selectFileButton.TabIndex = 12;
-            this.selectFileButton.Text = "Select";
+            this.selectFileButton.Text = "Read";
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
-            // bitCount
+            // bitCountRead
             // 
-            this.bitCount.Location = new System.Drawing.Point(188, 93);
-            this.bitCount.Maximum = new decimal(new int[] {
+            this.bitCountRead.Location = new System.Drawing.Point(187, 124);
+            this.bitCountRead.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
-            this.bitCount.Minimum = new decimal(new int[] {
+            this.bitCountRead.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.bitCount.Name = "bitCount";
-            this.bitCount.Size = new System.Drawing.Size(29, 20);
-            this.bitCount.TabIndex = 26;
-            this.bitCount.Value = new decimal(new int[] {
+            this.bitCountRead.Name = "bitCountRead";
+            this.bitCountRead.Size = new System.Drawing.Size(30, 20);
+            this.bitCountRead.TabIndex = 27;
+            this.bitCountRead.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.bitCount.ValueChanged += new System.EventHandler(this.bitCount_ValueChanged);
             // 
-            // bitCountLabel
+            // bitCountReadLabel
             // 
-            this.bitCountLabel.AutoSize = true;
-            this.bitCountLabel.Location = new System.Drawing.Point(120, 97);
-            this.bitCountLabel.Name = "bitCountLabel";
-            this.bitCountLabel.Size = new System.Drawing.Size(61, 13);
-            this.bitCountLabel.TabIndex = 27;
-            this.bitCountLabel.Text = "Bits to Use:";
+            this.bitCountReadLabel.AutoSize = true;
+            this.bitCountReadLabel.Location = new System.Drawing.Point(114, 126);
+            this.bitCountReadLabel.Name = "bitCountReadLabel";
+            this.bitCountReadLabel.Size = new System.Drawing.Size(68, 13);
+            this.bitCountReadLabel.TabIndex = 28;
+            this.bitCountReadLabel.Text = "Bits to Read:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Image to Read:";
             // 
             // LSBForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 284);
+            this.ClientSize = new System.Drawing.Size(259, 286);
             this.Controls.Add(this.LSBTab);
             this.Name = "LSBForm";
             this.Text = "LSBForm";
             this.LSBTab.ResumeLayout(false);
             this.Write.ResumeLayout(false);
             this.Write.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bitCount)).EndInit();
             this.Read.ResumeLayout(false);
             this.Read.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bitCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bitCountRead)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -400,5 +448,8 @@
         private System.Windows.Forms.CheckBox endMarkBool;
         private System.Windows.Forms.Label bitCountLabel;
         private System.Windows.Forms.NumericUpDown bitCount;
+        private System.Windows.Forms.NumericUpDown bitCountRead;
+        private System.Windows.Forms.Label bitCountReadLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
