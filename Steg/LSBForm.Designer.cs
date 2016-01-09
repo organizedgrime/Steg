@@ -53,9 +53,12 @@
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
+            this.bitCount = new System.Windows.Forms.NumericUpDown();
+            this.bitCountLabel = new System.Windows.Forms.Label();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bitCount)).BeginInit();
             this.SuspendLayout();
             // 
             // LSBTab
@@ -65,11 +68,13 @@
             this.LSBTab.Location = new System.Drawing.Point(13, 13);
             this.LSBTab.Name = "LSBTab";
             this.LSBTab.SelectedIndex = 0;
-            this.LSBTab.Size = new System.Drawing.Size(259, 237);
+            this.LSBTab.Size = new System.Drawing.Size(259, 259);
             this.LSBTab.TabIndex = 0;
             // 
             // Write
             // 
+            this.Write.Controls.Add(this.bitCountLabel);
+            this.Write.Controls.Add(this.bitCount);
             this.Write.Controls.Add(this.endMarkBool);
             this.Write.Controls.Add(this.fileInputButton);
             this.Write.Controls.Add(this.fileInputFilename);
@@ -88,7 +93,7 @@
             this.Write.Location = new System.Drawing.Point(4, 22);
             this.Write.Name = "Write";
             this.Write.Padding = new System.Windows.Forms.Padding(3);
-            this.Write.Size = new System.Drawing.Size(251, 211);
+            this.Write.Size = new System.Drawing.Size(251, 233);
             this.Write.TabIndex = 0;
             this.Write.Text = "Write";
             this.Write.UseVisualStyleBackColor = true;
@@ -98,7 +103,7 @@
             this.endMarkBool.AutoSize = true;
             this.endMarkBool.Checked = true;
             this.endMarkBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.endMarkBool.Location = new System.Drawing.Point(6, 155);
+            this.endMarkBool.Location = new System.Drawing.Point(7, 165);
             this.endMarkBool.Name = "endMarkBool";
             this.endMarkBool.Size = new System.Drawing.Size(220, 17);
             this.endMarkBool.TabIndex = 25;
@@ -108,7 +113,7 @@
             // 
             // fileInputButton
             // 
-            this.fileInputButton.Location = new System.Drawing.Point(187, 128);
+            this.fileInputButton.Location = new System.Drawing.Point(188, 138);
             this.fileInputButton.Name = "fileInputButton";
             this.fileInputButton.Size = new System.Drawing.Size(30, 20);
             this.fileInputButton.TabIndex = 24;
@@ -119,7 +124,7 @@
             // 
             // fileInputFilename
             // 
-            this.fileInputFilename.Location = new System.Drawing.Point(6, 129);
+            this.fileInputFilename.Location = new System.Drawing.Point(7, 139);
             this.fileInputFilename.Name = "fileInputFilename";
             this.fileInputFilename.Size = new System.Drawing.Size(175, 20);
             this.fileInputFilename.TabIndex = 23;
@@ -128,7 +133,7 @@
             // fileInputLabel
             // 
             this.fileInputLabel.AutoSize = true;
-            this.fileInputLabel.Location = new System.Drawing.Point(10, 113);
+            this.fileInputLabel.Location = new System.Drawing.Point(11, 123);
             this.fileInputLabel.Name = "fileInputLabel";
             this.fileInputLabel.Size = new System.Drawing.Size(78, 13);
             this.fileInputLabel.TabIndex = 22;
@@ -138,7 +143,7 @@
             // fileInputBool
             // 
             this.fileInputBool.AutoSize = true;
-            this.fileInputBool.Location = new System.Drawing.Point(7, 93);
+            this.fileInputBool.Location = new System.Drawing.Point(6, 96);
             this.fileInputBool.Name = "fileInputBool";
             this.fileInputBool.Size = new System.Drawing.Size(68, 17);
             this.fileInputBool.TabIndex = 21;
@@ -178,7 +183,7 @@
             // maxBytes
             // 
             this.maxBytes.AutoSize = true;
-            this.maxBytes.Location = new System.Drawing.Point(120, 113);
+            this.maxBytes.Location = new System.Drawing.Point(121, 123);
             this.maxBytes.Name = "maxBytes";
             this.maxBytes.Size = new System.Drawing.Size(62, 13);
             this.maxBytes.TabIndex = 17;
@@ -203,7 +208,7 @@
             // MessageLabel
             // 
             this.MessageLabel.AutoSize = true;
-            this.MessageLabel.Location = new System.Drawing.Point(10, 113);
+            this.MessageLabel.Location = new System.Drawing.Point(11, 123);
             this.MessageLabel.Name = "MessageLabel";
             this.MessageLabel.Size = new System.Drawing.Size(104, 13);
             this.MessageLabel.TabIndex = 14;
@@ -211,7 +216,7 @@
             // 
             // message
             // 
-            this.message.Location = new System.Drawing.Point(6, 129);
+            this.message.Location = new System.Drawing.Point(7, 139);
             this.message.Multiline = true;
             this.message.Name = "message";
             this.message.Size = new System.Drawing.Size(211, 52);
@@ -220,7 +225,7 @@
             // retrieveInput
             // 
             this.retrieveInput.AccessibleName = "";
-            this.retrieveInput.Location = new System.Drawing.Point(54, 187);
+            this.retrieveInput.Location = new System.Drawing.Point(55, 197);
             this.retrieveInput.Name = "retrieveInput";
             this.retrieveInput.Size = new System.Drawing.Size(75, 23);
             this.retrieveInput.TabIndex = 11;
@@ -316,11 +321,43 @@
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
             // 
+            // bitCount
+            // 
+            this.bitCount.Location = new System.Drawing.Point(188, 93);
+            this.bitCount.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.bitCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.bitCount.Name = "bitCount";
+            this.bitCount.Size = new System.Drawing.Size(29, 20);
+            this.bitCount.TabIndex = 26;
+            this.bitCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.bitCount.ValueChanged += new System.EventHandler(this.bitCount_ValueChanged);
+            // 
+            // bitCountLabel
+            // 
+            this.bitCountLabel.AutoSize = true;
+            this.bitCountLabel.Location = new System.Drawing.Point(120, 97);
+            this.bitCountLabel.Name = "bitCountLabel";
+            this.bitCountLabel.Size = new System.Drawing.Size(61, 13);
+            this.bitCountLabel.TabIndex = 27;
+            this.bitCountLabel.Text = "Bits to Use:";
+            // 
             // LSBForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(284, 284);
             this.Controls.Add(this.LSBTab);
             this.Name = "LSBForm";
             this.Text = "LSBForm";
@@ -329,6 +366,7 @@
             this.Write.PerformLayout();
             this.Read.ResumeLayout(false);
             this.Read.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bitCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -360,5 +398,7 @@
         private System.Windows.Forms.CheckBox fileOutputBool;
         private System.Windows.Forms.CheckBox trimBool;
         private System.Windows.Forms.CheckBox endMarkBool;
+        private System.Windows.Forms.Label bitCountLabel;
+        private System.Windows.Forms.NumericUpDown bitCount;
     }
 }

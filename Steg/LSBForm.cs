@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
@@ -35,12 +36,8 @@ namespace Steg
                 {
                     filename.Text = fileChooserDialog.FileName;
 
-                    // Display how much text you can enter
-                    System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(filename.Text);
-
-                    maxBytesNum = ((bmp.Width * bmp.Height * 3) / 8);
-
-                    maxBytes.Text = "Max Bytes: " + maxBytesNum;
+                    // Display how much data you can input
+                    maxBytes.Text = "Max Bytes: " + getMaxBytes(filename.Text);
                 }
             }
         }
@@ -138,6 +135,22 @@ namespace Steg
             // Invert current values of relevant buttons
             concatBool.AutoCheck ^= true;
             trimBool.AutoCheck ^= true;
+        }
+
+        private void bitCount_ValueChanged(object sender, EventArgs e)
+        {
+            maxBytes.Text = "Max Bytes: " + getMaxBytes(filename.Text);
+        }
+
+        int getMaxBytes(string filename)
+        {
+            List<string> imageTypes = new List<string>() { ".jpg", ".jpeg", ".png", ".tiff"};
+            if(File.Exists(filename) && imageTypes.Contains(Path.GetExtension(filename)))
+            {
+                System.Drawing.Image img = System.Drawing.Image.FromFile(filename);
+                return Convert.ToInt32((img.Width * img.Height * 3) / 8 * bitCount.Value);
+            }
+            return 0;
         }
     }
 }
