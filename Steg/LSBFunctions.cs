@@ -41,26 +41,32 @@ namespace Steg
             }
 
             BitArray bitMsg = new BitArray(byteMsg);
-
-            for (int j = 1; j <= bitCount; j++)
+            //
+            Action writeLoop = delegate
             {
-                for (int i = 0; i < rgbValues.Length; i++)
+                // Cycle though the bits, then the 
+                for (int j = 1; j <= bitCount; j++)
                 {
-                    if(i * j <  bitMsg.Length)
+                    for (int i = 0; i < rgbValues.Length; i++)
                     {
-                        // If the intended message is different from the preexisting bit, write to it.
-                        if (bitMsg[i * j] ^ Convert.ToBoolean(rgbValues[i] & j))
+                        // Test to see if we've written all of bitMsg
+                        if (i * j < bitMsg.Length)
                         {
-                            //(n & ~1) | b
-                            rgbValues[i] = (byte)((rgbValues[i] & ~j) | Convert.ToInt32(bitMsg[i * j]));
+                            // If the intended message is different from the preexisting bit, write to it.
+                            if (bitMsg[i * j] ^ Convert.ToBoolean(rgbValues[i] & j))
+                            {
+                                //(n & ~1) | b
+                                rgbValues[i] = (byte)((rgbValues[i] & ~j) | Convert.ToInt32(bitMsg[i * j]));
+                            }
+                        }
+                        else
+                        {
+                            return;
                         }
                     }
-                    else
-                    {
-                        break;
-                    }
                 }
-            }
+            };
+            writeLoop();
             closeImg();
 
             // Save the modified image.
@@ -73,13 +79,16 @@ namespace Steg
 
             openImg(filename);
 
-            BitArray message = new BitArray(rgbValues.Length);
+            BitArray message = new BitArray(rgbValues.Length * bitCount);
             byte[] messageBytes = new byte[message.Length / 8];
 
-            for (int i = 0; i < rgbValues.Length; i++)
+            for (int j = 1; j <= bitCount; j++)
             {
-                // Add the LSB to bitArray
-                message[i] = (rgbValues[i] & 1) == 1;
+                for (int i = 0; i < rgbValues.Length; i++)
+                {
+                    // Add the LSB to bitArray
+                    message[i/* WRONG I NEED TO FIX THIS */] = (rgbValues[i] & j) == 1;
+                }
             }
 
             closeImg();

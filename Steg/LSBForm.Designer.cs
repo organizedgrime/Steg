@@ -48,6 +48,9 @@
             this.retrieveInput = new System.Windows.Forms.Button();
             this.filename = new System.Windows.Forms.TextBox();
             this.Read = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.bitCountReadLabel = new System.Windows.Forms.Label();
+            this.bitCountRead = new System.Windows.Forms.NumericUpDown();
             this.trimBool = new System.Windows.Forms.CheckBox();
             this.fileOutputBool = new System.Windows.Forms.CheckBox();
             this.concatBool = new System.Windows.Forms.CheckBox();
@@ -55,9 +58,6 @@
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
-            this.bitCountRead = new System.Windows.Forms.NumericUpDown();
-            this.bitCountReadLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bitCount)).BeginInit();
@@ -139,7 +139,7 @@
             this.endMarkBool.AutoSize = true;
             this.endMarkBool.Checked = true;
             this.endMarkBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.endMarkBool.Location = new System.Drawing.Point(7, 165);
+            this.endMarkBool.Location = new System.Drawing.Point(6, 165);
             this.endMarkBool.Name = "endMarkBool";
             this.endMarkBool.Size = new System.Drawing.Size(220, 17);
             this.endMarkBool.TabIndex = 25;
@@ -297,6 +297,46 @@
             this.Read.Text = "Read";
             this.Read.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Image to Read:";
+            // 
+            // bitCountReadLabel
+            // 
+            this.bitCountReadLabel.AutoSize = true;
+            this.bitCountReadLabel.Location = new System.Drawing.Point(114, 126);
+            this.bitCountReadLabel.Name = "bitCountReadLabel";
+            this.bitCountReadLabel.Size = new System.Drawing.Size(68, 13);
+            this.bitCountReadLabel.TabIndex = 28;
+            this.bitCountReadLabel.Text = "Bits to Read:";
+            // 
+            // bitCountRead
+            // 
+            this.bitCountRead.Location = new System.Drawing.Point(187, 124);
+            this.bitCountRead.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.bitCountRead.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.bitCountRead.Name = "bitCountRead";
+            this.bitCountRead.Size = new System.Drawing.Size(30, 20);
+            this.bitCountRead.TabIndex = 27;
+            this.bitCountRead.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // trimBool
             // 
             this.trimBool.AutoCheck = false;
@@ -359,46 +399,6 @@
             this.selectFileButton.Text = "Read";
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
-            // 
-            // bitCountRead
-            // 
-            this.bitCountRead.Location = new System.Drawing.Point(187, 124);
-            this.bitCountRead.Maximum = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            this.bitCountRead.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.bitCountRead.Name = "bitCountRead";
-            this.bitCountRead.Size = new System.Drawing.Size(30, 20);
-            this.bitCountRead.TabIndex = 27;
-            this.bitCountRead.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // bitCountReadLabel
-            // 
-            this.bitCountReadLabel.AutoSize = true;
-            this.bitCountReadLabel.Location = new System.Drawing.Point(114, 126);
-            this.bitCountReadLabel.Name = "bitCountReadLabel";
-            this.bitCountReadLabel.Size = new System.Drawing.Size(68, 13);
-            this.bitCountReadLabel.TabIndex = 28;
-            this.bitCountReadLabel.Text = "Bits to Read:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Image to Read:";
             // 
             // LSBForm
             // 
