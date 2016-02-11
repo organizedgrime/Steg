@@ -82,13 +82,14 @@ namespace Steg
             BitArray message = new BitArray(rgbValues.Length * bitCount);
             byte[] messageBytes = new byte[message.Length / 8];
 
-            for (int j = 1; j <= bitCount; j++)
+            for (int j = 0; j < bitCount; j++)
             {
                 for (int i = 0; i < rgbValues.Length; i++)
                 {
                     // Add the LSB to bitArray
-                    message[i/* WRONG I NEED TO FIX THIS */] = (rgbValues[i] & j) == 1;
+                    message[i + (j * rgbValues.Length)] = (rgbValues[i] & (1 << j)) == 1;
                 }
+                //System.Windows.Forms.MessageBox.Show(j + "");
             }
 
             closeImg();

@@ -110,6 +110,7 @@
             this.bitCountLabel.Size = new System.Drawing.Size(61, 13);
             this.bitCountLabel.TabIndex = 27;
             this.bitCountLabel.Text = "Bits to Use:";
+            this.bitCountLabel.Visible = false;
             // 
             // bitCount
             // 
@@ -132,6 +133,7 @@
             0,
             0,
             0});
+            this.bitCount.Visible = false;
             this.bitCount.ValueChanged += new System.EventHandler(this.bitCount_ValueChanged);
             // 
             // endMarkBool
@@ -314,6 +316,7 @@
             this.bitCountReadLabel.Size = new System.Drawing.Size(68, 13);
             this.bitCountReadLabel.TabIndex = 28;
             this.bitCountReadLabel.Text = "Bits to Read:";
+            this.bitCountReadLabel.Visible = false;
             // 
             // bitCountRead
             // 
@@ -336,6 +339,7 @@
             0,
             0,
             0});
+            this.bitCountRead.Visible = false;
             // 
             // trimBool
             // 
