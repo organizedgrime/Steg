@@ -25,6 +25,6 @@ To download, simply click this link:
 http://nicogonzo.me/projects/Steg.exe
 
 Mirror:
-http://www.mediafire.com/download/chwqcr0a196x6y8/Steg.exe
+http://www.mediafire.com/download/gf5a5xyq23a5yqi/Steg.exe
 
 Note that this program is intended for use on Windows only and relies on WinForms and the .NET framework.
