@@ -1,4 +1,7 @@
-﻿namespace Steg
+﻿using System.DirectoryServices;
+using System.Windows.Forms;
+
+namespace Steg
 {
     partial class LSBForm
     {
@@ -48,7 +51,6 @@
             this.retrieveInput = new System.Windows.Forms.Button();
             this.filename = new System.Windows.Forms.TextBox();
             this.Read = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.bitCountReadLabel = new System.Windows.Forms.Label();
             this.bitCountRead = new System.Windows.Forms.NumericUpDown();
             this.trimBool = new System.Windows.Forms.CheckBox();
@@ -282,7 +284,6 @@
             // 
             // Read
             // 
-            this.Read.Controls.Add(this.label1);
             this.Read.Controls.Add(this.bitCountReadLabel);
             this.Read.Controls.Add(this.bitCountRead);
             this.Read.Controls.Add(this.trimBool);
@@ -298,15 +299,6 @@
             this.Read.TabIndex = 1;
             this.Read.Text = "Read";
             this.Read.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Image to Read:";
             // 
             // bitCountReadLabel
             // 
@@ -425,35 +417,35 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl LSBTab;
-        private System.Windows.Forms.TabPage Write;
-        private System.Windows.Forms.TabPage Read;
-        private System.Windows.Forms.Button folderChooser;
-        private System.Windows.Forms.Button fileChooser;
-        private System.Windows.Forms.Label maxBytes;
-        private System.Windows.Forms.TextBox outputDirectory;
-        private System.Windows.Forms.Label OutputDirectoryLabel;
-        private System.Windows.Forms.Label MessageLabel;
-        private System.Windows.Forms.TextBox message;
-        private System.Windows.Forms.Button retrieveInput;
-        private System.Windows.Forms.TextBox filename;
-        private System.Windows.Forms.Button fileChooser2;
-        private System.Windows.Forms.Button selectFileButton;
-        private System.Windows.Forms.TextBox filename2;
-        private System.DirectoryServices.DirectoryEntry directoryEntry1;
-        private System.Windows.Forms.Label inputLabel;
-        private System.Windows.Forms.CheckBox concatBool;
-        private System.Windows.Forms.CheckBox fileInputBool;
-        private System.Windows.Forms.Button fileInputButton;
-        private System.Windows.Forms.TextBox fileInputFilename;
-        private System.Windows.Forms.Label fileInputLabel;
-        private System.Windows.Forms.CheckBox fileOutputBool;
-        private System.Windows.Forms.CheckBox trimBool;
-        private System.Windows.Forms.CheckBox endMarkBool;
-        private System.Windows.Forms.Label bitCountLabel;
-        private System.Windows.Forms.NumericUpDown bitCount;
-        private System.Windows.Forms.NumericUpDown bitCountRead;
-        private System.Windows.Forms.Label bitCountReadLabel;
-        private System.Windows.Forms.Label label1;
+        private TabControl LSBTab;
+        private TabPage Write;
+        private TabPage Read;
+        private Button folderChooser;
+        private Button fileChooser;
+        private Label maxBytes;
+        private TextBox outputDirectory;
+        private Label OutputDirectoryLabel;
+        private Label MessageLabel;
+        private TextBox message;
+        private Button retrieveInput;
+        private TextBox filename;
+        private Button fileChooser2;
+        private Button selectFileButton;
+        private TextBox filename2;
+        private DirectoryEntry directoryEntry1;
+        private Label inputLabel;
+        private CheckBox fileInputBool;
+        private Button fileInputButton;
+        private TextBox fileInputFilename;
+        private Label fileInputLabel;
+        private CheckBox fileOutputBool;
+        private CheckBox endMarkBool;
+        private Label bitCountLabel;
+        private NumericUpDown bitCount;
+        private NumericUpDown bitCountRead;
+        private Label bitCountReadLabel;
+
+        public CheckBox concatBool;
+        public CheckBox trimBool;
     }
 }

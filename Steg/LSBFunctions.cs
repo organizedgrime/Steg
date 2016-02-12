@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 
 namespace Steg
@@ -74,7 +75,7 @@ namespace Steg
             bmp.Dispose();
         }
 
-        public static void readLSB(string filename, int bitCount, bool concat, bool fileout, bool trim)
+        public static void readLSB(string filename, int bitCount, bool concat, bool fileout, bool cut, bool trim)
         {
 
             openImg(filename);
@@ -102,7 +103,7 @@ namespace Steg
 
             if (fileout)
             {
-                dispOutput = new DisplayOutput(null, messageBytes, trim);
+                dispOutput = new DisplayOutput(null, messageBytes, trim, cut);
             }
             else
             {
@@ -127,7 +128,7 @@ namespace Steg
                 }
 
                 // Show the message
-                dispOutput = new DisplayOutput(str);
+                dispOutput = new DisplayOutput(str, null, false, cut);
             }
             dispOutput.Show();
         }
@@ -142,18 +143,21 @@ namespace Steg
 
         public static void openImg(string filename)
         {
-            bmp = new Bitmap(filename);
-            // Lock the bitmap's bits.  
-            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
+            if (File.Exists(filename))
+            {
+                bmp = new Bitmap(filename);
+                // Lock the bitmap's bits.  
+                Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+                bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
 
-            // Get the address of the first line.
-            ptr = bmpData.Scan0;
+                // Get the address of the first line.
+                ptr = bmpData.Scan0;
 
-            bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-            rgbValues = new byte[bytes];
+                bytes = Math.Abs(bmpData.Stride) * bmp.Height;
+                rgbValues = new byte[bytes];
 
-            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+                System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+            }
         }
 
         public static void closeImg()

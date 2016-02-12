@@ -18,7 +18,6 @@ namespace Steg
             filename2.Text = initialPath + "\\output.png";
             outputDirectory.Text = initialPath;
             fileInputFilename.Text = initialPath;
-
         }
 
 
@@ -91,7 +90,7 @@ namespace Steg
 
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            LSBFunctions.readLSB(filename2.Text, Convert.ToInt32(bitCountRead.Value), concatBool.Checked, fileOutputBool.Checked, trimBool.Checked);
+            LSBFunctions.readLSB(filename2.Text, Convert.ToInt32(bitCountRead.Value), concatBool.Checked, fileOutputBool.Checked, concatBool.Checked, trimBool.Checked);
         }
 
         private void fileChooser2_Click(object sender, EventArgs e)

@@ -8,9 +8,10 @@ namespace Steg
         string mime;
         byte[] outputData;
 
-        public DisplayOutput(string outputStr = null, byte[] _outputData = null, bool trim = false)
+        public DisplayOutput(string outputStr = null, byte[] _outputData = null, bool trim = false, bool cut = false)
         {
             InitializeComponent();
+            MessageBox.Show("" + cut);
 
             // Transfer the temporary variable into the class level one.
             outputData = _outputData;
