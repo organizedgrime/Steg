@@ -154,6 +154,7 @@ namespace Steg
             this.Controls.Add(this.OutputDirectoryLabel);
             this.Controls.Add(this.retrieveInput);
             this.Controls.Add(this.filename);
+            this.MaximizeBox = false;
             this.Name = "LSBForm";
             this.Text = "PI Maker";
             ((System.ComponentModel.ISupportInitialize)(this.brightnessBar)).EndInit();

@@ -29,10 +29,9 @@ namespace Steg
         {
             openImg(filename);
             //read in the PI file
-            StreamReader reader = new StreamReader(@"PI.txt");
-            string txt = reader.ReadToEnd();
+            string txt = Properties.Resources.PI;
 
-            if(rgbValues.Length > txt.Length)
+            if (rgbValues.Length > txt.Length)
             {
                 MessageBox.Show("We don't have that many digits of PI, so we might have to loop back to the start of PI. :(");
             }
