@@ -34,7 +34,7 @@ namespace Steg
 
             if(rgbValues.Length > txt.Length)
             {
-                MessageBox.Show("We don't have that many digits of PI, so we might not be able to fill the whole image. :(");
+                MessageBox.Show("We don't have that many digits of PI, so we might have to loop back to the start of PI. :(");
             }
 
             Action writeLoop = delegate
