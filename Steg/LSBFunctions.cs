@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Steg
 {
@@ -23,47 +25,43 @@ namespace Steg
         /////////////////////////////////////////////////
         */
 
-        public static void writeLSB(string filename, string outputDir, int bitCount, string message = null, byte[] byteInput = null, bool endMarker = false)
+        public static void writeLSB(string filename, string outputDir, int brightness)
         {
             openImg(filename);
-            byte[] byteMsg = null;
+            //read in the PI file
+            StreamReader reader = new StreamReader(@"PI.txt");
+            string txt = reader.ReadToEnd();
 
-            // Based on whether the input is via file or direct text, assign the byteMsg array
-            if (message != null)
+            if(rgbValues.Length > txt.Length)
             {
-                byteMsg = new byte[message.Length * sizeof(char)];
-                Buffer.BlockCopy(message.ToCharArray(), 0, byteMsg, 0, byteMsg.Length);
-            }
-            else
-            {
-                List<byte> tempBytes = byteInput.ToList();
-                tempBytes.AddRange(new List<byte>() { 0x4c, 0x53, 0x42 });
-                byteMsg = tempBytes.ToArray();
+                MessageBox.Show("We don't have that many digits of PI, so we might not be able to fill the whole image. :(");
             }
 
-            BitArray bitMsg = new BitArray(byteMsg);
-            //
             Action writeLoop = delegate
             {
-                // Cycle though the bits, then the 
-                for (int j = 1; j <= bitCount; j++)
+                int count = 0;
+
+                for (int i = 0; i < rgbValues.Length; i+=3)
                 {
-                    for (int i = 0; i < rgbValues.Length; i++)
+                    try
                     {
-                        // Test to see if we've written all of bitMsg
-                        if (i * j < bitMsg.Length)
+                        if (rgbValues[i] + rgbValues[i + 1] + rgbValues[i + 2] > 600)
                         {
-                            // If the intended message is different from the preexisting bit, write to it.
-                            if (bitMsg[i * j] ^ Convert.ToBoolean(rgbValues[i] & j))
-                            {
-                                //(n & ~1) | b
-                                rgbValues[i] = (byte)((rgbValues[i] & ~j) | Convert.ToInt32(bitMsg[i * j]));
-                            }
+                            //pixel is white
+
+                            float x = Int32.Parse(txt[count % txt.Length] + "");
+                            //Debug.WriteLine(x);
+                            Color newColor = FromAHSB(1, x * 36, 1, (float)brightness/100);
+                            rgbValues[i] = newColor.R;
+                            rgbValues[i + 1] = newColor.G;
+                            rgbValues[i + 2] = newColor.B;
+
+                            count++;
                         }
-                        else
-                        {
-                            return;
-                        }
+                    }
+                    catch(Exception e)
+                    {
+                        //missed a few pixels.
                     }
                 }
             };
@@ -73,67 +71,8 @@ namespace Steg
             // Save the modified image.
             bmp.Save(LSBForm.initialPath + "\\output.png");
             bmp.Dispose();
+            MessageBox.Show("Writing Completed!");
         }
-
-        public static void readLSB(string filename, int bitCount, bool concat, bool fileout, bool cut, bool trim)
-        {
-
-            openImg(filename);
-
-            BitArray message = new BitArray(rgbValues.Length * bitCount);
-            byte[] messageBytes = new byte[message.Length / 8];
-
-            for (int j = 0; j < bitCount; j++)
-            {
-                for (int i = 0; i < rgbValues.Length; i++)
-                {
-                    // Add the LSB to bitArray
-                    message[i + (j * rgbValues.Length)] = (rgbValues[i] & (1 << j)) == 1;
-                }
-                //System.Windows.Forms.MessageBox.Show(j + "");
-            }
-
-            closeImg();
-            bmp.Dispose();
-
-            // Copy the bits from the image into the byte[]
-            message.CopyTo(messageBytes, 0);
-
-            DisplayOutput dispOutput = null;
-
-            if (fileout)
-            {
-                dispOutput = new DisplayOutput(null, messageBytes, trim, cut);
-            }
-            else
-            {
-                // Copy the byte[] into a char[] and into a string
-                char[] chars = new char[messageBytes.Length / sizeof(char)];
-                Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
-                string str = new string(chars);
-
-                // Cut the gibberish if the user wants you to.
-                if (concat)
-                {
-                    String tmp = "";
-                    foreach (char c in str)
-                    {
-                        // Check if each character is in the desired ascii range
-                        if (c >= 0x20 && c <= 0x7F)
-                        {
-                            tmp += c;
-                        }
-                    }
-                    str = tmp;
-                }
-
-                // Show the message
-                dispOutput = new DisplayOutput(str, null, false, cut);
-            }
-            dispOutput.Show();
-        }
-
-
 
         /*
         /////////////////////////////////////////////////
@@ -166,5 +105,105 @@ namespace Steg
             System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
             bmp.UnlockBits(bmpData);
         }
+
+        public static Color FromAHSB(int alpha, float hue, float saturation, float brightness)
+        {
+            if (0 > alpha
+                || 255 < alpha)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "alpha",
+                    alpha,
+                    "Value must be within a range of 0 - 255.");
+            }
+
+            if (0f > hue
+                || 360f < hue)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "hue",
+                    hue,
+                    "Value must be within a range of 0 - 360.");
+            }
+
+            if (0f > saturation
+                || 1f < saturation)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "saturation",
+                    saturation,
+                    "Value must be within a range of 0 - 1.");
+            }
+
+            if (0f > brightness
+                || 1f < brightness)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "brightness",
+                    brightness,
+                    "Value must be within a range of 0 - 1.");
+            }
+
+            if (0 == saturation)
+            {
+                return Color.FromArgb(
+                                    alpha,
+                                    Convert.ToInt32(brightness * 255),
+                                    Convert.ToInt32(brightness * 255),
+                                    Convert.ToInt32(brightness * 255));
+            }
+
+            float fMax, fMid, fMin;
+            int iSextant, iMax, iMid, iMin;
+
+            if (0.5 < brightness)
+            {
+                fMax = brightness - (brightness * saturation) + saturation;
+                fMin = brightness + (brightness * saturation) - saturation;
+            }
+            else
+            {
+                fMax = brightness + (brightness * saturation);
+                fMin = brightness - (brightness * saturation);
+            }
+
+            iSextant = (int)Math.Floor(hue / 60f);
+            if (300f <= hue)
+            {
+                hue -= 360f;
+            }
+
+            hue /= 60f;
+            hue -= 2f * (float)Math.Floor(((iSextant + 1f) % 6f) / 2f);
+            if (0 == iSextant % 2)
+            {
+                fMid = (hue * (fMax - fMin)) + fMin;
+            }
+            else
+            {
+                fMid = fMin - (hue * (fMax - fMin));
+            }
+
+            iMax = Convert.ToInt32(fMax * 255);
+            iMid = Convert.ToInt32(fMid * 255);
+            iMin = Convert.ToInt32(fMin * 255);
+
+            switch (iSextant)
+            {
+                case 1:
+                    return Color.FromArgb(alpha, iMid, iMax, iMin);
+                case 2:
+                    return Color.FromArgb(alpha, iMin, iMax, iMid);
+                case 3:
+                    return Color.FromArgb(alpha, iMin, iMid, iMax);
+                case 4:
+                    return Color.FromArgb(alpha, iMid, iMin, iMax);
+                case 5:
+                    return Color.FromArgb(alpha, iMax, iMin, iMid);
+                default:
+                    return Color.FromArgb(alpha, iMax, iMid, iMin);
+            }
+        }
+
     }
 }
