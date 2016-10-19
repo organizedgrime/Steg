@@ -51,11 +51,11 @@ namespace Steg
             this.Read = new System.Windows.Forms.TabPage();
             this.fileOutputCheckbox = new System.Windows.Forms.CheckBox();
             this.trimBool = new System.Windows.Forms.CheckBox();
+            this.concatBool = new System.Windows.Forms.CheckBox();
             this.filename2 = new System.Windows.Forms.TextBox();
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
-            this.concatBool = new System.Windows.Forms.CheckBox();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -101,13 +101,12 @@ namespace Steg
             this.endMarkBool.AutoSize = true;
             this.endMarkBool.Checked = true;
             this.endMarkBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.endMarkBool.Location = new System.Drawing.Point(6, 165);
+            this.endMarkBool.Location = new System.Drawing.Point(80, 96);
             this.endMarkBool.Name = "endMarkBool";
-            this.endMarkBool.Size = new System.Drawing.Size(220, 17);
+            this.endMarkBool.Size = new System.Drawing.Size(81, 17);
             this.endMarkBool.TabIndex = 25;
-            this.endMarkBool.Text = "End Marker(allows more efficient reading)";
+            this.endMarkBool.Text = "End Marker";
             this.endMarkBool.UseVisualStyleBackColor = true;
-            this.endMarkBool.Visible = false;
             // 
             // fileInputButton
             // 
@@ -268,7 +267,6 @@ namespace Steg
             // 
             // trimBool
             // 
-            this.trimBool.AutoCheck = false;
             this.trimBool.AutoSize = true;
             this.trimBool.Checked = true;
             this.trimBool.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -278,6 +276,18 @@ namespace Steg
             this.trimBool.TabIndex = 17;
             this.trimBool.Text = "Trim Excess Bytes";
             this.trimBool.UseVisualStyleBackColor = true;
+            // 
+            // concatBool
+            // 
+            this.concatBool.AutoSize = true;
+            this.concatBool.Checked = true;
+            this.concatBool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.concatBool.Location = new System.Drawing.Point(6, 71);
+            this.concatBool.Name = "concatBool";
+            this.concatBool.Size = new System.Drawing.Size(119, 17);
+            this.concatBool.TabIndex = 15;
+            this.concatBool.Text = "Cut Non-ASCII Text";
+            this.concatBool.UseVisualStyleBackColor = true;
             // 
             // filename2
             // 
@@ -305,18 +315,6 @@ namespace Steg
             this.selectFileButton.Text = "Read";
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
-            // 
-            // concatBool
-            // 
-            this.concatBool.AutoSize = true;
-            this.concatBool.Checked = true;
-            this.concatBool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.concatBool.Location = new System.Drawing.Point(6, 71);
-            this.concatBool.Name = "concatBool";
-            this.concatBool.Size = new System.Drawing.Size(119, 17);
-            this.concatBool.TabIndex = 15;
-            this.concatBool.Text = "Cut Non-ASCII Text";
-            this.concatBool.UseVisualStyleBackColor = true;
             // 
             // LSBForm
             // 

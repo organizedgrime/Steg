@@ -130,7 +130,6 @@ namespace Steg
             fileInputButton.Visible ^= true;
             fileInputLabel.Visible ^= true;
             fileInputFilename.Visible ^= true;
-            endMarkBool.Visible ^= true;
         }
 
         private void fileInputButton_Click(object sender, EventArgs e)
@@ -151,22 +150,34 @@ namespace Steg
             openImg(filename);
             closeImg();
 
+            BitArray message = new BitArray(rgbValues.Length / 8);
+            byte[] messageBytes = new byte[rgbValues.Length];
+
+            for (int i = 0; i < message.Length; i++)
+            {
+                // Add the LSB to bitArray
+                message[i] = (rgbValues[i] & (1 << 7)) != 0;
+            }
+            // Copy the bits from the image into the byte[]
+            message.CopyTo(messageBytes, 0);
+
             if (!fileOutputCheckbox.Checked)
             {
                 // Copy the byte[] into a char[] and into a string
-                char[] chars = new char[rgbValues.Length / sizeof(char)];
-                Buffer.BlockCopy(rgbValues, 0, chars, 0, rgbValues.Length);
+                char[] chars = new char[messageBytes.Length / sizeof(char)];
+                Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
                 string str = new string(chars);
 
                 // Cut the gibberish if the user wants you to.
                 if (trimBool.Checked)
                 {
-                    String tmp = "";
+                    string tmp = "";
                     foreach (char c in str)
                     {
                         // Check if each character is in the desired ascii range
                         if (c >= 0x20 && c <= 0x7F)
                         {
+                            MessageBox.Show(""+c);
                             tmp += c;
                         }
                     }
@@ -178,10 +189,9 @@ namespace Steg
             produceOuput();
         }
 
-        void writeLSB(byte[] bytes)
+        void writeLSB(byte[] byteMsg)
         {
             openImg(filename.Text);
-            byte[] byteMsg = bytes;
 
             if (endMarkBool.Checked)
             {
@@ -193,23 +203,8 @@ namespace Steg
 
             BitArray bitMsg = new BitArray(byteMsg);
 
-            for (int i = 0; i < rgbValues.Length; i++)
-            {
-                // Test to see if we've written all of bitMsg
-                if (i < bitMsg.Length)
-                {
-                    // If the intended message is different from the preexisting bit, write to it.
-                    if (bitMsg[i] ^ Convert.ToBoolean(rgbValues[i]))
-                    {
-                        //(n & ~1) | b
-                        rgbValues[i] = (byte)((rgbValues[i]) | Convert.ToInt32(bitMsg[i]));
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
+            for (int i = 0; i < bitMsg.Length; i++)
+                rgbValues[i] = (byte)((rgbValues[i] & ~1) | Convert.ToInt32(bitMsg[i]));
 
             closeImg();
 
