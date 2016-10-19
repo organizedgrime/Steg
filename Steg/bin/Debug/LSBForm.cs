@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -149,7 +148,9 @@ namespace Steg
         void readLSB(string filename)
         {
             openImg(filename);
+
             closeImg();
+            bmp.Dispose();
 
             if (!fileOutputCheckbox.Checked)
             {
@@ -247,14 +248,14 @@ namespace Steg
                 bytes = Math.Abs(bmpData.Stride) * bmp.Height;
                 rgbValues = new byte[bytes];
 
-                Marshal.Copy(ptr, rgbValues, 0, bytes);
+                System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
             }
         }
 
         public void closeImg()
         {
             // Copy the RGB values back to the bitmap & unlock
-            Marshal.Copy(rgbValues, 0, ptr, bytes);
+            System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
             bmp.UnlockBits(bmpData);
         }
         #endregion

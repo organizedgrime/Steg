@@ -1,26 +1,25 @@
 ﻿using System;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Steg
 {
     public partial class DisplayOutput : Form
     {
-        string mime;
-        byte[] outputData;
-
-        public DisplayOutput(string outputStr = null, byte[] _outputData = null, bool trim = false, bool cut = false)
+        public string mime, filetype;
+        public byte[] outputData;
+        public DisplayOutput(byte[] _outputData, bool str)
         {
             InitializeComponent();
-            MessageBox.Show("" + cut);
 
             // Transfer the temporary variable into the class level one.
             outputData = _outputData;
 
-            if (outputStr != null)
+            if (str)
             {
-                outputText.Text = outputStr;
+                outputText.Text = Encoding.Default.GetString(outputData);
             }
-            else if (outputData != null)
+            else
             {
                 // Change to the file output GUI
                 outputText.Visible = false;
@@ -32,29 +31,18 @@ namespace Steg
                 embeddedOutputDirectory.Visible = true;
 
                 // Get the default Desktop folder for writing.
-                string initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                embeddedOutputDirectory.Text = initialPath;
-
-
+                embeddedOutputDirectory.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
                 mime = MIMEAssistant.GetMIMEType(outputData);
-
-                fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
-
                 if (mime == "application/octet-stream")
                 {
                     fileType.Text = "File type not recognized.";
                 }
-                else if (trim)
+                else
                 {
-                    outputData = MIMEAssistant.Cut(outputData);
+                    fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
                 }
                 fileSize.Text = "Bytes: " + outputData.Length;
-            }
-            else
-            {
-                // This should never happen. If it does, you are calling this function incorrectly.
-                outputText.Text = "PROGRAM ERROR: Data is null.";
             }
         }
 

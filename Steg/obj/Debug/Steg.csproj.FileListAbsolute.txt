@@ -1,0 +1,11 @@
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\bin\Debug\Steg.exe.config
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.csprojResolveAssemblyReference.cache
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.Properties.Resources.resources
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.csproj.GenerateResource.Cache
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\bin\Debug\LSBForm.cs
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\bin\Debug\LSBForm.designer.cs
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\bin\Debug\Steg.exe
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\bin\Debug\Steg.pdb
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.exe
+c:\users\nico\documents\visual studio 2015\Projects\Steg\Steg\obj\Debug\Steg.pdb
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Debug\Steg.LSBForm.resources
