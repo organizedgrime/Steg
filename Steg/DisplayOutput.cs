@@ -6,30 +6,26 @@ namespace Steg
 {
     public partial class DisplayOutput : Form
     {
-        public string mime, filetype;
-        public byte[] outputData;
-        public DisplayOutput(byte[] _outputData, bool str)
+        LSBData data;
+        public DisplayOutput(LSBData _data)
         {
             InitializeComponent();
+            data = _data;
 
-            // Transfer the temporary variable into the class level one.
-            outputData = _outputData;
+            // Determine the MIME and file extension of the ouput data
+            data.determineLSBs();
+            data.determineMIME();
 
+            // Set the extension label
+            lblFileInfoData.Text = data.MIME +" | " + data.extension;
+            
+            /*
             if (str)
             {
                 outputText.Text = Encoding.Default.GetString(outputData);
             }
             else
             {
-                // Change to the file output GUI
-                outputText.Visible = false;
-                copyButton.Visible = false;
-                fileSize.Visible = true;
-                fileType.Visible = true;
-                writeEmbeddedButton.Visible = true;
-                embeddedFolderChooser.Visible = true;
-                embeddedOutputDirectory.Visible = true;
-
                 // Get the default Desktop folder for writing.
                 embeddedOutputDirectory.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
@@ -44,29 +40,31 @@ namespace Steg
                 }
                 fileSize.Text = "Bytes: " + outputData.Length;
             }
+            */
         }
 
         private void copyButton_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(outputText.Text);
+            Clipboard.SetText(txtOutput.Text);
         }
 
-        private void writeEmbeddedButton_Click(object sender, EventArgs e)
+        private void btnFileOutput_Click(object sender, EventArgs e)
         {
-            // Write the file out
-            System.IO.File.WriteAllBytes(embeddedOutputDirectory.Text + "\\embedded" + MIMEAssistant.GetDefaultExtension(mime), outputData);
-            MessageBox.Show("File Written to directory as \"embedded" + MIMEAssistant.GetDefaultExtension(mime) + "\"");
-        }
-
-        private void embeddedFolderChooser_Click(object sender, EventArgs e)
-        {
+            // Choose the folder to output the file
             using (FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog())
             {
                 if (embedOutputFolder.ShowDialog() == DialogResult.OK)
                 {
-                    embeddedOutputDirectory.Text = embedOutputFolder.SelectedPath;
+                    txtFileOutput.Text = embedOutputFolder.SelectedPath;
                 }
             }
+        }
+
+        private void btnSaveFile_Click(object sender, EventArgs e)
+        {
+            // Write the file out
+            System.IO.File.WriteAllBytes(txtFileOutput.Text + "\\embedded" + data.extension, data.LSBs);
+            MessageBox.Show("File Written to directory as \"embedded" + data.extension + "\"");
         }
     }
 }

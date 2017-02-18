@@ -12,22 +12,19 @@ namespace Steg
 {
     public partial class LSBForm : Form
     {
-        Bitmap bmp;
-        byte[] rgbValues;
-        BitmapData bmpData;
-        int bytes;
-        IntPtr ptr;
+        LSBData lsb;
 
         public LSBForm()
         {
             FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
 
-            String initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            filename.Text = initialPath;
+            lsb = new LSBData();
+            string initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            txtInputFile.Text = initialPath;
             filename2.Text = initialPath + "\\output.png";
-            outputDirectory.Text = initialPath;
-            fileInputFilename.Text = initialPath;
+            txtOutputDir.Text = initialPath;
+            txtSecretFile.Text = initialPath;
         }
         int getMaxBytes(string filename)
         {
@@ -46,13 +43,13 @@ namespace Steg
             using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
             {
                 fileChooserDialog.Filter = "PNG Files (.png)|*.png";
-                fileChooserDialog.InitialDirectory = filename.Text;
+                fileChooserDialog.InitialDirectory = txtInputFile.Text;
                 if (fileChooserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    filename.Text = fileChooserDialog.FileName;
+                    txtInputFile.Text = fileChooserDialog.FileName;
 
                     // Display how much data you can input
-                    maxBytes.Text = "Max Bytes: " + getMaxBytes(filename.Text);
+                    lblSecretBytes.Text = "Max Bytes: " + getMaxBytes(txtInputFile.Text);
                 }
             }
         }
@@ -63,20 +60,20 @@ namespace Steg
             {
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    outputDirectory.Text = folderBrowserDialog.SelectedPath;
+                    txtOutputDir.Text = folderBrowserDialog.SelectedPath;
                 }
             }
         }
 
         private void retrieveInput_Click(object sender, EventArgs e)
         {
-            if (File.Exists(filename.Text) && Directory.Exists(outputDirectory.Text))
+            if (File.Exists(txtInputFile.Text) && Directory.Exists(txtOutputDir.Text))
             {
-                if (fileInputBool.Checked && File.Exists(fileInputFilename.Text))
+                if (fileInputBool.Checked && File.Exists(txtSecretFile.Text))
                 {
-                    if (new FileInfo(fileInputFilename.Text).Length <= getMaxBytes(filename.Text))
+                    if (new FileInfo(txtSecretFile.Text).Length <= getMaxBytes(txtInputFile.Text))
                     {
-                        writeLSB(File.ReadAllBytes(fileInputFilename.Text));
+                        writeLSB(File.ReadAllBytes(txtSecretFile.Text));
                         MessageBox.Show("Writing Completed");
                     }
                     else
@@ -86,9 +83,9 @@ namespace Steg
                 }
                 else
                 {
-                    if (message.Text.Length <= getMaxBytes(filename.Text))
+                    if (txtSecretMessage.Text.Length <= getMaxBytes(txtInputFile.Text))
                     {
-                        writeLSB(Encoding.ASCII.GetBytes(message.Text));
+                        writeLSB(Encoding.ASCII.GetBytes(txtSecretMessage.Text));
                         MessageBox.Show("Writing Completed");
                     }
                     else
@@ -125,11 +122,11 @@ namespace Steg
         private void fileInputBool_CheckedChanged(object sender, EventArgs e)
         {
             // When checked or unchecked, switch between the file input and text input
-            message.Visible ^= true;
-            MessageLabel.Visible ^= true;
-            fileInputButton.Visible ^= true;
-            fileInputLabel.Visible ^= true;
-            fileInputFilename.Visible ^= true;
+            txtSecretMessage.Visible ^= true;
+            lblSecretMessage.Visible ^= true;
+            btnSecretFile.Visible ^= true;
+            lblSecretFile.Visible ^= true;
+            txtSecretFile.Visible ^= true;
         }
 
         private void fileInputButton_Click(object sender, EventArgs e)
@@ -138,7 +135,7 @@ namespace Steg
             {
                 if (fileChooserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    fileInputFilename.Text = fileChooserDialog.FileName;
+                    txtSecretFile.Text = fileChooserDialog.FileName;
                 }
             }
         }
@@ -147,51 +144,15 @@ namespace Steg
         #region Read and write LSB
         void readLSB(string filename)
         {
-            openImg(filename);
-            closeImg();
+            lsb.openImg(filename);
+            lsb.closeImg();
 
-            BitArray message = new BitArray(rgbValues.Length / 8);
-            byte[] messageBytes = new byte[rgbValues.Length];
-
-            for (int i = 0; i < message.Length; i++)
-            {
-                // Add the LSB to bitArray
-                message[i] = (rgbValues[i] & (1 << 7)) != 0;
-            }
-            // Copy the bits from the image into the byte[]
-            message.CopyTo(messageBytes, 0);
-
-            if (!fileOutputCheckbox.Checked)
-            {
-                // Copy the byte[] into a char[] and into a string
-                char[] chars = new char[messageBytes.Length / sizeof(char)];
-                Buffer.BlockCopy(messageBytes, 0, chars, 0, messageBytes.Length);
-                string str = new string(chars);
-
-                // Cut the gibberish if the user wants you to.
-                if (trimBool.Checked)
-                {
-                    string tmp = "";
-                    foreach (char c in str)
-                    {
-                        // Check if each character is in the desired ascii range
-                        if (c >= 0x20 && c <= 0x7F)
-                        {
-                            MessageBox.Show(""+c);
-                            tmp += c;
-                        }
-                    }
-                    str = tmp;
-                }
-                MessageBox.Show(str);
-                rgbValues = Encoding.ASCII.GetBytes(str);
-            }
-            produceOuput();
+            produceOuput(lsb.bytes);
         }
 
         void writeLSB(byte[] byteMsg)
         {
-            openImg(filename.Text);
+            lsb.openImg(txtInputFile.Text);
 
             if (endMarkBool.Checked)
             {
@@ -204,53 +165,20 @@ namespace Steg
             BitArray bitMsg = new BitArray(byteMsg);
 
             for (int i = 0; i < bitMsg.Length; i++)
-                rgbValues[i] = (byte)((rgbValues[i] & ~1) | Convert.ToInt32(bitMsg[i]));
+            {
+                lsb.bytes[i] = (byte)((lsb.bytes[i] & ~1) | Convert.ToInt32(bitMsg[i]));
+            }
 
-            closeImg();
-
-            // Save the modified image.
-            bmp.Save(outputDirectory.Text + "\\output.png");
-            bmp.Dispose();
+            lsb.closeImg();
+            lsb.saveImg(txtOutputDir.Text);
         }
         #endregion
 
         #region Output read data
 
-        void produceOuput()
+        void produceOuput(byte[] outputData)
         {
-            if(trimBool.Checked)
-                rgbValues = MIMEAssistant.Cut(rgbValues);
-
-            new DisplayOutput(rgbValues, !fileOutputCheckbox.Checked).Show();
-        }
-
-        #endregion
-
-        #region Functions for opening and closing images
-        public void openImg(string filename)
-        {
-            if (File.Exists(filename))
-            {
-                bmp = new Bitmap(filename);
-                // Lock the bitmap's bits.  
-                Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-                bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
-
-                // Get the address of the first line.
-                ptr = bmpData.Scan0;
-
-                bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-                rgbValues = new byte[bytes];
-
-                Marshal.Copy(ptr, rgbValues, 0, bytes);
-            }
-        }
-
-        public void closeImg()
-        {
-            // Copy the RGB values back to the bitmap & unlock
-            Marshal.Copy(rgbValues, 0, ptr, bytes);
-            bmp.UnlockBits(bmpData);
+            new DisplayOutput(lsb).Show();
         }
         #endregion
     }
