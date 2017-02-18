@@ -32,11 +32,13 @@
             this.File = new System.Windows.Forms.TabPage();
             this.txtFileOutput = new System.Windows.Forms.TextBox();
             this.btnFileOutput = new System.Windows.Forms.Button();
-            this.lblFileInfoData = new System.Windows.Forms.Label();
             this.lblFileInfo = new System.Windows.Forms.Label();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.PlainText = new System.Windows.Forms.TabPage();
             this.txtOutput = new System.Windows.Forms.TextBox();
             this.btnSaveFile = new System.Windows.Forms.Button();
+            this.lblBytes = new System.Windows.Forms.Label();
+            this.lblFileBytes = new System.Windows.Forms.Label();
             this.OutputTab.SuspendLayout();
             this.File.SuspendLayout();
             this.PlainText.SuspendLayout();
@@ -54,10 +56,12 @@
             // 
             // File
             // 
+            this.File.Controls.Add(this.lblFileBytes);
+            this.File.Controls.Add(this.lblBytes);
             this.File.Controls.Add(this.txtFileOutput);
             this.File.Controls.Add(this.btnFileOutput);
-            this.File.Controls.Add(this.lblFileInfoData);
             this.File.Controls.Add(this.lblFileInfo);
+            this.File.Controls.Add(this.lblInfo);
             this.File.Location = new System.Drawing.Point(4, 29);
             this.File.Name = "File";
             this.File.Padding = new System.Windows.Forms.Padding(3);
@@ -85,23 +89,23 @@
             this.btnFileOutput.UseVisualStyleBackColor = true;
             this.btnFileOutput.Click += new System.EventHandler(this.btnFileOutput_Click);
             // 
-            // lblFileInfoData
-            // 
-            this.lblFileInfoData.AutoSize = true;
-            this.lblFileInfoData.Location = new System.Drawing.Point(11, 31);
-            this.lblFileInfoData.Name = "lblFileInfoData";
-            this.lblFileInfoData.Size = new System.Drawing.Size(73, 20);
-            this.lblFileInfoData.TabIndex = 1;
-            this.lblFileInfoData.Text = "unknown";
-            // 
             // lblFileInfo
             // 
             this.lblFileInfo.AutoSize = true;
-            this.lblFileInfo.Location = new System.Drawing.Point(7, 7);
+            this.lblFileInfo.Location = new System.Drawing.Point(11, 31);
             this.lblFileInfo.Name = "lblFileInfo";
-            this.lblFileInfo.Size = new System.Drawing.Size(70, 20);
-            this.lblFileInfo.TabIndex = 0;
-            this.lblFileInfo.Text = "File Info:";
+            this.lblFileInfo.Size = new System.Drawing.Size(73, 20);
+            this.lblFileInfo.TabIndex = 1;
+            this.lblFileInfo.Text = "unknown";
+            // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Location = new System.Drawing.Point(7, 7);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(70, 20);
+            this.lblInfo.TabIndex = 0;
+            this.lblInfo.Text = "File Info:";
             // 
             // PlainText
             // 
@@ -132,6 +136,24 @@
             this.btnSaveFile.UseVisualStyleBackColor = true;
             this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
+            // lblBytes
+            // 
+            this.lblBytes.AutoSize = true;
+            this.lblBytes.Location = new System.Drawing.Point(168, 7);
+            this.lblBytes.Name = "lblBytes";
+            this.lblBytes.Size = new System.Drawing.Size(53, 20);
+            this.lblBytes.TabIndex = 16;
+            this.lblBytes.Text = "Bytes:";
+            // 
+            // lblFileBytes
+            // 
+            this.lblFileBytes.AutoSize = true;
+            this.lblFileBytes.Location = new System.Drawing.Point(172, 31);
+            this.lblFileBytes.Name = "lblFileBytes";
+            this.lblFileBytes.Size = new System.Drawing.Size(73, 20);
+            this.lblFileBytes.TabIndex = 17;
+            this.lblFileBytes.Text = "unknown";
+            // 
             // DisplayOutput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -157,10 +179,12 @@
         private System.Windows.Forms.TabPage File;
         private System.Windows.Forms.TabPage PlainText;
         private System.Windows.Forms.TextBox txtOutput;
+        private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblFileInfo;
-        private System.Windows.Forms.Label lblFileInfoData;
         private System.Windows.Forms.Button btnSaveFile;
         private System.Windows.Forms.TextBox txtFileOutput;
         private System.Windows.Forms.Button btnFileOutput;
+        private System.Windows.Forms.Label lblBytes;
+        private System.Windows.Forms.Label lblFileBytes;
     }
 }

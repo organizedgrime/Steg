@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,31 +17,15 @@ namespace Steg
             data.determineLSBs();
             data.determineMIME();
 
-            // Set the extension label
-            lblFileInfoData.Text = data.MIME +" | " + data.extension;
-            
-            /*
-            if (str)
+            // Display file information if file is recognized
+            if(data.MIME != "application/octet-stream")
             {
-                outputText.Text = Encoding.Default.GetString(outputData);
+                lblFileInfo.Text = data.MIME + " | " + data.extension;
+                lblFileBytes.Text = data.LSBs.Length + "";
             }
-            else
-            {
-                // Get the default Desktop folder for writing.
-                embeddedOutputDirectory.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                mime = MIMEAssistant.GetMIMEType(outputData);
-                if (mime == "application/octet-stream")
-                {
-                    fileType.Text = "File type not recognized.";
-                }
-                else
-                {
-                    fileType.Text = "File type recognized as: " + mime + " | " + MIMEAssistant.GetDefaultExtension(mime) + " file.";
-                }
-                fileSize.Text = "Bytes: " + outputData.Length;
-            }
-            */
+            // Log ascii data
+            Debug.WriteLine(Encoding.Default.GetString(data.LSBs));
         }
 
         private void copyButton_Click(object sender, EventArgs e)
