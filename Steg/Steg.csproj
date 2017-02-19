@@ -47,12 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayOutput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DisplayOutput.designer.cs">
-      <DependentUpon>DisplayOutput.cs</DependentUpon>
-    </Compile>
     <Compile Include="LSBData.cs" />
     <Compile Include="LSBForm.cs">
       <SubType>Form</SubType>
@@ -65,9 +59,6 @@
     <Compile Include="MIMEAssistant.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DisplayOutput.resx">
-      <DependentUpon>DisplayOutput.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LSBForm.resx">
       <DependentUpon>LSBForm.cs</DependentUpon>
     </EmbeddedResource>

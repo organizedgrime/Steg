@@ -54,6 +54,11 @@ namespace Steg
             this.fileChooser2 = new System.Windows.Forms.Button();
             this.selectFileButton = new System.Windows.Forms.Button();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtFileOutput = new System.Windows.Forms.TextBox();
+            this.btnFileOutput = new System.Windows.Forms.Button();
+            this.cbxTrimMarker = new System.Windows.Forms.CheckBox();
+            this.cbxPlaintext = new System.Windows.Forms.CheckBox();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -104,9 +109,9 @@ namespace Steg
             this.endMarkBool.Location = new System.Drawing.Point(119, 122);
             this.endMarkBool.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.endMarkBool.Name = "endMarkBool";
-            this.endMarkBool.Size = new System.Drawing.Size(117, 24);
+            this.endMarkBool.Size = new System.Drawing.Size(146, 24);
             this.endMarkBool.TabIndex = 25;
-            this.endMarkBool.Text = "End Marker";
+            this.endMarkBool.Text = "Use Endmarker";
             this.endMarkBool.UseVisualStyleBackColor = true;
             // 
             // btnSecretFile
@@ -256,6 +261,11 @@ namespace Steg
             // 
             // Read
             // 
+            this.Read.Controls.Add(this.cbxPlaintext);
+            this.Read.Controls.Add(this.cbxTrimMarker);
+            this.Read.Controls.Add(this.label1);
+            this.Read.Controls.Add(this.txtFileOutput);
+            this.Read.Controls.Add(this.btnFileOutput);
             this.Read.Controls.Add(this.lblSecretInput);
             this.Read.Controls.Add(this.filename2);
             this.Read.Controls.Add(this.fileChooser2);
@@ -274,9 +284,9 @@ namespace Steg
             this.lblSecretInput.AutoSize = true;
             this.lblSecretInput.Location = new System.Drawing.Point(7, 5);
             this.lblSecretInput.Name = "lblSecretInput";
-            this.lblSecretInput.Size = new System.Drawing.Size(92, 20);
+            this.lblSecretInput.Size = new System.Drawing.Size(79, 20);
             this.lblSecretInput.TabIndex = 31;
-            this.lblSecretInput.Text = "File to read:";
+            this.lblSecretInput.Text = "Input File:";
             // 
             // filename2
             // 
@@ -307,6 +317,54 @@ namespace Steg
             this.selectFileButton.Text = "Read";
             this.selectFileButton.UseVisualStyleBackColor = true;
             this.selectFileButton.Click += new System.EventHandler(this.selectFileButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 20);
+            this.label1.TabIndex = 34;
+            this.label1.Text = "Output Directory:";
+            // 
+            // txtFileOutput
+            // 
+            this.txtFileOutput.Location = new System.Drawing.Point(11, 86);
+            this.txtFileOutput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtFileOutput.Name = "txtFileOutput";
+            this.txtFileOutput.Size = new System.Drawing.Size(260, 26);
+            this.txtFileOutput.TabIndex = 32;
+            // 
+            // btnFileOutput
+            // 
+            this.btnFileOutput.Location = new System.Drawing.Point(279, 86);
+            this.btnFileOutput.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnFileOutput.Name = "btnFileOutput";
+            this.btnFileOutput.Size = new System.Drawing.Size(45, 26);
+            this.btnFileOutput.TabIndex = 33;
+            this.btnFileOutput.Text = "...";
+            this.btnFileOutput.UseVisualStyleBackColor = true;
+            this.btnFileOutput.Click += new System.EventHandler(this.btnFileOutput_Click);
+            // 
+            // cbxTrimMarker
+            // 
+            this.cbxTrimMarker.AutoSize = true;
+            this.cbxTrimMarker.Location = new System.Drawing.Point(8, 121);
+            this.cbxTrimMarker.Name = "cbxTrimMarker";
+            this.cbxTrimMarker.Size = new System.Drawing.Size(147, 24);
+            this.cbxTrimMarker.TabIndex = 35;
+            this.cbxTrimMarker.Text = "Trim Endmarker";
+            this.cbxTrimMarker.UseVisualStyleBackColor = true;
+            // 
+            // cbxPlaintext
+            // 
+            this.cbxPlaintext.AutoSize = true;
+            this.cbxPlaintext.Location = new System.Drawing.Point(7, 151);
+            this.cbxPlaintext.Name = "cbxPlaintext";
+            this.cbxPlaintext.Size = new System.Drawing.Size(95, 24);
+            this.cbxPlaintext.TabIndex = 36;
+            this.cbxPlaintext.Text = "Plaintext";
+            this.cbxPlaintext.UseVisualStyleBackColor = true;
             // 
             // LSBForm
             // 
@@ -351,5 +409,10 @@ namespace Steg
         private Label lblSecretFile;
         private CheckBox endMarkBool;
         private Label lblSecretInput;
+        private Label label1;
+        private TextBox txtFileOutput;
+        private Button btnFileOutput;
+        private CheckBox cbxTrimMarker;
+        private CheckBox cbxPlaintext;
     }
 }

@@ -140,17 +140,20 @@ namespace Steg
                 }
             }
         }
+        private void btnFileOutput_Click(object sender, EventArgs e)
+        {
+            // Choose the folder to output the file
+            using (FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog())
+            {
+                if (embedOutputFolder.ShowDialog() == DialogResult.OK)
+                {
+                    txtFileOutput.Text = embedOutputFolder.SelectedPath;
+                }
+            }
+        }
         #endregion
 
         #region Read and write LSB
-        void readLSB(string filename)
-        {
-            lsb.openImg(filename);
-            lsb.closeImg();
-            new DisplayOutput(lsb).Show();
-            
-        }
-
         void writeLSB(byte[] byteMsg)
         {
             lsb.openImg(txtInputFile.Text);
@@ -165,9 +168,6 @@ namespace Steg
                 Array.Copy(endMarker, 0, byteMsg, byteMsg.Length - 3, 3);
             }
 
-            // TODO remove
-            Debug.WriteLine("Byte message: " + Encoding.Default.GetString(byteMsg));
-
             BitArray bitMsg = new BitArray(byteMsg);
 
             for (int i = 0; i < bitMsg.Length; i++)
@@ -179,6 +179,43 @@ namespace Steg
             lsb.closeImg();
             lsb.saveImg(txtOutputDir.Text);
         }
+
+        void readLSB(string filename)
+        {
+            lsb.openImg(filename);
+            lsb.closeImg();
+
+            // Determine the LSBs of the image data stored
+            lsb.determineLSBs();
+
+            // If the trim checkbox is checked, trim the data
+            if (cbxTrimMarker.Checked)
+            {
+                lsb.LSBs = MIMEAssistant.Cut(lsb.LSBs);
+            }
+
+            // Determine the MIME of the hidden data
+            lsb.determineMIME();
+
+            // Display file information if file is recognized
+            if (lsb.MIME != "application/octet-stream")
+            {
+                MessageBox.Show("Filetype recognized as " + lsb.MIME + " | " + lsb.extension);
+            }
+
+            /*
+            // If the user doesn't want a file, just plaintext
+            if (cbxPlaintext.Checked)
+            {
+                Encoding.Default.GetString(lsb.LSBs);
+            }
+            */
+
+            // Write the file out
+            File.WriteAllBytes(txtFileOutput.Text + "\\embedded" + lsb.extension, lsb.LSBs);
+            MessageBox.Show("File Written to directory as \"embedded" + lsb.extension + "\"");
+        }
+
         #endregion
     }
 }
