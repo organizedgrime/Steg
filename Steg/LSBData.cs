@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -11,7 +10,7 @@ namespace Steg
     public class LSBData
     {
         // The bitmap of the image
-        private Bitmap bmp;
+        public Bitmap bmp;
 
         // Just the bitmap data
         private BitmapData bmpDat;
@@ -57,13 +56,6 @@ namespace Steg
             // Copy the RGB values back to the bitmap & unlock
             Marshal.Copy(values, 0, bmpPtr, bytes);
             bmp.UnlockBits(bmpDat);
-        }
-
-        public void saveImg(string directory)
-        {
-            // Save the image
-            bmp.Save(directory + "\\output.png");
-            bmp.Dispose();
         }
         #endregion
 

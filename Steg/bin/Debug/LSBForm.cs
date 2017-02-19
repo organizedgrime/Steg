@@ -181,6 +181,7 @@ namespace Steg
 
             lsb.closeImg();
             lsb.saveImg(txtWriteDir.Text);
+            lsb.bmp.Dispose();
         }
 
         void readLSB(string filename)
@@ -209,6 +210,8 @@ namespace Steg
             // Write the file out
             File.WriteAllBytes(txtReadDir.Text + "\\embedded" + lsb.extension, lsb.LSBs);
             MessageBox.Show("File Written to directory as \"embedded" + lsb.extension + "\"");
+
+            lsb.bmp.Dispose();
         }
 
         #endregion
