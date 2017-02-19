@@ -22,10 +22,13 @@ namespace Steg
 
             lsb = new LSBData();
             string initialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            txtInputFile.Text = initialPath;
-            filename2.Text = initialPath + "\\output.png";
-            txtOutputDir.Text = initialPath;
+
+            txtWriteImage.Text = initialPath;
+            txtWriteDir.Text = initialPath;
             txtSecretFile.Text = initialPath;
+
+            txtReadImage.Text = initialPath + "\\output.png";
+            txtReadDir.Text = initialPath;
         }
         int getMaxBytes(string filename)
         {
@@ -44,13 +47,13 @@ namespace Steg
             using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
             {
                 fileChooserDialog.Filter = "PNG Files (.png)|*.png";
-                fileChooserDialog.InitialDirectory = txtInputFile.Text;
+                fileChooserDialog.InitialDirectory = txtWriteImage.Text;
                 if (fileChooserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    txtInputFile.Text = fileChooserDialog.FileName;
+                    txtWriteImage.Text = fileChooserDialog.FileName;
 
                     // Display how much data you can input
-                    lblSecretBytes.Text = "Max Bytes: " + getMaxBytes(txtInputFile.Text);
+                    lblSecretBytes.Text = "Max Bytes: " + getMaxBytes(txtWriteImage.Text);
                 }
             }
         }
@@ -61,18 +64,18 @@ namespace Steg
             {
                 if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    txtOutputDir.Text = folderBrowserDialog.SelectedPath;
+                    txtWriteDir.Text = folderBrowserDialog.SelectedPath;
                 }
             }
         }
 
         private void retrieveInput_Click(object sender, EventArgs e)
         {
-            if (File.Exists(txtInputFile.Text) && Directory.Exists(txtOutputDir.Text))
+            if (File.Exists(txtWriteImage.Text) && Directory.Exists(txtWriteDir.Text))
             {
                 if (fileInputBool.Checked && File.Exists(txtSecretFile.Text))
                 {
-                    if (new FileInfo(txtSecretFile.Text).Length <= getMaxBytes(txtInputFile.Text))
+                    if (new FileInfo(txtSecretFile.Text).Length <= getMaxBytes(txtWriteImage.Text))
                     {
                         writeLSB(File.ReadAllBytes(txtSecretFile.Text));
                         MessageBox.Show("Writing Completed");
@@ -84,7 +87,7 @@ namespace Steg
                 }
                 else
                 {
-                    if (txtSecretMessage.Text.Length <= getMaxBytes(txtInputFile.Text))
+                    if (txtSecretMessage.Text.Length <= getMaxBytes(txtWriteImage.Text))
                     {
                         writeLSB(Encoding.ASCII.GetBytes(txtSecretMessage.Text));
                         MessageBox.Show("Writing Completed");
@@ -105,7 +108,7 @@ namespace Steg
         #region Read Form
         private void selectFileButton_Click(object sender, EventArgs e)
         {
-            readLSB(filename2.Text);
+            readLSB(txtReadImage.Text);
         }
 
         private void fileChooser2_Click(object sender, EventArgs e)
@@ -115,7 +118,7 @@ namespace Steg
                 fileChooserDialog.Filter = "PNG Files (.png)|*.png";
                 if (fileChooserDialog.ShowDialog() == DialogResult.OK)
                 {
-                    filename2.Text = fileChooserDialog.FileName;
+                    txtReadImage.Text = fileChooserDialog.FileName;
                 }
             }
         }
@@ -147,7 +150,7 @@ namespace Steg
             {
                 if (embedOutputFolder.ShowDialog() == DialogResult.OK)
                 {
-                    txtFileOutput.Text = embedOutputFolder.SelectedPath;
+                    txtReadDir.Text = embedOutputFolder.SelectedPath;
                 }
             }
         }
@@ -156,7 +159,7 @@ namespace Steg
         #region Read and write LSB
         void writeLSB(byte[] byteMsg)
         {
-            lsb.openImg(txtInputFile.Text);
+            lsb.openImg(txtWriteImage.Text);
 
             if (endMarkBool.Checked)
             {
@@ -177,7 +180,7 @@ namespace Steg
             }
 
             lsb.closeImg();
-            lsb.saveImg(txtOutputDir.Text);
+            lsb.saveImg(txtWriteDir.Text);
         }
 
         void readLSB(string filename)
@@ -203,16 +206,8 @@ namespace Steg
                 MessageBox.Show("Filetype recognized as " + lsb.MIME + " | " + lsb.extension);
             }
 
-            /*
-            // If the user doesn't want a file, just plaintext
-            if (cbxPlaintext.Checked)
-            {
-                Encoding.Default.GetString(lsb.LSBs);
-            }
-            */
-
             // Write the file out
-            File.WriteAllBytes(txtFileOutput.Text + "\\embedded" + lsb.extension, lsb.LSBs);
+            File.WriteAllBytes(txtReadDir.Text + "\\embedded" + lsb.extension, lsb.LSBs);
             MessageBox.Show("File Written to directory as \"embedded" + lsb.extension + "\"");
         }
 
