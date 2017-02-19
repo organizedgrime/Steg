@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -69,19 +70,16 @@ namespace Steg
         public void determineLSBs()
         {
             // Declare bit array and byte array
-            BitArray msg = new BitArray(bytes / 8);
-            byte[] msgBytes = new byte[bytes];
-
-            for (int i = 0; i < msg.Length; i++)
+            BitArray bits = new BitArray(bytes / 8);
+            for (int i = 0; i < bits.Length; i++)
             {
                 // Add the LSB to bitArray
-                msg[i] = (values[i] & (1 << 7)) != 0;
+                // TODO rewrite using bitshift
+                bits[i] = (values[i] % 2) != 0;
             }
-            // Copy the bits from the image into the byte[]
-            msg.CopyTo(msgBytes, 0);
-
-            // Return byte array of LSBs
-            LSBs = msgBytes;
+            // Copy the shifted bits from the image into the LSBs array
+            LSBs = new byte[bytes / 8];
+            bits.CopyTo(LSBs, 0);
         }
 
         public void determineMIME()

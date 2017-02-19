@@ -13,12 +13,6 @@ namespace Steg
             InitializeComponent();
             data = _data;
 
-            // Log ascii data
-            foreach (byte b in data.values)
-            {
-                Debug.WriteLine(b);
-            }
-
             // Determine the MIME and file extension of the ouput data
             data.determineLSBs();
             data.determineMIME();
