@@ -1,0 +1,14 @@
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\Steg.exe.config
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\LSBForm.cs
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\LSBForm.designer.cs
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\Steg.exe.manifest
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\Steg.application
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\Steg.exe
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\bin\Release\Steg.pdb
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.LSBForm.resources
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.Properties.Resources.resources
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.csproj.GenerateResource.Cache
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.exe.manifest
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.application
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.exe
+C:\Users\Nico\Documents\Visual Studio 2015\Projects\Steg\Steg\obj\Release\Steg.pdb
