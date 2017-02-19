@@ -73,7 +73,7 @@ namespace Steg
         {
             if (File.Exists(txtWriteImage.Text) && Directory.Exists(txtWriteDir.Text))
             {
-                if (fileInputBool.Checked && File.Exists(txtSecretFile.Text))
+                if (cbxEmbedFile.Checked && File.Exists(txtSecretFile.Text))
                 {
                     if (new FileInfo(txtSecretFile.Text).Length <= getMaxBytes(txtWriteImage.Text))
                     {
@@ -161,7 +161,7 @@ namespace Steg
         {
             lsb.openImg(txtWriteImage.Text);
 
-            if (endMarkBool.Checked)
+            if (cbxWriteMarker.Checked)
             {
                 // The endmarker is "LSB" in ascii
                 byte[] endMarker = { 0x4c, 0x53, 0x42 };
@@ -192,7 +192,7 @@ namespace Steg
             lsb.determineLSBs();
 
             // If the trim checkbox is checked, trim the data
-            if (cbxTrimMarker.Checked)
+            if (cbxReadMarker.Checked)
             {
                 lsb.LSBs = MIMEAssistant.Cut(lsb.LSBs);
             }
