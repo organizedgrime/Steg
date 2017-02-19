@@ -1,30 +1,13 @@
 # Steg
-This project is a practical implementation of simple(soon to be advanced) Steganography Cryptography methods.
-As this program develops, it will be made increasingly more efficient, and have more secure methods of message hiding.
-
-If you have any questions or comments, you can email me at *nicolasnicogonzalez@gmail.com*, or visit my website at *http://nicogonzo.tk*
+This project is a practical application designed for LSB Steganography. You can use this program to hide any data in a PNG image. The file type of the embedded data can be identified if it is a recognized MIME type(see http://www.freeformatter.com/mime-types-list.html). Note that this program is intended for use on Windows only and relies on WinForms and the .NET framework.
 
 ## Usage Tutorial
-Using this program should be fairly intuitive. There are text boxes and file/folder selectors for all input and output, so you don't have to worry about weird syntax. It's all done for you.
-
-## Features
-At the moment, the only method that this program implements is LSB Steg, or Least Significant Bit Steganography.
-
-1. Formats that can be embedded in images via Steg 1.0:
-	* Any plaintext input
-	* Any images(png/jpg/tiff/etc)
-	* Any compressed files
-	* Any other unlisted file type that has a standard MIME
-	* See http://www.freeformatter.com/mime-types-list.html for a list of all recognizable file formats.
-
-2. Image types that can be used for embedding via Steg 1.0:
-	* PNG
+### Embedding Data
+Select the image in which you'd like to embed your data, the folder which you'd like to put your modified image, and the file or text that you'd like to hide in it. If you want to be able to extract the file from your image without residual LSB data, be sure to check the 'Use Endmarker' box.
+### Extracting Data
+Select the file which contains the hidden information, and the folder which you'd like to extract your data to.
+If you used the endmarker feature when embedding the data, which is highly recommended(especially for non-plaintext), make sure to check the "Trim Endmarker" box, so as to cut any non-essential LSB data.
 
 ## Download
-To download, simply click this link:
-http://nicogonzo.me/projects/Steg.exe
-
-Mirror:
-http://www.mediafire.com/download/gf5a5xyq23a5yqi/Steg.exe
-
-Note that this program is intended for use on Windows only and relies on WinForms and the .NET framework.
+To download, check out the releases page:
+https://github.com/nicosogangstar/Steg/releases
