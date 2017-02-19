@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -146,8 +147,8 @@ namespace Steg
         {
             lsb.openImg(filename);
             lsb.closeImg();
-
-            produceOuput(lsb.bytes);
+            new DisplayOutput(lsb).Show();
+            
         }
 
         void writeLSB(byte[] byteMsg)
@@ -156,29 +157,27 @@ namespace Steg
 
             if (endMarkBool.Checked)
             {
+                // The endmarker is "LSB" in ascii
+                byte[] endMarker = { 0x4c, 0x53, 0x42 };
+
+                // Resize the message array and insert the endmarker values into it
                 Array.Resize(ref byteMsg, byteMsg.Length + 3);
-                byteMsg[byteMsg.Length - 3] = 0x4c;
-                byteMsg[byteMsg.Length - 2] = 0x53;
-                byteMsg[byteMsg.Length - 1] = 0x42;
+                Array.Copy(endMarker, 0, byteMsg, byteMsg.Length - 3, 3);
             }
+
+            // TODO remove
+            Debug.WriteLine("Byte message: " + Encoding.Default.GetString(byteMsg));
 
             BitArray bitMsg = new BitArray(byteMsg);
 
             for (int i = 0; i < bitMsg.Length; i++)
             {
-                lsb.bytes[i] = (byte)((lsb.bytes[i] & ~1) | Convert.ToInt32(bitMsg[i]));
+                // Only change the value in the image if it's different from the value in our bit message
+                lsb.values[i] = (byte)((lsb.values[i] & ~1) | Convert.ToInt32(bitMsg[i]));
             }
 
             lsb.closeImg();
             lsb.saveImg(txtOutputDir.Text);
-        }
-        #endregion
-
-        #region Output read data
-
-        void produceOuput(byte[] outputData)
-        {
-            new DisplayOutput(lsb).Show();
         }
         #endregion
     }

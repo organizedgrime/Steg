@@ -19,10 +19,11 @@ namespace Steg
         private IntPtr bmpPtr;
 
         // The image data, either modified or unmodified
-        public byte[] bytes;
+        public byte[] values;
+        int bytes;
 
         // The LSB data of the image
-        public byte[] LSBs;
+        public byte[] LSBs { get; set; }
 
         // The file type and default extension of the LSB information
         public string MIME { get; set; }
@@ -33,30 +34,33 @@ namespace Steg
         {
             if (File.Exists(filename))
             {
+                // Load the bitmap
                 bmp = new Bitmap(filename);
-                // Lock the bitmap's bits.  
+
+                // Lock the bitmap's bits
                 Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
                 bmpDat = bmp.LockBits(rect, ImageLockMode.ReadWrite, bmp.PixelFormat);
 
-                // Get the address of the first line.
+                // Get the address of the first line
                 bmpPtr = bmpDat.Scan0;
 
                 // Move the bitmap data into the byte array
-                bytes = new byte[Math.Abs(bmpDat.Stride) * bmp.Height];
-                Marshal.Copy(bmpPtr, bytes, 0, bytes.Length);
+                bytes = Math.Abs(bmpDat.Stride) * bmp.Height;
+                values = new byte[bytes];
+                Marshal.Copy(bmpPtr, values, 0, bytes);
             }
         }
 
         public void closeImg()
         {
             // Copy the RGB values back to the bitmap & unlock
-            Marshal.Copy(bytes, 0, bmpPtr, bytes.Length);
+            Marshal.Copy(values, 0, bmpPtr, bytes);
             bmp.UnlockBits(bmpDat);
         }
 
         public void saveImg(string directory)
         {
-            // Save the modified image.
+            // Save the image
             bmp.Save(directory + "\\output.png");
             bmp.Dispose();
         }
@@ -65,13 +69,13 @@ namespace Steg
         public void determineLSBs()
         {
             // Declare bit array and byte array
-            BitArray msg = new BitArray(bytes.Length / 8);
-            byte[] msgBytes = new byte[bytes.Length];
+            BitArray msg = new BitArray(bytes / 8);
+            byte[] msgBytes = new byte[bytes];
 
             for (int i = 0; i < msg.Length; i++)
             {
                 // Add the LSB to bitArray
-                msg[i] = (bytes[i] & (1 << 7)) != 0;
+                msg[i] = (values[i] & (1 << 7)) != 0;
             }
             // Copy the bits from the image into the byte[]
             msg.CopyTo(msgBytes, 0);
@@ -82,6 +86,8 @@ namespace Steg
 
         public void determineMIME()
         {
+            // Use mime assistant to determine file type and extension
+            // Will not function properly if LSBs are invalid or null
             MIME = MIMEAssistant.GetMIMEType(LSBs);
             extension = MIMEAssistant.GetDefaultExtension(MIME);
         }

@@ -13,6 +13,12 @@ namespace Steg
             InitializeComponent();
             data = _data;
 
+            // Log ascii data
+            foreach (byte b in data.values)
+            {
+                Debug.WriteLine(b);
+            }
+
             // Determine the MIME and file extension of the ouput data
             data.determineLSBs();
             data.determineMIME();
@@ -23,9 +29,6 @@ namespace Steg
                 lblFileInfo.Text = data.MIME + " | " + data.extension;
                 lblFileBytes.Text = data.LSBs.Length + "";
             }
-
-            // Log ascii data
-            Debug.WriteLine(Encoding.Default.GetString(data.LSBs));
         }
 
         private void copyButton_Click(object sender, EventArgs e)
