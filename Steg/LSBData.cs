@@ -74,8 +74,7 @@ namespace Steg
             for (int i = 0; i < bits.Length; i++)
             {
                 // Add the LSB to bitArray
-                // TODO rewrite using bitshift
-                bits[i] = (values[i] % 2) != 0;
+                bits[i] = (values[i] & 1) != 0;
             }
             // Copy the shifted bits from the image into the LSBs array
             LSBs = new byte[bytes / 8];
