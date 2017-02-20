@@ -123,7 +123,7 @@ namespace Steg
             this.btnSecretFile.Text = "...";
             this.btnSecretFile.UseVisualStyleBackColor = true;
             this.btnSecretFile.Visible = false;
-            this.btnSecretFile.Click += new System.EventHandler(this.fileInputButton_Click);
+            this.btnSecretFile.Click += new System.EventHandler(this.btnSecretFile_Click);
             // 
             // txtSecretFile
             // 
@@ -155,7 +155,7 @@ namespace Steg
             this.cbxEmbedFile.TabIndex = 21;
             this.cbxEmbedFile.Text = "Embed File";
             this.cbxEmbedFile.UseVisualStyleBackColor = true;
-            this.cbxEmbedFile.CheckedChanged += new System.EventHandler(this.fileInputBool_CheckedChanged);
+            this.cbxEmbedFile.CheckedChanged += new System.EventHandler(this.cbxEmbedFile_CheckedChanged);
             // 
             // lblInput
             // 
@@ -246,7 +246,7 @@ namespace Steg
             this.btnWrite.TabIndex = 11;
             this.btnWrite.Text = "Write";
             this.btnWrite.UseVisualStyleBackColor = true;
-            this.btnWrite.Click += new System.EventHandler(this.retrieveInput_Click);
+            this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);
             // 
             // txtWriteImage
             // 
@@ -280,6 +280,8 @@ namespace Steg
             // cbxReadMarker
             // 
             this.cbxReadMarker.AutoSize = true;
+            this.cbxReadMarker.Checked = true;
+            this.cbxReadMarker.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbxReadMarker.Location = new System.Drawing.Point(12, 120);
             this.cbxReadMarker.Name = "cbxReadMarker";
             this.cbxReadMarker.Size = new System.Drawing.Size(147, 24);
@@ -313,7 +315,7 @@ namespace Steg
             this.btnReadDir.TabIndex = 33;
             this.btnReadDir.Text = "...";
             this.btnReadDir.UseVisualStyleBackColor = true;
-            this.btnReadDir.Click += new System.EventHandler(this.btnFileOutput_Click);
+            this.btnReadDir.Click += new System.EventHandler(this.btnReadDir_Click);
             // 
             // lblSecretInput
             // 
@@ -341,7 +343,7 @@ namespace Steg
             this.btnReadImage.TabIndex = 13;
             this.btnReadImage.Text = "...";
             this.btnReadImage.UseVisualStyleBackColor = true;
-            this.btnReadImage.Click += new System.EventHandler(this.fileChooser2_Click);
+            this.btnReadImage.Click += new System.EventHandler(this.btnReadImage_Click);
             // 
             // selectFileButton
             // 

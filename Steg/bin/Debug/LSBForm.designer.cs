@@ -31,33 +31,33 @@ namespace Steg
         /// </summary>
         private void InitializeComponent()
         {
-            this.LSBTab = new System.Windows.Forms.TabControl();
-            this.Write = new System.Windows.Forms.TabPage();
-            this.cbxWriteMarker = new System.Windows.Forms.CheckBox();
-            this.btnSecretFile = new System.Windows.Forms.Button();
-            this.txtSecretFile = new System.Windows.Forms.TextBox();
-            this.lblSecretFile = new System.Windows.Forms.Label();
-            this.cbxEmbedFile = new System.Windows.Forms.CheckBox();
-            this.lblInput = new System.Windows.Forms.Label();
-            this.btnWriteDir = new System.Windows.Forms.Button();
-            this.btnWriteImage = new System.Windows.Forms.Button();
-            this.lblSecretBytes = new System.Windows.Forms.Label();
-            this.txtWriteDir = new System.Windows.Forms.TextBox();
-            this.lblOutput = new System.Windows.Forms.Label();
-            this.lblSecretMessage = new System.Windows.Forms.Label();
-            this.txtSecretMessage = new System.Windows.Forms.TextBox();
-            this.btnWrite = new System.Windows.Forms.Button();
-            this.txtWriteImage = new System.Windows.Forms.TextBox();
-            this.Read = new System.Windows.Forms.TabPage();
-            this.cbxReadMarker = new System.Windows.Forms.CheckBox();
-            this.lblSecretOutput = new System.Windows.Forms.Label();
-            this.txtReadDir = new System.Windows.Forms.TextBox();
-            this.btnReadDir = new System.Windows.Forms.Button();
-            this.lblSecretInput = new System.Windows.Forms.Label();
-            this.txtReadImage = new System.Windows.Forms.TextBox();
-            this.btnReadImage = new System.Windows.Forms.Button();
-            this.selectFileButton = new System.Windows.Forms.Button();
-            this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
+            this.LSBTab = new TabControl();
+            this.Write = new TabPage();
+            this.cbxWriteMarker = new CheckBox();
+            this.btnSecretFile = new Button();
+            this.txtSecretFile = new TextBox();
+            this.lblSecretFile = new Label();
+            this.cbxEmbedFile = new CheckBox();
+            this.lblInput = new Label();
+            this.btnWriteDir = new Button();
+            this.btnWriteImage = new Button();
+            this.lblSecretBytes = new Label();
+            this.txtWriteDir = new TextBox();
+            this.lblOutput = new Label();
+            this.lblSecretMessage = new Label();
+            this.txtSecretMessage = new TextBox();
+            this.btnWrite = new Button();
+            this.txtWriteImage = new TextBox();
+            this.Read = new TabPage();
+            this.cbxReadMarker = new CheckBox();
+            this.lblSecretOutput = new Label();
+            this.txtReadDir = new TextBox();
+            this.btnReadDir = new Button();
+            this.lblSecretInput = new Label();
+            this.txtReadImage = new TextBox();
+            this.btnReadImage = new Button();
+            this.selectFileButton = new Button();
+            this.directoryEntry1 = new DirectoryEntry();
             this.LSBTab.SuspendLayout();
             this.Write.SuspendLayout();
             this.Read.SuspendLayout();
@@ -68,7 +68,7 @@ namespace Steg
             this.LSBTab.Controls.Add(this.Write);
             this.LSBTab.Controls.Add(this.Read);
             this.LSBTab.Location = new System.Drawing.Point(20, 20);
-            this.LSBTab.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.LSBTab.Margin = new Padding(4, 5, 4, 5);
             this.LSBTab.Name = "LSBTab";
             this.LSBTab.SelectedIndex = 0;
             this.LSBTab.Size = new System.Drawing.Size(352, 356);
@@ -92,9 +92,9 @@ namespace Steg
             this.Write.Controls.Add(this.btnWrite);
             this.Write.Controls.Add(this.txtWriteImage);
             this.Write.Location = new System.Drawing.Point(4, 29);
-            this.Write.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Write.Margin = new Padding(4, 5, 4, 5);
             this.Write.Name = "Write";
-            this.Write.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Write.Padding = new Padding(4, 5, 4, 5);
             this.Write.Size = new System.Drawing.Size(344, 323);
             this.Write.TabIndex = 0;
             this.Write.Text = "Write";
@@ -104,9 +104,9 @@ namespace Steg
             // 
             this.cbxWriteMarker.AutoSize = true;
             this.cbxWriteMarker.Checked = true;
-            this.cbxWriteMarker.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxWriteMarker.CheckState = CheckState.Checked;
             this.cbxWriteMarker.Location = new System.Drawing.Point(124, 120);
-            this.cbxWriteMarker.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbxWriteMarker.Margin = new Padding(4, 5, 4, 5);
             this.cbxWriteMarker.Name = "cbxWriteMarker";
             this.cbxWriteMarker.Size = new System.Drawing.Size(146, 24);
             this.cbxWriteMarker.TabIndex = 25;
@@ -116,19 +116,19 @@ namespace Steg
             // btnSecretFile
             // 
             this.btnSecretFile.Location = new System.Drawing.Point(278, 181);
-            this.btnSecretFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSecretFile.Margin = new Padding(4, 5, 4, 5);
             this.btnSecretFile.Name = "btnSecretFile";
             this.btnSecretFile.Size = new System.Drawing.Size(45, 38);
             this.btnSecretFile.TabIndex = 24;
             this.btnSecretFile.Text = "...";
             this.btnSecretFile.UseVisualStyleBackColor = true;
             this.btnSecretFile.Visible = false;
-            this.btnSecretFile.Click += new System.EventHandler(this.fileInputButton_Click);
+            this.btnSecretFile.Click += new System.EventHandler(this.btnSecretFile_Click);
             // 
             // txtSecretFile
             // 
             this.txtSecretFile.Location = new System.Drawing.Point(10, 187);
-            this.txtSecretFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtSecretFile.Margin = new Padding(4, 5, 4, 5);
             this.txtSecretFile.Name = "txtSecretFile";
             this.txtSecretFile.Size = new System.Drawing.Size(260, 26);
             this.txtSecretFile.TabIndex = 23;
@@ -138,7 +138,7 @@ namespace Steg
             // 
             this.lblSecretFile.AutoSize = true;
             this.lblSecretFile.Location = new System.Drawing.Point(8, 162);
-            this.lblSecretFile.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSecretFile.Margin = new Padding(4, 0, 4, 0);
             this.lblSecretFile.Name = "lblSecretFile";
             this.lblSecretFile.Size = new System.Drawing.Size(115, 20);
             this.lblSecretFile.TabIndex = 22;
@@ -149,19 +149,19 @@ namespace Steg
             // 
             this.cbxEmbedFile.AutoSize = true;
             this.cbxEmbedFile.Location = new System.Drawing.Point(12, 120);
-            this.cbxEmbedFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbxEmbedFile.Margin = new Padding(4, 5, 4, 5);
             this.cbxEmbedFile.Name = "cbxEmbedFile";
             this.cbxEmbedFile.Size = new System.Drawing.Size(115, 24);
             this.cbxEmbedFile.TabIndex = 21;
             this.cbxEmbedFile.Text = "Embed File";
             this.cbxEmbedFile.UseVisualStyleBackColor = true;
-            this.cbxEmbedFile.CheckedChanged += new System.EventHandler(this.fileInputBool_CheckedChanged);
+            this.cbxEmbedFile.CheckedChanged += new System.EventHandler(this.cbxEmbedFile_CheckedChanged);
             // 
             // lblInput
             // 
             this.lblInput.AutoSize = true;
             this.lblInput.Location = new System.Drawing.Point(8, 5);
-            this.lblInput.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInput.Margin = new Padding(4, 0, 4, 0);
             this.lblInput.Name = "lblInput";
             this.lblInput.Size = new System.Drawing.Size(99, 20);
             this.lblInput.TabIndex = 20;
@@ -170,7 +170,7 @@ namespace Steg
             // btnWriteDir
             // 
             this.btnWriteDir.Location = new System.Drawing.Point(278, 80);
-            this.btnWriteDir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnWriteDir.Margin = new Padding(4, 5, 4, 5);
             this.btnWriteDir.Name = "btnWriteDir";
             this.btnWriteDir.Size = new System.Drawing.Size(45, 38);
             this.btnWriteDir.TabIndex = 19;
@@ -181,7 +181,7 @@ namespace Steg
             // btnWriteImage
             // 
             this.btnWriteImage.Location = new System.Drawing.Point(278, 24);
-            this.btnWriteImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnWriteImage.Margin = new Padding(4, 5, 4, 5);
             this.btnWriteImage.Name = "btnWriteImage";
             this.btnWriteImage.Size = new System.Drawing.Size(45, 38);
             this.btnWriteImage.TabIndex = 18;
@@ -193,7 +193,7 @@ namespace Steg
             // 
             this.lblSecretBytes.AutoSize = true;
             this.lblSecretBytes.Location = new System.Drawing.Point(174, 162);
-            this.lblSecretBytes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSecretBytes.Margin = new Padding(4, 0, 4, 0);
             this.lblSecretBytes.Name = "lblSecretBytes";
             this.lblSecretBytes.Size = new System.Drawing.Size(90, 20);
             this.lblSecretBytes.TabIndex = 17;
@@ -202,7 +202,7 @@ namespace Steg
             // txtWriteDir
             // 
             this.txtWriteDir.Location = new System.Drawing.Point(10, 86);
-            this.txtWriteDir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtWriteDir.Margin = new Padding(4, 5, 4, 5);
             this.txtWriteDir.Name = "txtWriteDir";
             this.txtWriteDir.Size = new System.Drawing.Size(260, 26);
             this.txtWriteDir.TabIndex = 16;
@@ -211,7 +211,7 @@ namespace Steg
             // 
             this.lblOutput.AutoSize = true;
             this.lblOutput.Location = new System.Drawing.Point(8, 61);
-            this.lblOutput.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblOutput.Margin = new Padding(4, 0, 4, 0);
             this.lblOutput.Name = "lblOutput";
             this.lblOutput.Size = new System.Drawing.Size(129, 20);
             this.lblOutput.TabIndex = 15;
@@ -221,7 +221,7 @@ namespace Steg
             // 
             this.lblSecretMessage.AutoSize = true;
             this.lblSecretMessage.Location = new System.Drawing.Point(8, 162);
-            this.lblSecretMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSecretMessage.Margin = new Padding(4, 0, 4, 0);
             this.lblSecretMessage.Name = "lblSecretMessage";
             this.lblSecretMessage.Size = new System.Drawing.Size(153, 20);
             this.lblSecretMessage.TabIndex = 14;
@@ -230,7 +230,7 @@ namespace Steg
             // txtSecretMessage
             // 
             this.txtSecretMessage.Location = new System.Drawing.Point(12, 187);
-            this.txtSecretMessage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtSecretMessage.Margin = new Padding(4, 5, 4, 5);
             this.txtSecretMessage.Multiline = true;
             this.txtSecretMessage.Name = "txtSecretMessage";
             this.txtSecretMessage.Size = new System.Drawing.Size(314, 78);
@@ -240,21 +240,21 @@ namespace Steg
             // 
             this.btnWrite.AccessibleName = "";
             this.btnWrite.Location = new System.Drawing.Point(115, 275);
-            this.btnWrite.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnWrite.Margin = new Padding(4, 5, 4, 5);
             this.btnWrite.Name = "btnWrite";
             this.btnWrite.Size = new System.Drawing.Size(112, 38);
             this.btnWrite.TabIndex = 11;
             this.btnWrite.Text = "Write";
             this.btnWrite.UseVisualStyleBackColor = true;
-            this.btnWrite.Click += new System.EventHandler(this.retrieveInput_Click);
+            this.btnWrite.Click += new System.EventHandler(this.btnWrite_Click);
             // 
             // txtWriteImage
             // 
             this.txtWriteImage.AccessibleName = "";
             this.txtWriteImage.Location = new System.Drawing.Point(10, 30);
-            this.txtWriteImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtWriteImage.Margin = new Padding(4, 5, 4, 5);
             this.txtWriteImage.Name = "txtWriteImage";
-            this.txtWriteImage.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtWriteImage.RightToLeft = RightToLeft.No;
             this.txtWriteImage.Size = new System.Drawing.Size(260, 26);
             this.txtWriteImage.TabIndex = 10;
             // 
@@ -269,9 +269,9 @@ namespace Steg
             this.Read.Controls.Add(this.btnReadImage);
             this.Read.Controls.Add(this.selectFileButton);
             this.Read.Location = new System.Drawing.Point(4, 29);
-            this.Read.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Read.Margin = new Padding(4, 5, 4, 5);
             this.Read.Name = "Read";
-            this.Read.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Read.Padding = new Padding(4, 5, 4, 5);
             this.Read.Size = new System.Drawing.Size(344, 323);
             this.Read.TabIndex = 1;
             this.Read.Text = "Read";
@@ -299,7 +299,7 @@ namespace Steg
             // txtReadDir
             // 
             this.txtReadDir.Location = new System.Drawing.Point(10, 86);
-            this.txtReadDir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtReadDir.Margin = new Padding(4, 5, 4, 5);
             this.txtReadDir.Name = "txtReadDir";
             this.txtReadDir.Size = new System.Drawing.Size(260, 26);
             this.txtReadDir.TabIndex = 32;
@@ -307,13 +307,13 @@ namespace Steg
             // btnReadDir
             // 
             this.btnReadDir.Location = new System.Drawing.Point(278, 80);
-            this.btnReadDir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnReadDir.Margin = new Padding(4, 5, 4, 5);
             this.btnReadDir.Name = "btnReadDir";
             this.btnReadDir.Size = new System.Drawing.Size(45, 38);
             this.btnReadDir.TabIndex = 33;
             this.btnReadDir.Text = "...";
             this.btnReadDir.UseVisualStyleBackColor = true;
-            this.btnReadDir.Click += new System.EventHandler(this.btnFileOutput_Click);
+            this.btnReadDir.Click += new System.EventHandler(this.btnReadDir_Click);
             // 
             // lblSecretInput
             // 
@@ -327,7 +327,7 @@ namespace Steg
             // txtReadImage
             // 
             this.txtReadImage.Location = new System.Drawing.Point(10, 30);
-            this.txtReadImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtReadImage.Margin = new Padding(4, 5, 4, 5);
             this.txtReadImage.Name = "txtReadImage";
             this.txtReadImage.Size = new System.Drawing.Size(260, 26);
             this.txtReadImage.TabIndex = 11;
@@ -335,18 +335,18 @@ namespace Steg
             // btnReadImage
             // 
             this.btnReadImage.Location = new System.Drawing.Point(278, 24);
-            this.btnReadImage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnReadImage.Margin = new Padding(4, 5, 4, 5);
             this.btnReadImage.Name = "btnReadImage";
             this.btnReadImage.Size = new System.Drawing.Size(45, 38);
             this.btnReadImage.TabIndex = 13;
             this.btnReadImage.Text = "...";
             this.btnReadImage.UseVisualStyleBackColor = true;
-            this.btnReadImage.Click += new System.EventHandler(this.fileChooser2_Click);
+            this.btnReadImage.Click += new System.EventHandler(this.btnReadImage_Click);
             // 
             // selectFileButton
             // 
             this.selectFileButton.Location = new System.Drawing.Point(115, 275);
-            this.selectFileButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.selectFileButton.Margin = new Padding(4, 5, 4, 5);
             this.selectFileButton.Name = "selectFileButton";
             this.selectFileButton.Size = new System.Drawing.Size(112, 38);
             this.selectFileButton.TabIndex = 12;
@@ -357,10 +357,10 @@ namespace Steg
             // LSBForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 390);
             this.Controls.Add(this.LSBTab);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new Padding(4, 5, 4, 5);
             this.Name = "LSBForm";
             this.Text = "LSBForm";
             this.LSBTab.ResumeLayout(false);

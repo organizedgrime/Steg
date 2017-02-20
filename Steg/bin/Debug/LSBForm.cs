@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -31,8 +32,8 @@ namespace Steg
             List<string> imageTypes = new List<string>() { ".jpg", ".jpeg", ".png", ".tiff" };
             if (File.Exists(filename) && imageTypes.Contains(Path.GetExtension(filename)))
             {
-                System.Drawing.Image img = System.Drawing.Image.FromFile(filename);
-                return Convert.ToInt32((img.Width * img.Height * 3) / 8);
+                Image img = Image.FromFile(filename);
+                return ((img.Width * img.Height * 3) / 8);
             }
             return 0;
         }
@@ -65,10 +66,16 @@ namespace Steg
             }
         }
 
-        private void retrieveInput_Click(object sender, EventArgs e)
+        private void btnWrite_Click(object sender, EventArgs e)
         {
             if (File.Exists(txtWriteImage.Text) && Directory.Exists(txtWriteDir.Text))
             {
+                byte[] secret = cbxEmbedFile.Checked ? File.ReadAllBytes(txtSecretFile.Text) : Encoding.ASCII.GetBytes(txtSecretMessage.Text);
+                if (secret.Length > getMaxBytes(txtWriteImage.Text))
+                    MessageBox.Show("This image does not have enough room to store that much data");
+                else
+                    writeLSB(secret);
+                /*
                 if (cbxEmbedFile.Checked && File.Exists(txtSecretFile.Text))
                 {
                     if (new FileInfo(txtSecretFile.Text).Length <= getMaxBytes(txtWriteImage.Text))
@@ -93,6 +100,7 @@ namespace Steg
                         MessageBox.Show("Message input is too large to embed.");
                     }
                 }
+                */
             }
             else
             {
@@ -102,24 +110,25 @@ namespace Steg
         #endregion
 
         #region Read Form
-        private void selectFileButton_Click(object sender, EventArgs e)
+        private void btnReadImage_Click(object sender, EventArgs e)
         {
-            readLSB(txtReadImage.Text);
+            using (OpenFileDialog fileChooserDialog = new OpenFileDialog() { Filter = "PNG Files (.png)|*.png" })
+                if (fileChooserDialog.ShowDialog() == DialogResult.OK)
+                    txtReadImage.Text = fileChooserDialog.FileName;
         }
-
-        private void fileChooser2_Click(object sender, EventArgs e)
+        private void btnSecretFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
-            {
-                fileChooserDialog.Filter = "PNG Files (.png)|*.png";
                 if (fileChooserDialog.ShowDialog() == DialogResult.OK)
-                {
-                    txtReadImage.Text = fileChooserDialog.FileName;
-                }
-            }
+                    txtSecretFile.Text = fileChooserDialog.FileName;
         }
-
-        private void fileInputBool_CheckedChanged(object sender, EventArgs e)
+        private void btnReadDir_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog())
+                if (embedOutputFolder.ShowDialog() == DialogResult.OK)
+                    txtReadDir.Text = embedOutputFolder.SelectedPath;
+        }
+        private void cbxEmbedFile_CheckedChanged(object sender, EventArgs e)
         {
             // When checked or unchecked, switch between the file input and text input
             txtSecretMessage.Visible ^= true;
@@ -128,27 +137,9 @@ namespace Steg
             lblSecretFile.Visible ^= true;
             txtSecretFile.Visible ^= true;
         }
-
-        private void fileInputButton_Click(object sender, EventArgs e)
+        private void selectFileButton_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog fileChooserDialog = new OpenFileDialog())
-            {
-                if (fileChooserDialog.ShowDialog() == DialogResult.OK)
-                {
-                    txtSecretFile.Text = fileChooserDialog.FileName;
-                }
-            }
-        }
-        private void btnFileOutput_Click(object sender, EventArgs e)
-        {
-            // Choose the folder to output the file
-            using (FolderBrowserDialog embedOutputFolder = new FolderBrowserDialog())
-            {
-                if (embedOutputFolder.ShowDialog() == DialogResult.OK)
-                {
-                    txtReadDir.Text = embedOutputFolder.SelectedPath;
-                }
-            }
+            readLSB(txtReadImage.Text);
         }
         #endregion
 
