@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -180,7 +176,9 @@ namespace Steg
             }
 
             lsb.closeImg();
-            lsb.saveImg(txtWriteDir.Text);
+
+            // Save the image and dispose of the bitmap
+            lsb.bmp.Save(txtWriteDir.Text + "\\output.png");
             lsb.bmp.Dispose();
         }
 

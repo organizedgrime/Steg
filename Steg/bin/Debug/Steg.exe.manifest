@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Steg.exe" size="22440">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Steg.exe" size="21928">
       <assemblyIdentity name="Steg" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>g89gJ8YjTnxXxd3cq901uAiWyiKJ2irxGaeTE5Bzn6w=</dsig:DigestValue>
+        <dsig:DigestValue>QsdLZ+8QZJq4L73vYINImn9pYObnFwyXThyojTlq70k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
